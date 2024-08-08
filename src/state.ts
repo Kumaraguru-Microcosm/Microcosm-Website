@@ -1,13 +1,5 @@
-import './App.css'
-import Header from './components/Header'
-
-function App() {
-  return (
-    <div>
-      <Header />
-    </div>
-  )
-}
+import { atom } from 'jotai'
+import { TOption } from './types'
 
 const options: TOption[] = [
   {
@@ -34,5 +26,4 @@ const options: TOption[] = [
     name: 'Get involved',
   },
 ]
-
-export default App
+export const optionsAtom = atom<TOption[]>(options)
