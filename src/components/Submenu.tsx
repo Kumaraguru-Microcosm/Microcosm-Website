@@ -48,7 +48,7 @@ const Submenu = ({
 
   return (
     <div
-      className={`content-center flex  ${
+      className={`content-center  flex  ${
         level > 1 ? "flex-col gap-5" : "gap-12"
       }`}
     >
@@ -58,7 +58,7 @@ const Submenu = ({
             <a href={option.link}>{option.name}</a>
           ) : (
             <>
-              <div className="flex gap-2 ">
+              <div className="flex gap-2 text-black">
                 <a href={option.link}>{option.name}</a>
                 <img
                   onClick={(e) => {

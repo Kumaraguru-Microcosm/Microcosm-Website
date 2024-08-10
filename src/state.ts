@@ -1,5 +1,5 @@
 import { atom } from "jotai";
-import { TOption } from "./types";
+import { TCarouselItem, TOption } from "./types";
 
 //* change to actual navbar options
 const options: TOption[] = [
@@ -58,3 +58,14 @@ const options: TOption[] = [
   },
 ];
 export const optionsAtom = atom<TOption[]>(options);
+
+const carouselItems: TCarouselItem[] = [
+  {
+    imgUrl: "bg-[url('/forest.png')]", //? since tailwind doesn't support dynamic style imgUrl is a bg url style
+    text: `KCT has a sprawling campus of 150 Acres. Four academic blocks and 
+ administrative block constitute more than one-fourth of the campus area. Playgrounds for various sports enfold 23 acres.`,
+    headText: "Microcosm",
+  },
+];
+export const carouselAtom = atom<TCarouselItem[]>(carouselItems);
+export const currentCarouselItemAtom = atom(0);
