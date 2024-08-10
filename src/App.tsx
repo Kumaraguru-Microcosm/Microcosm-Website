@@ -1,38 +1,12 @@
-import './App.css'
-import Header from './components/Header'
+import "./App.css";
+import Header from "./components/Header";
 
 function App() {
   return (
     <div>
       <Header />
     </div>
-  )
+  );
 }
 
-const options: TOption[] = [
-  {
-    state: 'CLOSE',
-    link: '/',
-    name: 'What we do',
-    children: [{ state: 'CLOSE', link: '/', name: 'link2' }],
-  },
-
-  {
-    state: 'CLOSE',
-    link: '/',
-    name: 'Home',
-  },
-
-  {
-    state: 'CLOSE',
-    link: '/',
-    name: 'Partners',
-  },
-  {
-    state: 'CLOSE',
-    link: '/',
-    name: 'Get involved',
-  },
-]
-
-export default App
+export default App;
