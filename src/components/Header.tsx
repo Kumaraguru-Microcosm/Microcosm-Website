@@ -1,9 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
 import logo from '../assets/image.png';
+
 const Header = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isSecondDropdownOpen, setIsSecondDropdownOpen] = useState(false);
   const [activeLink, setActiveLink] = useState('home');
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const dropdownRef = useRef(null);
   const secondDropdownRef = useRef(null);
@@ -20,6 +22,9 @@ const Header = () => {
 
   const handleLinkClick = (link) => {
     setActiveLink(link);
+    if (isMobileMenuOpen) {
+      setIsMobileMenuOpen(false); // Close the mobile menu when a link is clicked
+    }
   };
 
   const handleClickOutside = (event) => {
@@ -44,10 +49,13 @@ const Header = () => {
       <nav className="w-full bg-transparent">
         <div className="w-full px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
+            {/* Logo */}
             <div className="flex items-center ml-4">
               <img src={logo} alt="Logo" className="h-10" />
             </div>
-            <div className="hidden md:flex space-x-6">
+
+            {/* Desktop Navigation */}
+            <div className="flex-1 flex justify-center space-x-6">
               <a
                 href="#home"
                 onClick={() => handleLinkClick('home')}
@@ -109,10 +117,26 @@ const Header = () => {
                 Shop
               </a>
             </div>
-            <button className="bg-gradient-to-r from-green-400 to-blue-500 text-white px-4 py-2 rounded-md shadow-md hover:from-blue-400 hover:to-green-500 transition duration-300 mr-4">
+
+            {/* Sign In Button */}
+            <a
+              href="#signin"
+              onClick={() => handleLinkClick('signin')}
+              className="bg-gradient-to-r from-green-400 to-blue-500 text-white px-4 py-2 rounded-md shadow-md hover:from-blue-400 hover:to-green-500 transition duration-300 mr-4 ml-auto"
+            >
               Sign In
-            </button>
+            </a>
           </div>
+
+          {/* Mobile Menu Button */}
+          <button
+            className="md:hidden text-white p-2"
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="w-6 h-6">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+          </button>
         </div>
       </nav>
     </header>
