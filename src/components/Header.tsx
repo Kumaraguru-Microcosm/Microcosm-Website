@@ -3,6 +3,7 @@ import logo from "../assets/image.png";
 
 const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isIntersecting, setIsIntersecting] = useState(true); // Track intersection status
   const menuRef = useRef(null);
 
   // Toggle hamburger menu
@@ -22,6 +23,24 @@ const Header = () => {
   };
 
   useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsIntersecting(entry.isIntersecting);
+      },
+      { rootMargin: "-50px 0px 0px 0px" } // Adjust margin for smoother transition
+    );
+
+    const heroSlider = document.querySelector("#hero-slider");
+    if (heroSlider) {
+      observer.observe(heroSlider);
+    }
+
+    return () => {
+      if (heroSlider) observer.unobserve(heroSlider);
+    };
+  }, []);
+
+  useEffect(() => {
     if (isMobileMenuOpen) {
       document.addEventListener("mousedown", handleOutsideClick);
       document.addEventListener("scroll", handleScroll);
@@ -37,7 +56,11 @@ const Header = () => {
   }, [isMobileMenuOpen]);
 
   return (
-    <header className="fixed top-0 left-0 w-full z-20 bg-transparent">
+    <header
+      className={`fixed top-0 left-0 w-full z-20 transition duration-300 ${
+        isIntersecting ? "bg-transparent text-white" : "bg-white text-black shadow-lg"
+      }`}
+    >
       <nav className="w-full px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
@@ -53,7 +76,7 @@ const Header = () => {
                 <a
                   key={index}
                   href={`#${item.replace(/\s+/g, "-").toLowerCase()}`}
-                  className="text-white px-3 py-2 rounded-md transition duration-300 hover:bg-gradient-to-r hover:from-green-400 hover:to-blue-500 hover:text-white"
+                  className="px-3 py-2 rounded-md transition duration-300 hover:bg-gradient-to-r hover:from-green-400 hover:to-blue-500"
                 >
                   {item}
                 </a>
@@ -71,7 +94,7 @@ const Header = () => {
 
           {/* Mobile Menu Button */}
           <button
-            className="md:hidden text-white p-2"
+            className="md:hidden p-2"
             onClick={toggleMobileMenu}
             aria-label="Toggle Menu"
           >
@@ -120,9 +143,3 @@ const Header = () => {
 };
 
 export default Header;
-
-
-
-
-
-
