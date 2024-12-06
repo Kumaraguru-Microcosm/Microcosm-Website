@@ -85,7 +85,7 @@ const ImpactStatistics = () => {
                     <CountUp
                       start={0}
                       end={stat.number}
-                      duration={3.5}
+                      duration={10.5}
                       separator=","
                       suffix={stat.suffix}
                       className="text-2xl sm:text-3xl font-semibold text-green-600"
