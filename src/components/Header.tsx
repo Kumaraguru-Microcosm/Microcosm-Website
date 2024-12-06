@@ -1,128 +1,69 @@
-import React, { useState, useEffect, useRef } from 'react';
-import logo from '../assets/image.png';
+import { useState, useEffect, useRef } from "react";
+import logo from "../assets/image.png";
 
 const Header = () => {
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [isSecondDropdownOpen, setIsSecondDropdownOpen] = useState(false);
-  const [activeLink, setActiveLink] = useState('home');
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const menuRef = useRef(null);
 
-  const dropdownRef = useRef(null);
-  const secondDropdownRef = useRef(null);
-
-  const toggleDropdown = () => {
-    setIsDropdownOpen(!isDropdownOpen);
-    setIsSecondDropdownOpen(false);
+  // Toggle hamburger menu
+  const toggleMobileMenu = () => {
+    setIsMobileMenuOpen((prev) => !prev);
   };
 
-  const toggleSecondDropdown = () => {
-    setIsSecondDropdownOpen(!isSecondDropdownOpen);
-    setIsDropdownOpen(false);
-  };
-
-  const handleLinkClick = (link) => {
-    setActiveLink(link);
-    if (isMobileMenuOpen) {
-      setIsMobileMenuOpen(false); // Close the mobile menu when a link is clicked
+  // Close menu when clicking outside or scrolling
+  const handleOutsideClick = (e) => {
+    if (menuRef.current && !menuRef.current.contains(e.target)) {
+      setIsMobileMenuOpen(false);
     }
   };
 
-  const handleClickOutside = (event) => {
-    if (
-      dropdownRef.current && !dropdownRef.current.contains(event.target) &&
-      secondDropdownRef.current && !secondDropdownRef.current.contains(event.target)
-    ) {
-      setIsDropdownOpen(false);
-      setIsSecondDropdownOpen(false);
-    }
+  const handleScroll = () => {
+    setIsMobileMenuOpen(false);
   };
 
   useEffect(() => {
-    document.addEventListener('mousedown', handleClickOutside);
+    if (isMobileMenuOpen) {
+      document.addEventListener("mousedown", handleOutsideClick);
+      document.addEventListener("scroll", handleScroll);
+    } else {
+      document.removeEventListener("mousedown", handleOutsideClick);
+      document.removeEventListener("scroll", handleScroll);
+    }
+
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener("mousedown", handleOutsideClick);
+      document.removeEventListener("scroll", handleScroll);
     };
-  }, []);
+  }, [isMobileMenuOpen]);
 
   return (
-    <header className="absolute top-0 left-0 w-full z-20">
-      <nav className="w-full bg-transparent">
-        <div className="w-full px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            {/* Logo */}
-            <div className="flex items-center ml-4">
-              <img src={logo} alt="Logo" className="h-10" />
-            </div>
+    <header className="fixed top-0 left-0 w-full z-20 bg-transparent">
+      <nav className="w-full px-4 sm:px-6 lg:px-8">
+        <div className="flex justify-between items-center h-16">
+          {/* Logo */}
+          <div className="flex items-center">
+            <img src={logo} alt="Logo" className="h-10" />
+          </div>
 
-            {/* Desktop Navigation */}
+          {/* Desktop Navigation */}
+          <div className="hidden md:flex flex-1 justify-between items-center">
+            {/* Center Links */}
             <div className="flex-1 flex justify-center space-x-6">
-              <a
-                href="#home"
-                onClick={() => handleLinkClick('home')}
-                className={`text-white px-3 py-2 rounded-md transition duration-300 ${activeLink === 'home' ? 'bg-gray-400 text-dark' : 'hover:bg-gray-300 hover:text-dark'}`}
-              >
-                Home
-              </a>
-              <div className="relative" ref={dropdownRef}>
-                <button
-                  onClick={toggleDropdown}
-                  className="text-white px-3 py-2 rounded-md hover:bg-gray-400 hover:text-dark transition duration-300"
+              {["Home", "Who are we", "Get Involved", "About Us", "Shop"].map((item, index) => (
+                <a
+                  key={index}
+                  href={`#${item.replace(/\s+/g, "-").toLowerCase()}`}
+                  className="text-white px-3 py-2 rounded-md transition duration-300 hover:bg-gradient-to-r hover:from-green-400 hover:to-blue-500 hover:text-white"
                 >
-                  What We Do
-                </button>
-                <div className={`${isDropdownOpen ? 'block' : 'hidden'} absolute left-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200`}>
-                  <a href="#link1" className="block px-4 py-2 text-gray-800 hover:bg-gray-100 hover:text-blue-500 transition-colors duration-200">
-                    Option 1
-                  </a>
-                  <a href="#link2" className="block px-4 py-2 text-gray-800 hover:bg-gray-100 hover:text-blue-500 transition-colors duration-200">
-                    Option 2
-                  </a>
-                </div>
-              </div>
-              <a
-                href="#about"
-                onClick={() => handleLinkClick('about')}
-                className={`text-white px-3 py-2 rounded-md transition duration-300 ${activeLink === 'about' ? 'bg-gray-400 text-dark' : 'hover:bg-gray-300 hover:text-dark'}`}
-              >
-                Who are we
-              </a>
-              <div className="relative" ref={secondDropdownRef}>
-                <button
-                  onClick={toggleSecondDropdown}
-                  className="text-white px-3 py-2 rounded-md hover:bg-gray-400 hover:text-dark transition duration-300"
-                >
-                  Get Involved
-                </button>
-                <div className={`${isSecondDropdownOpen ? 'block' : 'hidden'} absolute left-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200`}>
-                  <a href="#link1" className="block px-4 py-2 text-gray-800 hover:bg-gray-100 hover:text-blue-500 transition-colors duration-200">
-                    Option 1
-                  </a>
-                  <a href="#link2" className="block px-4 py-2 text-gray-800 hover:bg-gray-100 hover:text-blue-500 transition-colors duration-200">
-                    Option 2
-                  </a>
-                </div>
-              </div>
-              <a
-                href="#about-us"
-                onClick={() => handleLinkClick('about-us')}
-                className={`text-white px-3 py-2 rounded-md transition duration-300 ${activeLink === 'about-us' ? 'bg-gray-400 text-dark' : 'hover:bg-gray-300 hover:text-dark'}`}
-              >
-                About Us
-              </a>
-              <a
-                href="#shop"
-                onClick={() => handleLinkClick('shop')}
-                className={`text-white px-3 py-2 rounded-md transition duration-300 ${activeLink === 'shop' ? 'bg-gray-400 text-dark' : 'hover:bg-gray-300 hover:text-dark'}`}
-              >
-                Shop
-              </a>
+                  {item}
+                </a>
+              ))}
             </div>
 
             {/* Sign In Button */}
             <a
               href="#signin"
-              onClick={() => handleLinkClick('signin')}
-              className="bg-gradient-to-r from-green-400 to-blue-500 text-white px-4 py-2 rounded-md shadow-md hover:from-blue-400 hover:to-green-500 transition duration-300 mr-4 ml-auto"
+              className="bg-gradient-to-r from-green-400 to-blue-500 text-white px-4 py-2 rounded-md shadow-md hover:from-blue-400 hover:to-green-500 transition duration-300"
             >
               Sign In
             </a>
@@ -131,16 +72,57 @@ const Header = () => {
           {/* Mobile Menu Button */}
           <button
             className="md:hidden text-white p-2"
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            onClick={toggleMobileMenu}
+            aria-label="Toggle Menu"
           >
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="w-6 h-6">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              className="w-6 h-6"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M4 6h16M4 12h16M4 18h16"
+              />
             </svg>
           </button>
         </div>
+
+        {/* Mobile Navigation */}
+        {isMobileMenuOpen && (
+          <div
+            ref={menuRef}
+            className="absolute top-16 left-0 w-full bg-gray-800 text-white shadow-lg md:hidden"
+          >
+            <div className="flex flex-col items-center space-y-2 py-4">
+              {["Home", "Who are we", "Get Involved", "About Us", "Shop", "Sign In"].map(
+                (item, index) => (
+                  <a
+                    key={index}
+                    href={`#${item.replace(/\s+/g, "-").toLowerCase()}`}
+                    className="block px-4 py-2 rounded-md transition duration-300 hover:bg-green-500 hover:text-white"
+                    onClick={() => setIsMobileMenuOpen(false)} // Close menu after clicking a link
+                  >
+                    {item}
+                  </a>
+                )
+              )}
+            </div>
+          </div>
+        )}
       </nav>
     </header>
   );
 };
 
 export default Header;
+
+
+
+
+
+

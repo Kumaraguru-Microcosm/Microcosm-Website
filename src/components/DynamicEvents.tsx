@@ -14,7 +14,7 @@ const EventCard = ({ image, title, date, description, registrationLink }) => {
       initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
-      className="bg-white rounded-lg shadow-xl overflow-hidden transition-all transform hover:scale-105 hover:shadow-2xl max-w-sm flex flex-col"
+      className="bg-white rounded-lg shadow-xl overflow-hidden transition-all transform hover:scale-105 hover:shadow-2xl sm:w-80 md:w-80 lg:w-96 flex flex-col"
     >
       {/* Event Image */}
       <motion.img
@@ -37,12 +37,14 @@ const EventCard = ({ image, title, date, description, registrationLink }) => {
         {/* Event Description */}
         <p className="text-gray-600 mb-4 flex-grow">{description}</p>
 
+        <hr className="border-gray-300 my-2" />
+
         {/* Register Button */}
         <motion.a
           href={registrationLink}
           target="_blank"
           rel="noopener noreferrer"
-          className="mt-4 text-center bg-blue-500 text-white py-2 px-4 rounded shadow-md hover:bg-blue-600 transition duration-300 transform hover:scale-105"
+          className="mt-auto text-center bg-blue-500 text-white py-2 px-4 rounded shadow-md hover:bg-blue-600 transition duration-300 transform hover:scale-105"
         >
           Register Now
         </motion.a>

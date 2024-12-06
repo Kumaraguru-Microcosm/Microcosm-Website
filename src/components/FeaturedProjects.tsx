@@ -2,14 +2,14 @@ import React from "react";
 import { motion } from "framer-motion";
 import ProjectCard from "./ProjectCard";
 import ahimsavanam from "../assets/ahimsavanam.png";
-import resorucerRecoveryPark from "../assets/resourceRecoveryPark.png";
+import resourceRecoveryPark from "../assets/resourceRecoveryPark.png";
 import waterConservation from "../assets/waterConservation.png";
 
 // Sample data for the projects
 const projects = [
   {
     id: 1,
-    image: resorucerRecoveryPark,
+    image: resourceRecoveryPark,
     title: "Resource Recovery Park",
     description:
       "Integrated waste management with 250+ tons of resources recovered.",
@@ -52,7 +52,7 @@ const FeaturedProjects = () => {
         </motion.h2>
 
         {/* Projects Grid */}
-        <div className="flex flex-wrap justify-center gap-10">
+        <div className="flex flex-wrap justify-center gap-6">
           {projects.map((project, index) => (
             <motion.div
               key={project.id}

@@ -1,11 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 import CountUp from "react-countup";
-import { motion } from "framer-motion"; // Import motion
+import { motion } from "framer-motion";
 import impactStatics from "../assets/impactStatistics.png";
 
 const ImpactStatistics = () => {
-  const [hasBeenViewed, setHasBeenViewed] = useState(false); // To track visibility
-
   const stats = [
     { id: 1, number: 500000, suffix: " liters", label: "Water treated daily" },
     { id: 2, number: 250, suffix: " kW", label: "Renewable energy capacity" },
@@ -16,25 +14,25 @@ const ImpactStatistics = () => {
   ];
 
   return (
-    <section className="p-8 bg-gray-100">
+    <section className="p-4 sm:p-6 md:p-8 bg-gray-100">
       <div className="container mx-auto">
         {/* Section Title with Animation */}
         <motion.h2
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
-          className="text-3xl md:text-4xl font-bold text-center mt-16 mb-4"
+          className="text-2xl sm:text-3xl md:text-4xl font-bold text-center mt-6  sm:mt-10"
         >
           Impact Statistics
         </motion.h2>
 
-        <div className="flex flex-col md:flex-row items-center gap-8 ">
-          <div className="w-full md:w-1/2">
-            {/* Shorter image with preserved aspect ratio */}
+        <div className="flex flex-col md:flex-row items-center gap-4 sm:gap-6">
+          {/* Responsive Image */}
+          <div className="w-full md:w-1/2 md:mt-8">
             <motion.img
               src={impactStatics}
               alt="Infographic"
-              style={{ height: "700px", objectFit: "contain" }}
+              style={{ height: "580px", objectFit: "contain" }}
               className="w-full object-contain rounded-lg"
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
@@ -43,13 +41,13 @@ const ImpactStatistics = () => {
           </div>
 
           <div className="w-full md:w-1/2">
-            <div className="mb-8 text-center">
+            <div className="mb-4 text-center">
               {/* Section Description with Animation */}
               <motion.h3
                 initial={{ opacity: 0, y: 50 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8 }}
-                className="text-2xl md:text-3xl font-semibold text-gray-800"
+                className="text-lg sm:text-2xl md:text-3xl font-semibold text-gray-800"
               >
                 Our Environmental Impact at a Glance
               </motion.h3>
@@ -57,7 +55,7 @@ const ImpactStatistics = () => {
                 initial={{ opacity: 0, y: 50 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8 }}
-                className="text-lg md:text-xl text-gray-600 max-w-lg mx-auto mt-4"
+                className="text-sm sm:text-lg md:text-xl text-gray-600 max-w-lg mx-auto mt-2 sm:mt-3"
               >
                 These statistics highlight the positive changes we've made in
                 preserving the environment, supporting sustainability, and
@@ -66,7 +64,7 @@ const ImpactStatistics = () => {
             </div>
 
             {/* Stats Grid with Animation */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-3 sm:mt-5">
               {stats.map((stat, index) => (
                 <motion.div
                   key={stat.id}
@@ -78,7 +76,7 @@ const ImpactStatistics = () => {
                   }}
                   className="flex flex-col items-center text-center"
                 >
-                  {/* Only trigger count-up when section is in view */}
+                  {/* Count-Up Animation */}
                   <motion.div
                     initial={{ opacity: 0 }}
                     whileInView={{ opacity: 1 }}
@@ -87,13 +85,15 @@ const ImpactStatistics = () => {
                     <CountUp
                       start={0}
                       end={stat.number}
-                      duration={6.5}
+                      duration={3.5}
                       separator=","
                       suffix={stat.suffix}
-                      className="text-4xl font-semibold text-green-600"
+                      className="text-2xl sm:text-3xl font-semibold text-green-600"
                     />
                   </motion.div>
-                  <p className="text-lg md:text-xl mt-2 text-gray-600">{stat.label}</p>
+                  <p className="text-base sm:text-lg md:text-xl mt-1 text-gray-600">
+                    {stat.label}
+                  </p>
                 </motion.div>
               ))}
             </div>
