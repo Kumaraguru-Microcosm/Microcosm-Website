@@ -17,7 +17,6 @@ const HomePage = () => {
             <ImpactStatistics />
             <DynamicEvents />
             <FeaturedProjects />
-
             <Footer />
         </div>
     );

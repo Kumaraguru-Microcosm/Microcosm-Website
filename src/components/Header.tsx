@@ -1,17 +1,19 @@
 import { useState, useEffect, useRef } from "react";
+import { NavLink, useLocation } from "react-router-dom";
 import logo from "../assets/image.png";
 
 const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [isIntersecting, setIsIntersecting] = useState(true); // Track intersection status
+  const [isIntersecting, setIsIntersecting] = useState(true);
   const menuRef = useRef(null);
 
-  // Toggle hamburger menu
+  const location = useLocation();
+  const isAboutPage = location.pathname === "/about";
+
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen((prev) => !prev);
   };
 
-  // Close menu when clicking outside or scrolling
   const handleOutsideClick = (e) => {
     if (menuRef.current && !menuRef.current.contains(e.target)) {
       setIsMobileMenuOpen(false);
@@ -24,16 +26,12 @@ const Header = () => {
 
   useEffect(() => {
     const observer = new IntersectionObserver(
-      ([entry]) => {
-        setIsIntersecting(entry.isIntersecting);
-      },
-      { rootMargin: "-50px 0px 0px 0px" } // Adjust margin for smoother transition
+      ([entry]) => setIsIntersecting(entry.isIntersecting),
+      { rootMargin: "-50px 0px 0px 0px" }
     );
 
     const heroSlider = document.querySelector("#hero-slider");
-    if (heroSlider) {
-      observer.observe(heroSlider);
-    }
+    if (heroSlider) observer.observe(heroSlider);
 
     return () => {
       if (heroSlider) observer.unobserve(heroSlider);
@@ -55,35 +53,52 @@ const Header = () => {
     };
   }, [isMobileMenuOpen]);
 
+  const menuItems = [
+    { name: "Home", path: "/" },
+    { name: "Who are we", path: "/who-are-we" },
+    { name: "Get Involved", path: "/get-involved" },
+    { name: "About Us", path: "/about" },
+    { name: "Shop", path: "/shop" },
+  ];
+
   return (
     <header
       className={`fixed top-0 left-0 w-full z-20 transition duration-300 ${
-        isIntersecting ? "bg-transparent text-white" : "bg-white text-black shadow-lg"
+        isAboutPage
+          ? isIntersecting
+            ? "bg-transparent text-white"
+            : "bg-white text-black shadow-lg"
+          : isIntersecting
+          ? "bg-transparent text-white"
+          : "bg-white text-black shadow-lg"
       }`}
     >
       <nav className="w-full px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
           <div className="flex items-center">
-            <img src={logo} alt="Logo" className="h-10" />
+            <img src={logo} alt="Logo" className="h-8 sm:h-10 lg:h-12" />
           </div>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex flex-1 justify-between items-center">
-            {/* Center Links */}
-            <div className="flex-1 flex justify-center space-x-6">
-              {["Home", "Who are we", "Get Involved", "About Us", "Shop"].map((item, index) => (
-                <a
+            <div className="flex-1 flex justify-center space-x-4 lg:space-x-6">
+              {menuItems.map((item, index) => (
+                <NavLink
                   key={index}
-                  href={`#${item.replace(/\s+/g, "-").toLowerCase()}`}
-                  className="px-3 py-2 rounded-md transition duration-300 hover:bg-gradient-to-r hover:from-green-400 hover:to-blue-500"
+                  to={item.path}
+                  className={({ isActive }) =>
+                    `px-3 py-2 rounded-md transition duration-300 ${
+                      isActive
+                        ? "bg-gradient-to-r from-green-400 to-blue-500 text-white"
+                        : "hover:bg-gradient-to-r hover:from-green-400 hover:to-blue-500"
+                    }`
+                  }
                 >
-                  {item}
-                </a>
+                  {item.name}
+                </NavLink>
               ))}
             </div>
-
-            {/* Sign In Button */}
             <a
               href="#signin"
               className="bg-gradient-to-r from-green-400 to-blue-500 text-white px-4 py-2 rounded-md shadow-md hover:from-blue-400 hover:to-green-500 transition duration-300"
@@ -122,18 +137,22 @@ const Header = () => {
             className="absolute top-16 left-0 w-full bg-gray-800 text-white shadow-lg md:hidden"
           >
             <div className="flex flex-col items-center space-y-2 py-4">
-              {["Home", "Who are we", "Get Involved", "About Us", "Shop", "Sign In"].map(
-                (item, index) => (
-                  <a
-                    key={index}
-                    href={`#${item.replace(/\s+/g, "-").toLowerCase()}`}
-                    className="block px-4 py-2 rounded-md transition duration-300 hover:bg-green-500 hover:text-white"
-                    onClick={() => setIsMobileMenuOpen(false)} // Close menu after clicking a link
-                  >
-                    {item}
-                  </a>
-                )
-              )}
+              {menuItems.map((item, index) => (
+                <NavLink
+                  key={index}
+                  to={item.path}
+                  className={({ isActive }) =>
+                    `block px-4 py-2 rounded-md transition duration-300 ${
+                      isActive
+                        ? "bg-green-500 text-white"
+                        : "hover:bg-green-500 hover:text-white"
+                    }`
+                  }
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  {item.name}
+                </NavLink>
+              ))}
             </div>
           </div>
         )}

@@ -14,26 +14,26 @@ const ImpactStatistics = () => {
   ];
 
   return (
-    <section className="p-4 sm:p-6 md:p-8 bg-gray-100">
+    <section className="p-4 sm:pt-4 sm:pb-6 md:p-8 bg-gray-100">
       <div className="container mx-auto">
         {/* Section Title with Animation */}
         <motion.h2
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
-          className="text-2xl sm:text-3xl md:text-4xl font-bold text-center mt-6  sm:mt-10"
+          className="text-2xl sm:text-3xl md:text-4xl font-bold text-center mt-4 sm:mt-6"
         >
           Impact Statistics
         </motion.h2>
 
         <div className="flex flex-col md:flex-row items-center gap-4 sm:gap-6">
           {/* Responsive Image */}
-          <div className="w-full md:w-1/2 md:mt-8">
+          <div className="w-full md:w-1/2 sm:mt-0 sm:mb-0">
             <motion.img
               src={impactStatics}
               alt="Infographic"
               style={{ height: "580px", objectFit: "contain" }}
-              className="w-full object-contain rounded-lg"
+              className="w-full object-contain rounded-lg sm:py-0"
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
               transition={{ duration: 0.8 }}
