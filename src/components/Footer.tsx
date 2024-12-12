@@ -6,7 +6,7 @@ const Footer = () => {
     <footer
       className="relative bg-cover bg-center text-white py-12"
       style={{
-        backgroundImage: `linear-gradient(to bottom, rgba(243, 244, 246, 1), rgba(243, 244, 246, 0.8), rgba(243, 244, 246, 0)), url(${backgroundImage})`,
+        backgroundImage: `linear-gradient(to bottom, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0)), url(${backgroundImage})`,
         backgroundSize: "cover",
         backgroundPosition: "center",
       }}

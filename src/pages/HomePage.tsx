@@ -7,6 +7,7 @@ import Testimonial from '../components/Testimonial';
 import FeaturedProjects from '../components/FeaturedProjects';
 import ImpactStatistics from '../components/ImpactStatistics';
 import DynamicEvents from '../components/DynamicEvents';
+import SubscribeSection from '../components/About/SubscribeSection';
 
 
 const HomePage = () => {
@@ -17,6 +18,8 @@ const HomePage = () => {
             <ImpactStatistics />
             <DynamicEvents />
             <FeaturedProjects />
+            <Testimonial />
+            <SubscribeSection />
             <Footer />
         </div>
     );

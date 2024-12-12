@@ -37,28 +37,6 @@ const focusAreas = [
 
 const FocusAreas = () => {
   const [activeIndex, setActiveIndex] = useState(0);
-  const sectionRef = useRef(null);
-  const [isVisible, setIsVisible] = useState(false);
-
-  // Intersection Observer for visibility
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        setIsVisible(entry.isIntersecting);
-      },
-      { threshold: 0.5 }
-    );
-
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
-
-    return () => {
-      if (sectionRef.current) {
-        observer.unobserve(sectionRef.current);
-      }
-    };
-  }, []);
 
   // Auto-cycle through focus areas every 8 seconds
   useEffect(() => {
@@ -83,21 +61,14 @@ const FocusAreas = () => {
   return (
     <section
       id="focus-areas"
-      ref={sectionRef}
-      className={`py-16 px-4 sm:px-8 bg-gray-50 transition-all duration-1000 ease-in-out ${
-        isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
-      }`}
+      className="py-16 px-4 sm:px-8 bg-gray-50 transition-all duration-1000 ease-in-out"
     >
       <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-center mb-12">
         Our Focus Areas
       </h2>
       <div className="relative flex flex-col lg:flex-row items-center justify-center max-w-7xl mx-auto gap-8">
         {/* Focus Area Image with Arrows */}
-        <div
-          className={`relative w-full lg:w-1/2 h-64 sm:h-80 lg:h-96 bg-gray-200 rounded-lg overflow-hidden transition-transform duration-1000 ${
-            isVisible ? "translate-x-0" : "-translate-x-10"
-          }`}
-        >
+        <div className="relative w-full lg:w-1/2 h-64 sm:h-80 lg:h-96 bg-gray-200 rounded-lg overflow-hidden">
           <img
             src={focusAreas[activeIndex].image}
             alt={focusAreas[activeIndex].title}
@@ -120,11 +91,7 @@ const FocusAreas = () => {
         </div>
 
         {/* Focus Area Text */}
-        <div
-          className={`w-full lg:w-1/2 text-center lg:text-left space-y-4 sm:space-y-6 transition-transform duration-1000 ${
-            isVisible ? "translate-x-0" : "translate-x-10"
-          }`}
-        >
+        <div className="w-full lg:w-1/2 text-center lg:text-left space-y-4 sm:space-y-6">
           <h3 className="text-xl sm:text-2xl lg:text-3xl font-semibold text-gray-800">
             {focusAreas[activeIndex].title}
           </h3>

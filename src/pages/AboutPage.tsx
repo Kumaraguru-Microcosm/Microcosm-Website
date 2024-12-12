@@ -5,6 +5,7 @@ import Testimonial from "../components/Testimonial";
 import Footer from "../components/Footer";
 import FocusAreas from "../components/About/FocusAreas";
 import TeamAndPartners from "../components/About/TeamAndPartners";
+import SubscribeSection from "../components/About/SubscribeSection";
 
 const AboutUsPage = () => {
   return (
@@ -12,8 +13,8 @@ const AboutUsPage = () => {
         <Header />
         <HeroSlider />
         <FocusAreas />
-        <Testimonial />
         <TeamAndPartners />
+        <SubscribeSection />
         <Footer />
       </div>
   );

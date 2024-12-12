@@ -26,9 +26,9 @@ const ImpactStatistics = () => {
           Impact Statistics
         </motion.h2>
 
-        <div className="flex flex-col md:flex-row items-center gap-4 sm:gap-6">
+        <div className="flex flex-col-reverse sm:flex-col md:flex-row items-center gap-4 sm:gap-6">
           {/* Responsive Image */}
-          <div className="w-full md:w-1/2 sm:mt-0 sm:mb-0">
+          <div className="w-full md:w-1/2 sm:mt-2">
             <motion.img
               src={impactStatics}
               alt="Infographic"

@@ -25,53 +25,53 @@ const HeroSlider = () => {
 
   const sliderContent = isAboutPage
     ? [
-        {
-          image: aboutBackgroundImage,
-          title: "Welcome to Microcosm",
-          description:
-            "Discover how Microcosm fosters sustainability at KCT. Join us in shaping a better future.",
-          buttonText: "Explore Our Vision",
-          buttonLink: "#vision",
-          buttonColor: "bg-blue-500 hover:bg-blue-600",
-        },
-        {
-          image: aboutBackgroundImage,
-          title: "Overview",
-          description:
-            "Microcosm is an eco-sensitive initiative aimed at building a coexisting, inclusive, and sustainable environment at Kumaraguru.",
-          buttonText: "Learn More",
-          buttonLink: "#overview",
-          buttonColor: "bg-green-500 hover:bg-green-600",
-        },
-        {
-          image: aboutBackgroundImage,
-          title: "Our Focus Areas",
-          description:
-            "Energy, Waste Management, Water Security, Biodiversity, and Sustainability Education.",
-          buttonText: "Learn About Projects",
-          buttonLink: "#focus-areas",
-          buttonColor: "bg-green-500 hover:bg-green-600",
-        },
-      ]
+      {
+        image: aboutBackgroundImage,
+        title: "Welcome to Microcosm",
+        description:
+          "Discover how Microcosm fosters sustainability at KCT. Join us in shaping a better future.",
+        buttonText: "Explore Our Vision",
+        buttonLink: "#vision",
+        buttonColor: "bg-blue-500 hover:bg-blue-600",
+      },
+      {
+        image: aboutBackgroundImage,
+        title: "Overview",
+        description:
+          "Microcosm is an eco-sensitive initiative aimed at building a coexisting, inclusive, and sustainable environment at Kumaraguru.",
+        buttonText: "Learn More",
+        buttonLink: "#overview",
+        buttonColor: "bg-green-500 hover:bg-green-600",
+      },
+      {
+        image: aboutBackgroundImage,
+        title: "Our Focus Areas",
+        description:
+          "Energy, Waste Management, Water Security, Biodiversity, and Sustainability Education.",
+        buttonText: "Learn About Projects",
+        buttonLink: "#focus-areas",
+        buttonColor: "bg-green-500 hover:bg-green-600",
+      },
+    ]
     : [
-        {
-          image: backgroundImage2,
-          title: "Achieve Your Dreams",
-          description: "Join us and make a difference in the world.",
-          buttonText: "Become a Volunteer",
-          buttonLink: "#contact",
-          buttonColor: "bg-blue-500 hover:bg-blue-600",
-        },
-        {
-          image: backgroundImage3,
-          title: "Join Our Mission",
-          description:
-            "Creating a sustainable campus ecosystem for future generations.",
-          buttonText: "Contact Us",
-          buttonLink: "#contact",
-          buttonColor: "bg-green-500 hover:bg-green-600",
-        },
-      ];
+      {
+        image: backgroundImage2,
+        title: "Achieve Your Dreams",
+        description: "Join us and make a difference in the world.",
+        buttonText: "Become a Volunteer",
+        buttonLink: "#contact",
+        buttonColor: "bg-blue-500 hover:bg-blue-600",
+      },
+      {
+        image: backgroundImage3,
+        title: "Join Our Mission",
+        description:
+          "Creating a sustainable campus ecosystem for future generations.",
+        buttonText: "Contact Us",
+        buttonLink: "#contact",
+        buttonColor: "bg-green-500 hover:bg-green-600",
+      },
+    ];
 
   const [loadedImages, setLoadedImages] = useState({});
 
@@ -80,10 +80,18 @@ const HeroSlider = () => {
   };
 
   return (
-    <section id="hero-slider" className="relative w-full h-[500px] md:h-[650px] lg:h-[1000px]">
+    <section
+      id="hero-slider"
+      className={`relative w-full ${isAboutPage ? "h-[300px] md:h-[400px] lg:h-[500px]" : "h-[500px] md:h-[650px] lg:h-[1000px]"
+        }`}
+    >
       <Slider {...settings} className="h-full w-full">
         {sliderContent.map((slide, index) => (
-          <div key={index} className="relative h-[500px] md:h-[650px] lg:h-[1000px] w-full">
+          <div
+            key={index}
+            className={`relative ${isAboutPage ? "h-[300px] md:h-[400px] lg:h-[500px]" : "h-[500px] md:h-[650px] lg:h-[1000px]"
+              } w-full`}
+          >
             {!loadedImages[index] && (
               <div className="absolute inset-0 flex justify-center items-center bg-gray-200">
                 <div className="loader animate-spin rounded-full border-4 border-t-4 border-gray-300 h-12 w-12"></div>
@@ -92,9 +100,8 @@ const HeroSlider = () => {
             <img
               src={slide.image}
               alt={`Slide ${index + 1}`}
-              className={`w-full h-full object-cover transition-opacity duration-500 ${
-                loadedImages[index] ? "opacity-100" : "opacity-0"
-              }`}
+              className={`w-full h-full object-cover transition-opacity duration-500 ${loadedImages[index] ? "opacity-100" : "opacity-0"
+                }`}
               onLoad={() => handleImageLoad(index)}
             />
             <div className="absolute inset-0 bg-black opacity-50"></div>
@@ -116,6 +123,7 @@ const HeroSlider = () => {
         ))}
       </Slider>
     </section>
+
   );
 };
 
