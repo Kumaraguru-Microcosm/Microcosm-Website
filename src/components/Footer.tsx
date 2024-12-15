@@ -1,4 +1,3 @@
-import React from "react";
 import backgroundImage from "../assets/microcosmBackgroundImage.png";
 
 const Footer = () => {
@@ -39,7 +38,9 @@ const Footer = () => {
           </div>
 
           <div className="space-y-6">
-            <h3 className="text-xl font-semibold text-white">Connect with Us</h3>
+            <h3 className="text-xl font-semibold text-white">
+              Connect with Us
+            </h3>
             <div className="flex justify-center md:justify-start space-x-6">
               <a
                 href="https://linkedin.com"
@@ -99,7 +100,9 @@ const Footer = () => {
             </a>
           </div>
 
-          <p className="text-sm mt-6 md:mt-0">&copy; 2024. All Rights Reserved.</p>
+          <p className="text-sm mt-6 md:mt-0">
+            &copy; 2024. All Rights Reserved.
+          </p>
         </div>
       </div>
     </footer>

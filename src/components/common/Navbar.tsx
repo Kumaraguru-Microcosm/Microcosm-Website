@@ -1,20 +1,30 @@
 import { useState, useEffect, useRef } from "react";
-import logo from "../assets/image.png";
-import { NavbarEnum } from "../data";
+import logo from "../../assets/image.png";
+import { NavbarEnum } from "../../data";
+import { navbarAtom } from "../../jotai";
+import { useAtom } from "jotai";
 
-const Header = () => {
+const Navbar = ({ notHome = false }: { notHome?: boolean }) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isIntersecting, setIsIntersecting] = useState(true); // Track intersection status
-  const menuRef = useRef(null);
+  const [nav, _] = useAtom(navbarAtom);
+  const menuRef = useRef<any>(null);
+  const hamburgerRef = useRef<any>(null);
 
   // Toggle hamburger menu
   const toggleMobileMenu = () => {
-    setIsMobileMenuOpen((prev) => !prev);
+    console.log("clicked");
+    console.log("here also setting,val before:", isMobileMenuOpen);
+    setIsMobileMenuOpen((prev) => (!prev ? true : false));
   };
 
   // Close menu when clicking outside or scrolling
-  const handleOutsideClick = (e) => {
-    if (menuRef.current && !menuRef.current.contains(e.target)) {
+  const handleOutsideClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    if (
+      menuRef.current &&
+      !menuRef.current.contains(e.target) &&
+      !hamburgerRef.current.contains(e.target)
+    ) {
       setIsMobileMenuOpen(false);
     }
   };
@@ -28,7 +38,7 @@ const Header = () => {
       ([entry]) => {
         setIsIntersecting(entry.isIntersecting);
       },
-      { rootMargin: "-50px 0px 0px 0px" }, // Adjust margin for smoother transition
+      { rootMargin: "-50px 0px 0px 0px" },
     );
 
     const heroSlider = document.querySelector("#hero-slider");
@@ -59,9 +69,11 @@ const Header = () => {
   return (
     <header
       className={`fixed top-0 left-0 w-full z-20 transition duration-300 ${
-        isIntersecting
-          ? "bg-transparent text-white"
-          : "bg-white text-black shadow-lg"
+        notHome
+          ? "shadow-lg"
+          : isIntersecting
+            ? "bg-transparent text-white"
+            : "bg-white text-black shadow-lg"
       }`}
     >
       <nav className="w-full px-4 sm:px-6 lg:px-8">
@@ -79,8 +91,8 @@ const Header = () => {
                 (key, index) => (
                   <a
                     key={index}
-                    href={`${key.toLowerCase()}`}
-                    className="px-3 py-2 hover:text-black rounded-md transition duration-300 hover:bg-gradient-to-r hover:from-green-400 hover:to-blue-500"
+                    href={`${key === NavbarEnum.Home ? "/" : "/" + key.toLowerCase()}`}
+                    className={`px-3 py-2 hover:text-white rounded-md transition duration-300 hover:bg-gradient-to-r hover:from-green-400 hover:to-blue-500 ${nav === NavbarEnum[key] ? "bg-gradient-to-r from-green-400 to-blue-500 text-white " : ""}`}
                   >
                     {NavbarEnum[key]}
                   </a>
@@ -104,6 +116,7 @@ const Header = () => {
             aria-label="Toggle Menu"
           >
             <svg
+              ref={hamburgerRef}
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               viewBox="0 0 24 24"
@@ -121,35 +134,32 @@ const Header = () => {
         </div>
 
         {/* Mobile Navigation */}
-        {isMobileMenuOpen && (
+        {isMobileMenuOpen ? (
           <div
             ref={menuRef}
             className="absolute top-16 left-0 w-full bg-gray-800 text-white shadow-lg md:hidden"
           >
             <div className="flex flex-col items-center space-y-2 py-4">
-              {[
-                "Home",
-                "Who are we",
-                "Get Involved",
-                "About Us",
-                "Shop",
-                "Sign In",
-              ].map((item, index) => (
-                <a
-                  key={index}
-                  href={`#${item.replace(/\s+/g, "-").toLowerCase()}`}
-                  className="block px-4 py-2 rounded-md transition duration-300 hover:bg-green-500 hover:text-white"
-                  onClick={() => setIsMobileMenuOpen(false)} // Close menu after clicking a link
-                >
-                  {item}
-                </a>
-              ))}
+              {(Object.keys(NavbarEnum) as (keyof typeof NavbarEnum)[]).map(
+                (key, index) => (
+                  <a
+                    key={index}
+                    href={`${key === NavbarEnum.Home ? "/" : "/" + key.toLowerCase()}`}
+                    className="block px-4 py-2 rounded-md transition duration-300 hover:bg-green-500 hover:text-white"
+                    onClick={() => setIsMobileMenuOpen(false)} // Close menu after clicking a link
+                  >
+                    {NavbarEnum[key]}
+                  </a>
+                ),
+              )}
             </div>
           </div>
+        ) : (
+          <></>
         )}
       </nav>
     </header>
   );
 };
 
-export default Header;
+export default Navbar;

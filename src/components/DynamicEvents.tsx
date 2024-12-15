@@ -1,4 +1,3 @@
-import React from "react";
 import { motion } from "framer-motion";
 
 // Dummy images for events (replace these with actual images related to each event)
@@ -27,17 +26,19 @@ const EventCard = ({ image, title, date, description, registrationLink }) => {
       />
 
       {/* Event Content */}
-      <div className="p-6 flex flex-col flex-grow">
+      <div className="p-5 flex flex-col flex-grow">
         {/* Event Title & Date */}
-        <div className="flex justify-between items-center mb-4">
-          <h3 className="text-2xl font-semibold text-gray-800">{title}</h3>
-          <p className="text-sm text-gray-500">{date}</p>
+        <div className="flex justify-between items-center mb-4 flex-col">
+          <h3 className="text-2xl font-semibold text-gray-800 self-start">
+            {title}
+          </h3>
+          <p className="text-sm text-gray-500 self-start py-2">{date}</p>
         </div>
 
         {/* Event Description */}
-        <p className="text-gray-600 mb-4 flex-grow">{description}</p>
+        <p className="text-gray-600 mb-3 flex-grow">{description}</p>
 
-        <hr className="border-gray-300 my-2" />
+        <hr className="border-gray-300 my-3" />
 
         {/* Register Button */}
         <motion.a
