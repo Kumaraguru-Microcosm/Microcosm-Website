@@ -9,7 +9,8 @@ import aboutBackgroundImage from "../assets/background.png"; // Background for A
 
 const HeroSlider = () => {
   const location = useLocation();
-  const isAboutPage = location.pathname === "/about";
+  const isAboutPage = location.pathname === "/about" ;
+  const isProjectPage =  location.pathname === "/projects"
 
   const settings = {
     dots: true,
@@ -53,7 +54,37 @@ const HeroSlider = () => {
         buttonColor: "bg-green-500 hover:bg-green-600",
       },
     ]
-    : [
+    :isProjectPage ? 
+    [
+      {
+        image: aboutBackgroundImage,
+        title: "Welcome to Microcosm",
+        description:
+          "Discover how Microcosm fosters sustainability at KCT. Join us in shaping a better future.",
+        buttonText: "Explore Our Vision",
+        buttonLink: "#vision",
+        buttonColor: "bg-blue-500 hover:bg-blue-600",
+      },
+      {
+        image: aboutBackgroundImage,
+        title: "Overview",
+        description:
+          "Microcosm is an eco-sensitive initiative aimed at building a coexisting, inclusive, and sustainable environment at Kumaraguru.",
+        buttonText: "Learn More",
+        buttonLink: "#overview",
+        buttonColor: "bg-green-500 hover:bg-green-600",
+      },
+      {
+        image: aboutBackgroundImage,
+        title: "Our Focus Areas",
+        description:
+          "Energy, Waste Management, Water Security, Biodiversity, and Sustainability Education.",
+        buttonText: "Learn About Projects",
+        buttonLink: "#focus-areas",
+        buttonColor: "bg-green-500 hover:bg-green-600",
+      },
+    ]
+    :   [
       {
         image: backgroundImage2,
         title: "Achieve Your Dreams",
@@ -82,14 +113,14 @@ const HeroSlider = () => {
   return (
     <section
       id="hero-slider"
-      className={`relative w-full ${isAboutPage ? "h-[300px] md:h-[400px] lg:h-[500px]" : "h-[500px] md:h-[650px] lg:h-[1000px]"
+      className={`relative w-full ${isAboutPage ? "h-[300px] md:h-[400px] lg:h-[500px]"  : isProjectPage ?"h-[500px] md:h-[400px] lg:h-[600px]" : "h-[500px] md:h-[650px] lg:h-[1000px]"
         }`}
     >
       <Slider {...settings} className="h-full w-full">
         {sliderContent.map((slide, index) => (
           <div
             key={index}
-            className={`relative ${isAboutPage ? "h-[300px] md:h-[400px] lg:h-[500px]" : "h-[500px] md:h-[650px] lg:h-[1000px]"
+            className={`relative ${isAboutPage ? "h-[300px] md:h-[400px] lg:h-[500px]" :isProjectPage ? "h-[500px] md:h-[400px] lg:h-[600px]" : "h-[500px] md:h-[650px] lg:h-[1000px]"
               } w-full`}
           >
             {!loadedImages[index] && (

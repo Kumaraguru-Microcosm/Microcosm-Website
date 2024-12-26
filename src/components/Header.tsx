@@ -22,7 +22,7 @@ const Header = () => {
 
   const handleScroll = () => {
     setIsMobileMenuOpen(false);
-  };
+  };  
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -59,6 +59,8 @@ const Header = () => {
     { name: "Get Involved", path: "/get-involved" },
     { name: "About Us", path: "/about" },
     { name: "Shop", path: "/shop" },
+    { name: "Projects", path: "/projects" },
+
   ];
 
   return (
