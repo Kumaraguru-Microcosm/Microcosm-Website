@@ -8,7 +8,10 @@ const Header = () => {
   const menuRef = useRef(null);
 
   const location = useLocation();
+  const isProjectDetailsPage = location.pathname.startsWith("/details");
+  const isProjectPage = location.pathname === "/projects";
   const isAboutPage = location.pathname === "/about";
+  const isHomePage = location.pathname === "/";
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen((prev) => !prev);
@@ -20,38 +23,52 @@ const Header = () => {
     }
   };
 
-  const handleScroll = () => {
-    setIsMobileMenuOpen(false);
-  };  
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => setIsIntersecting(entry.isIntersecting),
-      { rootMargin: "-50px 0px 0px 0px" }
-    );
-
-    const heroSlider = document.querySelector("#hero-slider");
-    if (heroSlider) observer.observe(heroSlider);
-
-    return () => {
-      if (heroSlider) observer.unobserve(heroSlider);
-    };
-  }, []);
-
   useEffect(() => {
     if (isMobileMenuOpen) {
       document.addEventListener("mousedown", handleOutsideClick);
-      document.addEventListener("scroll", handleScroll);
     } else {
       document.removeEventListener("mousedown", handleOutsideClick);
-      document.removeEventListener("scroll", handleScroll);
     }
 
     return () => {
       document.removeEventListener("mousedown", handleOutsideClick);
-      document.removeEventListener("scroll", handleScroll);
     };
   }, [isMobileMenuOpen]);
+
+  // Intersection Observer logic to handle scroll transition
+  useEffect(() => {
+    const observeHeaderScroll = () => {
+      const observer = new IntersectionObserver(
+        ([entry]) => setIsIntersecting(entry.isIntersecting),
+        { rootMargin: "-50px 0px 0px 0px" }
+      );
+
+      const heroSlider = document.querySelector("#hero-slider");
+      if (heroSlider) observer.observe(heroSlider);
+
+      return () => {
+        if (heroSlider) observer.unobserve(heroSlider);
+      };
+    };
+
+    if (isHomePage || isAboutPage || isProjectPage) {
+      observeHeaderScroll();
+    }
+  }, [isHomePage, isAboutPage, isProjectPage]);
+
+  const getHeaderStyles = () => {
+    if (isProjectPage) {
+      return isIntersecting
+        ? "bg-transparent text-white transition-all duration-300 ease-in-out"
+        : "bg-white text-black shadow-lg transition-all duration-300 ease-in-out";
+    }
+    if (isAboutPage || isHomePage) {
+      return isIntersecting
+        ? "bg-transparent text-white transition-all duration-300 ease-in-out"
+        : "bg-white text-black shadow-lg transition-all duration-300 ease-in-out";
+    }
+    return "bg-white text-black shadow-lg transition-all duration-300 ease-in-out";
+  };
 
   const menuItems = [
     { name: "Home", path: "/" },
@@ -60,20 +77,28 @@ const Header = () => {
     { name: "About Us", path: "/about" },
     { name: "Shop", path: "/shop" },
     { name: "Projects", path: "/projects" },
-
   ];
+
+  // const getHeaderStyles = () => {
+  //   // For Project Page (same as Home and About Pages)
+  //   if (isProjectDetailsPage) {
+  //     return isIntersecting
+  //       ? "bg-transparent text-white transition-all duration-300 ease-in-out"
+  //       : "bg-white text-black shadow-lg transition-all duration-300 ease-in-out";
+  //   }
+  //   // For About and Home Pages (with Intersection observer)
+  //   if (isAboutPage || isHomePage) {
+  //     return isIntersecting
+  //       ? "bg-transparent text-white transition-all duration-300 ease-in-out"
+  //       : "bg-white text-black shadow-lg transition-all duration-300 ease-in-out";
+  //   }
+  //   // Default for other pages
+  //   return "bg-transparent text-white transition-all duration-300 ease-in-out";
+  // };
 
   return (
     <header
-      className={`fixed top-0 left-0 w-full z-20 transition duration-300 ${
-        isAboutPage
-          ? isIntersecting
-            ? "bg-transparent text-white"
-            : "bg-white text-black shadow-lg"
-          : isIntersecting
-          ? "bg-transparent text-white"
-          : "bg-white text-black shadow-lg"
-      }`}
+      className={`fixed top-0 left-0 w-full z-20 ${getHeaderStyles()}`}
     >
       <nav className="w-full px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">

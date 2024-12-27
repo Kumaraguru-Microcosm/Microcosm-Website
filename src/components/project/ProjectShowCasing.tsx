@@ -3,8 +3,6 @@ import Slider from "react-slick";
 import { motion } from "framer-motion";
 
 import { ongoingProjects, completedProjects, featuredProjects } from "./ProjectData";
-import Projects from "./Projects";
-import Card from "./Card";
 
 const ProjectShowCasing = () => {
   const [selectedCategory, setSelectedCategory] = useState("ongoing"); // Default to ongoing projects
@@ -79,43 +77,77 @@ const ProjectShowCasing = () => {
       <div className="sm:hidden">
         <Slider {...projectSliderSettings}>
           {getProjectList().map((project) => (
-            <a href={`/project/${project.id}`}>
-
-              <div key={project.id} className="bg-white rounded-lg shadow-md p-6 hover:shadow-xl transition-all duration-300">
+            <a href={`/details/${project.id}`} key={project.id}>
+              <div className="bg-white rounded-lg shadow-md p-6 hover:shadow-xl transition-all duration-300">
                 <img
                   src={project.image}
                   alt={project.title}
                   className="w-full h-48 sm:h-56 md:h-64 object-cover rounded-md mb-4"
                 />
-                <h2 className="text-xl sm:text-2xl font-bold mb-2">{project.title}</h2>
-                <p className="text-gray-700 text-sm sm:text-base">{project.description}</p>
+                <h2 className="text-xl sm:text-2xl font-bold mb-2 whitespace-nowrap overflow-hidden text-ellipsis">
+                  {project.title}
+                </h2>
+                <p className="text-gray-700 text-sm sm:text-base whitespace-nowrap overflow-hidden text-ellipsis">
+                  {project.description}
+                </p>
+                <hr className="my-4 border-gray-300" />
+                <div className="flex justify-end items-center">
+                  <a href={`/details/${project.id}`} className="text-green-500 font-semibold text-sm flex items-center">
+                    Know More <span className="ml-2">→</span>
+                  </a>
+                </div>
               </div>
             </a>
           ))}
-
         </Slider>
       </div>
 
       {/* Grid for Project List (Larger Screens) */}
-      <div className="hidden sm:grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 sm:gap-8 mt-8">
+      <div className="hidden sm:grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 mt-8 mb-6">
         {getProjectList().map((project) => (
-          <a href={`/project/${project.id}`}>
-            
+          <a href={`/details/${project.id}`} key={project.id}>
+            <motion.div
+              whileHover={{ scale: 1.05 }}
+              className="bg-white rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 flex flex-col max-w-xs mx-auto h-full"
+            >
+              {/* Image Section */}
+              <div className="relative h-56">
+                <img
+                  src={project.image}
+                  alt={project.title}
+                  className="w-full h-full object-cover rounded-t-lg"
+                />
+                <div className="absolute top-0 left-0 bg-black bg-opacity-40 px-3 py-1 text-white text-sm font-medium rounded-br-lg">
+                  {project.category}
+                </div>
+              </div>
 
-            <div key={project.id} className="bg-white rounded-lg shadow-md p-6 hover:shadow-xl transition-all duration-300">
-              <img
-                src={project.image}
-                alt={project.title}
-                className="w-full h-48 sm:h-56 md:h-64 object-cover rounded-md mb-4"
-              />
-              <h2 className="text-xl sm:text-2xl font-bold mb-2">{project.title}</h2>
-              <p className="text-gray-700 text-sm sm:text-base">{project.description}</p>
-            </div>
-
+              {/* Content Section */}
+              <div className="p-5 flex flex-col flex-grow">
+                <h2 className="text-lg font-bold text-gray-800 truncate mb-2">
+                  {project.title}
+                </h2>
+                <p className="text-gray-600 text-sm line-clamp-3 mb-4">
+                  {project.description}
+                </p>
+                <div className="mt-auto pt-4 border-t border-gray-200 flex justify-between items-center">
+                  <span className="text-sm font-medium text-gray-500">
+                    {project.date || ""}
+                  </span>
+                  <a
+                    href={`/details/${project.id}`}
+                    className="text-green-500 font-semibold text-sm flex items-center hover:underline"
+                  >
+                    Know More <span className="ml-2">→</span>
+                  </a>
+                </div>
+              </div>
+            </motion.div>
           </a>
-
         ))}
       </div>
+
+
     </div>
   );
 };

@@ -4,6 +4,7 @@ import ProjectCard from "./ProjectCard";
 import ahimsavanam from "../assets/ahimsavanam.png";
 import resourceRecoveryPark from "../assets/resourceRecoveryPark.png";
 import waterConservation from "../assets/waterConservation.png";
+import energy from "../assets/about/EneryMangement.png";
 
 const projects = [
   {
@@ -22,7 +23,7 @@ const projects = [
   },
   {
     id: 3,
-    image: "/path-to-image/project3.jpg",
+    image: energy,
     title: "Energy Initiatives",
     description:
       "250kW solar power capacity, saving ₹35 lakhs annually in electricity.",
