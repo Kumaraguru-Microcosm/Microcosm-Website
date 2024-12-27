@@ -18,7 +18,7 @@ const HomePage = () => {
             <ImpactStatistics />
             <DynamicEvents />
             <FeaturedProjects />
-            <Testimonial />
+            {/* <Testimonial /> */}
             <SubscribeSection />
             <Footer />
         </div>
