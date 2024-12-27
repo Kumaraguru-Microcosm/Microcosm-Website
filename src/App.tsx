@@ -4,6 +4,7 @@ import HomePage from './pages/HomePage'; // Adjust path as needed
 import AboutPage from './pages/AboutPage'; // Import AboutPage
 import ProjectPage from './pages/ProjectPage';
 import ProjectDetails from './components/project/ProjectDetails';
+import EducationAndEvents from './pages/EducationAndEventsPage';
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         <Route path="/about" element={<AboutPage />} /> 
         <Route path="/projects" element={<ProjectPage />} /> 
         <Route path="/details/:id" element={<ProjectDetails />} /> 
+        <Route path="/eduAndEvents" element={<EducationAndEvents />} />
       </Routes>
     </Router>
   );

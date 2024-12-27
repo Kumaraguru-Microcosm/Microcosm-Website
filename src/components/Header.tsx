@@ -12,6 +12,7 @@ const Header = () => {
   const isProjectPage = location.pathname === "/projects";
   const isAboutPage = location.pathname === "/about";
   const isHomePage = location.pathname === "/";
+  const isEduAndEventsPage = location.pathname === "/eduAndEvents";
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen((prev) => !prev);
@@ -51,13 +52,13 @@ const Header = () => {
       };
     };
 
-    if (isHomePage || isAboutPage || isProjectPage) {
+    if (isHomePage || isAboutPage || isProjectPage || isEduAndEventsPage) {
       observeHeaderScroll();
     }
-  }, [isHomePage, isAboutPage, isProjectPage]);
+  }, [isHomePage, isAboutPage, isProjectPage, isEduAndEventsPage]);
 
   const getHeaderStyles = () => {
-    if (isProjectPage) {
+    if (isEduAndEventsPage || isProjectPage) {
       return isIntersecting
         ? "bg-transparent text-white transition-all duration-300 ease-in-out"
         : "bg-white text-black shadow-lg transition-all duration-300 ease-in-out";
@@ -72,29 +73,12 @@ const Header = () => {
 
   const menuItems = [
     { name: "Home", path: "/" },
-    { name: "Who are we", path: "/who-are-we" },
+    { name: "Education & Events", path: "/eduAndEvents" },
     { name: "Get Involved", path: "/get-involved" },
     { name: "About Us", path: "/about" },
     { name: "Shop", path: "/shop" },
     { name: "Projects", path: "/projects" },
   ];
-
-  // const getHeaderStyles = () => {
-  //   // For Project Page (same as Home and About Pages)
-  //   if (isProjectDetailsPage) {
-  //     return isIntersecting
-  //       ? "bg-transparent text-white transition-all duration-300 ease-in-out"
-  //       : "bg-white text-black shadow-lg transition-all duration-300 ease-in-out";
-  //   }
-  //   // For About and Home Pages (with Intersection observer)
-  //   if (isAboutPage || isHomePage) {
-  //     return isIntersecting
-  //       ? "bg-transparent text-white transition-all duration-300 ease-in-out"
-  //       : "bg-white text-black shadow-lg transition-all duration-300 ease-in-out";
-  //   }
-  //   // Default for other pages
-  //   return "bg-transparent text-white transition-all duration-300 ease-in-out";
-  // };
 
   return (
     <header
