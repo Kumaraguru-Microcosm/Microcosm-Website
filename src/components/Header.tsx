@@ -40,7 +40,7 @@ const Header = () => {
     const observeHeaderScroll = () => {
       const observer = new IntersectionObserver(
         ([entry]) => setIsIntersecting(entry.isIntersecting),
-        { rootMargin: "-50px 0px 0px 0px" }
+        { rootMargin: "-50px 0px 0px 0px" },
       );
 
       const heroSlider = document.querySelector("#hero-slider");
@@ -75,7 +75,7 @@ const Header = () => {
     { name: "Who are we", path: "/who-are-we" },
     { name: "Get Involved", path: "/get-involved" },
     { name: "About Us", path: "/about" },
-    { name: "Shop", path: "/shop" },
+    { name: "Resources", path: "/resources" },
     { name: "Projects", path: "/projects" },
   ];
 
@@ -97,9 +97,7 @@ const Header = () => {
   // };
 
   return (
-    <header
-      className={`fixed top-0 left-0 w-full z-20 ${getHeaderStyles()}`}
-    >
+    <header className={`fixed top-0 left-0 w-full z-20 ${getHeaderStyles()}`}>
       <nav className="w-full px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
@@ -115,10 +113,9 @@ const Header = () => {
                   key={index}
                   to={item.path}
                   className={({ isActive }) =>
-                    `px-3 py-2 rounded-md transition duration-300 ${
-                      isActive
-                        ? "bg-gradient-to-r from-green-400 to-blue-500 text-white"
-                        : "hover:bg-gradient-to-r hover:from-green-400 hover:to-blue-500"
+                    `px-3 py-2 rounded-md transition duration-300 ${isActive
+                      ? "bg-gradient-to-r from-green-400 to-blue-500 text-white"
+                      : "hover:bg-gradient-to-r hover:from-green-400 hover:to-blue-500"
                     }`
                   }
                 >
@@ -169,10 +166,9 @@ const Header = () => {
                   key={index}
                   to={item.path}
                   className={({ isActive }) =>
-                    `block px-4 py-2 rounded-md transition duration-300 ${
-                      isActive
-                        ? "bg-green-500 text-white"
-                        : "hover:bg-green-500 hover:text-white"
+                    `block px-4 py-2 rounded-md transition duration-300 ${isActive
+                      ? "bg-green-500 text-white"
+                      : "hover:bg-green-500 hover:text-white"
                     }`
                   }
                   onClick={() => setIsMobileMenuOpen(false)}

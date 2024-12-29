@@ -16,7 +16,7 @@ const Footer = () => {
       <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-left">
           <div className="space-y-6">
-            <h2 className="text-3xl font-bold text-white">
+            <h2 className="md:text-3xl text-2xl font-bold text-white">
               Together, we achieve more.
             </h2>
             <p className="text-gray-200 leading-relaxed">
@@ -39,7 +39,9 @@ const Footer = () => {
           </div>
 
           <div className="space-y-6">
-            <h3 className="text-xl font-semibold text-white">Connect with Us</h3>
+            <h3 className="text-xl font-semibold text-white">
+              Connect with Us
+            </h3>
             <div className="flex justify-center md:justify-start space-x-6">
               <a
                 href="https://linkedin.com"
@@ -99,7 +101,9 @@ const Footer = () => {
             </a>
           </div>
 
-          <p className="text-sm mt-6 md:mt-0">&copy; 2024. All Rights Reserved.</p>
+          <p className="text-sm mt-6 md:mt-0">
+            &copy; 2024. All Rights Reserved.
+          </p>
         </div>
       </div>
     </footer>
