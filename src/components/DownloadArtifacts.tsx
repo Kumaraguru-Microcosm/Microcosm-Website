@@ -24,7 +24,7 @@ const artifacts = [
 
 const DownloadArtifacts = () => {
   return (
-    <div className="p-8 bg-blue-50 min-h-screen">
+    <div className="p-8 bg-blue-50 ">
       <h1 className="md:text-3xl text-2xl font-bold text-blue-700 mb-6">
         Download Artifacts
       </h1>
