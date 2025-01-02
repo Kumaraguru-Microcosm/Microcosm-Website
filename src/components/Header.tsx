@@ -76,7 +76,7 @@ const Header = () => {
     { name: "Education & Events", path: "/eduAndEvents" },
     { name: "Get Involved", path: "/get-involved" },
     { name: "About Us", path: "/about" },
-    { name: "Shop", path: "/shop" },
+    { name: "Resources", path: "/resources" },
     { name: "Projects", path: "/projects" },
   ];
 
