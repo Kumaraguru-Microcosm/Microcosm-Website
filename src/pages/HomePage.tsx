@@ -8,6 +8,7 @@ import FeaturedProjects from '../components/FeaturedProjects';
 import ImpactStatistics from '../components/ImpactStatistics';
 import DynamicEvents from '../components/DynamicEvents';
 import SubscribeSection from '../components/About/SubscribeSection';
+import AdminPage from './AdminPage';
 
 
 const HomePage = () => {

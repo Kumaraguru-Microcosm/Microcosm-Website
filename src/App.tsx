@@ -9,6 +9,11 @@ import Resources from "./pages/Resources";
 import PostDetail from "./pages/PostDetail";
 import EducationAndEvents from './pages/EducationAndEventsPage'; 
 import SessionDetails from './components/events/SessionDetails'; 
+import AdminPage from "./pages/AdminPage";
+import ProjectAdmin from "./components/project/ProjectAdmin";
+
+import BlogsAdmin from "./pages/BlogsAdmin";
+import EventAdmin from "./components/events/EventAdmin";
 
 const posts = [
   {
@@ -72,8 +77,14 @@ function App() {
         <Route path="/get-involved" element={<GetInvolved />} />
         <Route path="/resources" element={<Resources posts={posts} />} />
         <Route path="/post/:id" element={<PostDetail posts={posts} />} />
-         <Route path="/eduAndEvents" element={<EducationAndEvents />} />
+        <Route path="/eduAndEvents" element={<EducationAndEvents />} />
         <Route path="/sessionDetails/:id" element={<SessionDetails />} /> 
+       
+        <Route path="/admin" element={<AdminPage />}>
+          <Route path="project" element={<ProjectAdmin />} />
+          <Route path="blogs" element={<BlogsAdmin />} />
+          <Route path="event" element={<EventAdmin />} />
+        </Route>
       </Routes>
     </Router>
   );

@@ -6,6 +6,7 @@ import Footer from "../components/Footer";
 import FocusAreas from "../components/About/FocusAreas";
 import TeamAndPartners from "../components/About/TeamAndPartners";
 import SubscribeSection from "../components/About/SubscribeSection";
+import VolunteerAdmin from "../components/VolunteerAdmin";
 
 const AboutUsPage = () => {
   return (
