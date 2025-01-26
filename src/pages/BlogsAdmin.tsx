@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { addNewBlog, getAllBlogs } from "../api/blog";
 
 const BlogsAdmin = () => {
   const [blogs, setBlogs] = useState([]);
@@ -8,6 +9,13 @@ const BlogsAdmin = () => {
     image: null,
     date: "",
   });
+
+  useEffect(() => {
+    (async () => {
+      const fetcheBlogs = await getAllBlogs();
+      setBlogs(fetcheBlogs);
+    })();
+  }, []);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -25,15 +33,13 @@ const BlogsAdmin = () => {
     const formData = new FormData();
     formData.append("title", newBlog.title);
     formData.append("content", newBlog.content);
-    formData.append("image", newBlog.image);
     formData.append("date", newBlog.date);
+    if (newBlog.image) {
+      formData.append("image", newBlog.image);
+    }
 
     try {
-      // Example API call
-      await fetch("http://your-api-url.com/blogs", {
-        method: "POST",
-        body: formData,
-      });
+      await addNewBlog(newBlog);
 
       alert("Blog added successfully!");
       setBlogs([...blogs, { ...newBlog, id: blogs.length + 1 }]);
@@ -126,7 +132,7 @@ const BlogsAdmin = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {blogs.map((blog) => (
             <div
-              key={blog.id}
+              key={blog._id}
               className="bg-white rounded-lg shadow-md p-4 flex flex-col"
             >
               <img
