@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import HomePage from "./pages/HomePage"; // Adjust path as needed
 import AboutPage from "./pages/AboutPage"; // Import AboutPage
@@ -7,15 +7,16 @@ import ProjectDetails from "./components/project/ProjectDetails";
 import GetInvolved from "./pages/GetInvolved";
 import Resources from "./pages/Resources";
 import PostDetail from "./pages/PostDetail";
-import EducationAndEvents from './pages/EducationAndEventsPage'; 
-import SessionDetails from './components/events/SessionDetails'; 
+import EducationAndEvents from "./pages/EducationAndEventsPage";
+import SessionDetails from "./components/events/SessionDetails";
 import AdminPage from "./pages/AdminPage";
 import ProjectAdmin from "./components/project/ProjectAdmin";
 
 import BlogsAdmin from "./pages/BlogsAdmin";
 import EventAdmin from "./components/events/EventAdmin";
+import { getAllBlogs } from "./api/blog";
 
-const posts = [
+const posts1 = [
   {
     id: 1,
     title: "exploring the amazon rainforest",
@@ -67,6 +68,13 @@ const posts = [
 ];
 
 function App() {
+  const [posts, setPosts] = useState([]);
+  useEffect(() => {
+    (async () => {
+      const p = await getAllBlogs();
+      setPosts(p);
+    })();
+  }, []);
   return (
     <Router>
       <Routes>
@@ -78,8 +86,8 @@ function App() {
         <Route path="/resources" element={<Resources posts={posts} />} />
         <Route path="/post/:id" element={<PostDetail posts={posts} />} />
         <Route path="/eduAndEvents" element={<EducationAndEvents />} />
-        <Route path="/sessionDetails/:id" element={<SessionDetails />} /> 
-       
+        <Route path="/sessionDetails/:id" element={<SessionDetails />} />
+
         <Route path="/admin" element={<AdminPage />}>
           <Route path="project" element={<ProjectAdmin />} />
           <Route path="blogs" element={<BlogsAdmin />} />

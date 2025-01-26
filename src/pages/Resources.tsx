@@ -1,7 +1,9 @@
+import { useEffect, useState } from "react";
 import DownloadArtifacts from "../components/DownloadArtifacts";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
 import { Link, useParams } from "react-router-dom";
+import { getAllBlogs } from "../api/blog";
 
 const PostListing = ({ posts }) => {
   return (
@@ -12,7 +14,7 @@ const PostListing = ({ posts }) => {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {posts.map((post) => (
           <div
-            key={post.id}
+            key={post._id}
             className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300"
           >
             <img
@@ -29,7 +31,7 @@ const PostListing = ({ posts }) => {
                 {post.content.slice(0, 100)}...
               </p>
               <Link
-                to={`/post/${post.id}`}
+                to={`/post/${post._id}`}
                 className="text-green-700 hover:text-green-500 font-medium"
               >
                 Read More →
