@@ -4,7 +4,7 @@ import Footer from "../components/Footer";
 
 const PostDetail = ({ posts }) => {
   const { id } = useParams();
-  const post = posts.find((p) => p.id === parseInt(id));
+  const post = posts.find((p) => p._id === id);
 
   if (!post) {
     return (
@@ -41,7 +41,7 @@ const PostDetail = ({ posts }) => {
           <p className="text-gray-600 text-sm mb-4">{post.date}</p>
           <p className="text-gray-700 leading-relaxed">{post.content}</p>
           <p className="mt-10">Written By</p>
-          <p>User1</p>
+          <p>{post.author}</p>
         </div>
       </div>
       <Footer />

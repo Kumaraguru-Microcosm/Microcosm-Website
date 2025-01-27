@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { addNewEvent, getAllEvents } from "../../api/event";
 
 const EventAdmin = () => {
   const [events, setEvents] = useState([]);
@@ -9,6 +10,13 @@ const EventAdmin = () => {
     image: null,
     registrationLink: "",
   });
+  useEffect(() => {
+    (async () => {
+      const events = await getAllEvents();
+      console.log(events);
+      setEvents(events);
+    })();
+  }, []);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -32,11 +40,7 @@ const EventAdmin = () => {
 
     try {
       // Example API call
-      await fetch("http://your-api-url.com/events", {
-        method: "POST",
-        body: formData,
-      });
-
+      await addNewEvent({ ...newEvent, link: newEvent.registrationLink });
       alert("Event added successfully!");
       setEvents([...events, { ...newEvent, id: events.length + 1 }]);
     } catch (error) {
@@ -90,7 +94,9 @@ const EventAdmin = () => {
           </div>
 
           <div>
-            <label className="block text-sm font-medium">Registration Link</label>
+            <label className="block text-sm font-medium">
+              Registration Link
+            </label>
             <input
               type="url"
               name="registrationLink"
@@ -103,7 +109,9 @@ const EventAdmin = () => {
           </div>
 
           <div className="col-span-1 md:col-span-2">
-            <label className="block text-sm font-medium">Event Description</label>
+            <label className="block text-sm font-medium">
+              Event Description
+            </label>
             <textarea
               name="description"
               className="mt-1 w-full border rounded-md p-2 h-28"
