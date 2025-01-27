@@ -34,7 +34,7 @@ const HeroSlider = () => {
           description:
             "Empowering minds through interactive workshops and expert sessions.",
           buttonText: "Discover Events",
-          buttonLink: "#events",
+          buttonLink: "/about",
           buttonColor: "bg-purple-500 hover:bg-purple-600",
         },
         {
@@ -43,7 +43,7 @@ const HeroSlider = () => {
           description:
             "Explore initiatives fostering sustainability and knowledge sharing.",
           buttonText: "Learn More",
-          buttonLink: "#journey",
+          buttonLink: "/get-involved",
           buttonColor: "bg-orange-500 hover:bg-orange-600",
         },
         {
@@ -52,7 +52,7 @@ const HeroSlider = () => {
           description:
             "Collaborate with thought leaders and enhance your skills.",
           buttonText: "View Speakers",
-          buttonLink: "#speakers",
+          buttonLink: "/eduAndEvents",
           buttonColor: "bg-teal-500 hover:bg-teal-600",
         },
       ]
@@ -64,26 +64,8 @@ const HeroSlider = () => {
           description:
             "Discover how Microcosm fosters sustainability at KCT. Join us in shaping a better future.",
           buttonText: "Explore Our Vision",
-          buttonLink: "#vision",
+          buttonLink: "/",
           buttonColor: "bg-blue-500 hover:bg-blue-600",
-        },
-        {
-          image: aboutBackgroundImage,
-          title: "Overview",
-          description:
-            "Microcosm is an eco-sensitive initiative aimed at building a coexisting, inclusive, and sustainable environment at Kumaraguru.",
-          buttonText: "Learn More",
-          buttonLink: "#overview",
-          buttonColor: "bg-green-500 hover:bg-green-600",
-        },
-        {
-          image: aboutBackgroundImage,
-          title: "Our Focus Areas",
-          description:
-            "Energy, Waste Management, Water Security, Biodiversity, and Sustainability Education.",
-          buttonText: "Learn About Projects",
-          buttonLink: "#focus-areas",
-          buttonColor: "bg-green-500 hover:bg-green-600",
         },
       ]
     : [
@@ -92,7 +74,7 @@ const HeroSlider = () => {
           title: "Achieve Your Dreams",
           description: "Join us and make a difference in the world.",
           buttonText: "Become a Volunteer",
-          buttonLink: "#contact",
+          buttonLink: "/get-involved",
           buttonColor: "bg-blue-500 hover:bg-blue-600",
         },
         {
@@ -101,7 +83,7 @@ const HeroSlider = () => {
           description:
             "Creating a sustainable campus ecosystem for future generations.",
           buttonText: "Contact Us",
-          buttonLink: "#contact",
+          buttonLink: "/projects",
           buttonColor: "bg-green-500 hover:bg-green-600",
         },
       ];

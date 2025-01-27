@@ -7,13 +7,14 @@ const categories = [
 ];
 
 const ProjectAdmin = () => {
-  const [activeCategory, setActiveCategory] = useState(categories[0].name);
   const [newProject, setNewProject] = useState({
     title: "",
     image: null,
     description: "",
     overview: "",
     category: categories[0].name,
+    keyHighlights: "",
+    impactMetrics: "",
   });
 
   const handleInputChange = (e) => {
@@ -26,11 +27,6 @@ const ProjectAdmin = () => {
     setNewProject({ ...newProject, image: file });
   };
 
-  const handleCategoryChange = (category) => {
-    setActiveCategory(category);
-    setNewProject((prev) => ({ ...prev, category }));
-  };
-
   const handleFormSubmit = async (e) => {
     e.preventDefault();
 
@@ -40,10 +36,11 @@ const ProjectAdmin = () => {
     formData.append("description", newProject.description);
     formData.append("overview", newProject.overview);
     formData.append("category", newProject.category);
+    formData.append("keyHighlights", newProject.keyHighlights);
+    formData.append("impactMetrics", newProject.impactMetrics);
 
     try {
-      // Example API call to upload the project
-      await fetch("http://your-api-url.com/projects", {
+      await fetch("http://your-api-url.com/projects/new", {
         method: "POST",
         body: formData,
       });
@@ -58,64 +55,72 @@ const ProjectAdmin = () => {
       image: null,
       description: "",
       overview: "",
-      category: activeCategory,
+      category: categories[0].name,
+      keyHighlights: "",
+      impactMetrics: "",
     });
   };
 
   return (
-    <div className="p-6">
-      <h1 className="text-2xl font-bold mb-4">Project Admin</h1>
+    <div className="p-3 max-w-4xl rounded-lg  mx-auto">
+      <h1 className="text-3xl font-bold mb-6">Project Admin</h1>
 
-      <div className="bg-gray-100 p-6 rounded-lg shadow-md">
-        <h2 className="text-lg font-semibold mb-4">Add New Project</h2>
-        <form className="grid grid-cols-1 md:grid-cols-2 gap-4" onSubmit={handleFormSubmit}>
+      <div className="bg-white p-2 rounded-lg shadow-sm">
+        <h2 className="text-xl font-semibold mb-4">Add New Project</h2>
+        <form className="space-y-6" onSubmit={handleFormSubmit}>
           <div>
-            <label className="block text-sm font-medium">Title</label>
+            <label className="block text-sm font-medium mb-2">Title</label>
             <input
               type="text"
               name="title"
-              className="mt-1 w-full border rounded-md p-2"
+              className="w-full border border-gray-300 rounded-lg p-3"
+              placeholder="Enter project title"
               value={newProject.title}
               onChange={handleInputChange}
               required
             />
           </div>
+
           <div>
-            <label className="block text-sm font-medium">Upload Image</label>
+            <label className="block text-sm font-medium mb-2">Upload Image</label>
             <input
               type="file"
               accept="image/*"
-              className="mt-1 w-full border rounded-md p-2"
+              className="w-full border border-gray-300 rounded-lg p-3"
               onChange={handleFileChange}
               required
             />
           </div>
-          <div className="col-span-1 md:col-span-2">
-            <label className="block text-sm font-medium">Description</label>
-            <input
-              type="text"
-              name="description"
-              className="mt-1 w-full border rounded-md p-2"
-              value={newProject.description}
-              onChange={handleInputChange}
-              required
-            />
-          </div>
-          <div className="col-span-1 md:col-span-2">
-            <label className="block text-sm font-medium">Overview</label>
+
+          <div>
+            <label className="block text-sm font-medium mb-2">Overview</label>
             <textarea
               name="overview"
-              className="mt-1 w-full border rounded-md p-2"
+              className="w-full border border-gray-300 rounded-lg p-3"
+              placeholder="Enter project overview"
               value={newProject.overview}
               onChange={handleInputChange}
               required
             ></textarea>
           </div>
+
           <div>
-            <label className="block text-sm font-medium">Category</label>
+            <label className="block text-sm font-medium mb-2">Description</label>
+            <textarea
+              name="description"
+              className="w-full border border-gray-300 rounded-lg p-3"
+              placeholder="Enter project description"
+              value={newProject.description}
+              onChange={handleInputChange}
+              required
+            ></textarea>
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium mb-2">Category</label>
             <select
               name="category"
-              className="mt-1 w-full border rounded-md p-2"
+              className="w-full border border-gray-300 rounded-lg p-3"
               value={newProject.category}
               onChange={handleInputChange}
               required
@@ -127,10 +132,33 @@ const ProjectAdmin = () => {
               ))}
             </select>
           </div>
-          <div className="col-span-1 md:col-span-2">
+
+          <div>
+            <label className="block text-sm font-medium mb-2">Key Highlights</label>
+            <textarea
+              name="keyHighlights"
+              className="w-full border border-gray-300 rounded-lg p-3"
+              placeholder="Enter key highlights (comma-separated)"
+              value={newProject.keyHighlights}
+              onChange={handleInputChange}
+            ></textarea>
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium mb-2">Impact Metrics</label>
+            <textarea
+              name="impactMetrics"
+              className="w-full border border-gray-300 rounded-lg p-3"
+              placeholder='Enter impact metrics as JSON (e.g., {"users": "100", "revenue": "$500"})'
+              value={newProject.impactMetrics}
+              onChange={handleInputChange}
+            ></textarea>
+          </div>
+
+          <div>
             <button
               type="submit"
-              className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
+              className="w-full bg-blue-600 text-white font-medium py-3 rounded-lg hover:bg-blue-700 transition"
             >
               Add Project
             </button>

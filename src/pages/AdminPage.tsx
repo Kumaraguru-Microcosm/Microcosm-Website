@@ -1,30 +1,45 @@
-// src/pages/AdminPage.tsx
-import React, { useState } from "react";
-import { Link, Outlet, useNavigate } from "react-router-dom";
-import { Home, ClipboardList, Users, FileText, Menu, X } from "lucide-react";
+import React, { useState, useEffect } from "react";
+import { Link, Outlet, useNavigate, useLocation } from "react-router-dom";
+import { Home, ClipboardList, Users, FileText, Menu, X, ChevronDown } from "lucide-react";
 
 const AdminPage: React.FC = () => {
   const [isSidebarOpen, setSidebarOpen] = useState(true);
-  const navigate = useNavigate(); 
+  const [isDropdownOpen, setDropdownOpen] = useState(false); // State for dropdown
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const menuItems = [
-    { name: "Project", to: "/admin/project", icon: <ClipboardList /> },
     { name: "Event", to: "/admin/event", icon: <FileText /> },
     { name: "Volunteer", to: "/admin/volunteer", icon: <Users /> },
     { name: "Blogs", to: "/admin/blogs", icon: <Home /> },
   ];
 
+  const projectDropdownItems = [
+    { name: "OnGoing Project", to: "/admin/project/ongoing" },
+    { name: "Completed Project", to: "/admin/project/completed" },
+    { name: "Featured Project", to: "/admin/project/featured" },
+  ];
+
+  // Navigate to a default route if the user lands on /admin
+  useEffect(() => {
+    if (location.pathname === "/admin") {
+      navigate("/admin/project"); // Default sub-page route
+    }
+  }, [location.pathname, navigate]);
+
   return (
-    <div className="flex h-screen">
+    <div className="flex min-h-screen">
       {/* Sidebar */}
       <aside
-        className={`bg-gray-800 text-white transition-transform duration-300 ${isSidebarOpen ? "w-64" : "w-20"
-          } flex flex-col`}
+        className={`bg-gray-800 text-white transition-transform duration-300 ${
+          isSidebarOpen ? "w-72" : "w-24"
+        } flex flex-col`}
       >
-        <div className="flex items-center justify-between px-4 py-4 border-b border-gray-700">
+        <div className="flex items-center justify-between px-6 py-4 border-b border-gray-700">
           <h2
-            className={`text-xl font-bold ${isSidebarOpen ? "block" : "hidden"
-              }`}
+            className={`text-2xl font-bold ${
+              isSidebarOpen ? "block" : "hidden"
+            }`}
           >
             Admin Dashboard
           </h2>
@@ -36,12 +51,46 @@ const AdminPage: React.FC = () => {
           </button>
         </div>
         <nav className="flex-1 mt-4">
-          <ul className="space-y-2">
+          <ul className="space-y-4">
+            {/* Project Dropdown */}
+            <li className="relative">
+              <button
+                className="flex items-center justify-between w-full px-4 py-3 text-gray-300 hover:bg-gray-700 hover:text-white rounded"
+                onClick={() => setDropdownOpen(!isDropdownOpen)}
+              >
+                <div className="flex items-center gap-4">
+                  <ClipboardList />
+                  <span className={`${isSidebarOpen ? "block" : "hidden"}`}>
+                    Project
+                  </span>
+                </div>
+                <ChevronDown
+                  className={`transition-transform ${
+                    isDropdownOpen ? "rotate-180" : ""
+                  } ${isSidebarOpen ? "block" : "hidden"}`}
+                />
+              </button>
+              {isDropdownOpen && (
+                <ul className="pl-12 mt-2 space-y-2">
+                  {projectDropdownItems.map((item) => (
+                    <li key={item.name}>
+                      <Link
+                        to={item.to}
+                        className="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700 hover:text-white rounded"
+                      >
+                        {item.name}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </li>
+            {/* Other Menu Items */}
             {menuItems.map((item) => (
               <li key={item.name}>
                 <Link
                   to={item.to}
-                  className="flex items-center gap-4 px-4 py-2 text-gray-300 hover:bg-gray-700 hover:text-white rounded"
+                  className="flex items-center gap-4 px-4 py-3 text-gray-300 hover:bg-gray-700 hover:text-white rounded"
                 >
                   {item.icon}
                   <span className={`${isSidebarOpen ? "block" : "hidden"}`}>
@@ -52,7 +101,7 @@ const AdminPage: React.FC = () => {
             ))}
           </ul>
         </nav>
-        <div className="px-4 py-4 border-t border-gray-700 text-sm text-center text-gray-400">
+        <div className="px-6 py-4 border-t border-gray-700 text-sm text-center text-gray-400">
           © 2025 Admin Dashboard
         </div>
       </aside>
@@ -60,9 +109,9 @@ const AdminPage: React.FC = () => {
       {/* Main Content */}
       <div className="flex-1 flex flex-col bg-gray-100">
         {/* Header */}
-        <header className="bg-white shadow px-6 py-4 flex items-center justify-between">
+        <header className="bg-white shadow px-8 py-6 flex items-center justify-between">
           <button
-            onClick={() => navigate("/")} // Navigate to the previous page
+            onClick={() => navigate("/")} // Navigate to the root route
             className="flex items-center text-gray-500 hover:text-gray-700 font-semibold space-x-2"
           >
             <svg
@@ -71,7 +120,7 @@ const AdminPage: React.FC = () => {
               viewBox="0 0 24 24"
               strokeWidth="1.5"
               stroke="currentColor"
-              className="w-5 h-5"
+              className="w-6 h-6"
             >
               <path
                 strokeLinecap="round"
@@ -81,17 +130,16 @@ const AdminPage: React.FC = () => {
             </svg>
             <span>Back</span>
           </button>
-          <h1 className="text-xl font-semibold">Welcome, Admin</h1>
+          <h1 className="text-2xl font-semibold">Welcome, Admin</h1>
         </header>
 
         {/* Content Area */}
-        <main className="flex-1 p-6">
-          <div className="max-w-6xl mx-auto bg-white shadow rounded-lg p-6">
+        <main className="flex-1 p-8">
+          <div className="max-w-6xl mx-auto bg-white shadow rounded-lg p-8">
             <Outlet />
           </div>
         </main>
       </div>
-
     </div>
   );
 };
