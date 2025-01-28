@@ -18,7 +18,7 @@ const PostListing = ({ posts }) => {
             className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300"
           >
             <img
-              src={post.image}
+              src={post.imageUrl}
               alt={post.title}
               className="w-full h-40 object-cover"
             />

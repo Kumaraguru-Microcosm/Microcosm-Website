@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+//ts-nocheck
+import React, { useEffect, useState } from "react";
+import { addNewProject, editProject, getAllProjects } from "../../api/project.ts"; // Adjust the path to the API file if necessary
 
 const categories = [
   { name: "Ongoing Projects" },
@@ -16,6 +18,16 @@ const ProjectAdmin = () => {
     keyHighlights: "",
     impactMetrics: "",
   });
+  const [projects,setProjects] = useState([])
+  const [isEditing,setIsEditing] = useState(false)
+  const [currEditId,setCurrEditId] = useState("")
+  useEffect(() => {
+    (async() => {
+      const ps = await getAllProjects()
+      setProjects(ps) 
+    })()
+  },[])
+
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -32,37 +44,57 @@ const ProjectAdmin = () => {
 
     const formData = new FormData();
     formData.append("title", newProject.title);
-    formData.append("image", newProject.image);
     formData.append("description", newProject.description);
     formData.append("overview", newProject.overview);
     formData.append("category", newProject.category);
-    formData.append("keyHighlights", newProject.keyHighlights);
-    formData.append("impactMetrics", newProject.impactMetrics);
 
     try {
-      await fetch("http://your-api-url.com/projects/new", {
-        method: "POST",
-        body: formData,
+      for(const [key,val] of formData.entries()){
+        console.log(key,val)
+      }
+      if(isEditing){
+        formData.append("keyHighlights", newProject.keyHighlights.map(h => h));
+
+        formData.append("impactMetrics", newProject.impactMetrics);
+
+        if(newProject.image){
+          formData.append("image", newProject.image);
+        }
+        await editProject(currEditId,formData)
+      }else{
+        formData.append("keyHighlights", newProject.keyHighlights);
+
+        formData.append("impactMetrics", newProject.impactMetrics);
+
+        formData.append("image", newProject.image);
+
+        const result = await addNewProject(formData);
+        console.log(result)
+        setProjects((projs) => [...projs,{...result.project,imageUrl:`http://localhost:3000/files/${result.project.image}`}])
+      }
+      setIsEditing(false)
+      setCurrEditId("")
+      
+     
+      alert("Project updated successfully!");
+
+      // Reset form
+      setNewProject({
+        title: "",
+        image: null,
+        description: "",
+        overview: "",
+        category: categories[0].name,
+        keyHighlights: "",
+        impactMetrics: "",
       });
-      alert("Project added successfully!");
     } catch (error) {
       console.error("Error adding project:", error);
     }
-
-    // Reset form
-    setNewProject({
-      title: "",
-      image: null,
-      description: "",
-      overview: "",
-      category: categories[0].name,
-      keyHighlights: "",
-      impactMetrics: "",
-    });
   };
 
   return (
-    <div className="p-3 max-w-4xl rounded-lg  mx-auto">
+    <div className="p-3 max-w-4xl rounded-lg mx-auto">
       <h1 className="text-3xl font-bold mb-6">Project Admin</h1>
 
       <div className="bg-white p-2 rounded-lg shadow-sm">
@@ -88,7 +120,7 @@ const ProjectAdmin = () => {
               accept="image/*"
               className="w-full border border-gray-300 rounded-lg p-3"
               onChange={handleFileChange}
-              required
+              required={!isEditing}
             />
           </div>
 
@@ -160,10 +192,53 @@ const ProjectAdmin = () => {
               type="submit"
               className="w-full bg-blue-600 text-white font-medium py-3 rounded-lg hover:bg-blue-700 transition"
             >
-              Add Project
+              {isEditing ? "Edit" : "Add Project"}
             </button>
           </div>
         </form>
+
+      </div>
+      <div className="mt-6">
+        <h2 className="text-lg font-semibold mb-4">Existing Events</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {projects.map((event) => (
+            <div
+              key={event.id}
+              className="bg-white rounded-lg shadow-md p-4 flex flex-col"
+            >
+              <img
+                src={
+                  event.imageUrl ? event.imageUrl : 
+                  event.image instanceof File
+                    ? URL.createObjectURL(event.image)
+                    : event.image
+                }
+                alt={event.title}
+                className="rounded-md mb-4 object-cover h-40"
+              />
+              <h3 className="text-xl font-bold mb-2">{event.title}</h3>
+              <p className="text-sm text-gray-600 mb-2">{event.description}</p>
+              <p className="text-sm text-gray-600 mb-2">Overview: {event.overview}</p>
+
+              <p className="text-sm text-gray-600 mb-2">Category: {event.category}</p>
+          
+              <p className="text-sm text-gray-600 mb-2">highlights: {event.keyHighlights.map((h) => <p>{h}</p>)
+              }</p>
+   <p className="text-sm text-gray-600 mb-2">Impact metrics: {JSON.stringify(event.impactMetrics)
+              }</p>
+
+            
+             
+              <button className="bg-blue-500 text-white px-3 py-2 rounded-md hover:bg-blue-600" onClick={() => {
+                setIsEditing(true)
+                setCurrEditId(event._id)
+                setNewProject({category:event.category,description:event.description,impactMetrics:JSON.stringify(event.impactMetrics),keyHighlights:event.keyHighlights.map((h) => h),overview:event.overview,title:event.title})
+              }}>
+                Edit
+              </button>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { addNewVolunteer } from "../api/volunteer"; // Adjust the path based on your project structure
 
 const VolunteerAdmin = () => {
   const [formData, setFormData] = useState({
@@ -8,6 +9,9 @@ const VolunteerAdmin = () => {
     areaOfInterest: [],
     experience: "",
   });
+
+  const [isLoading, setIsLoading] = useState(false);
+  const [message, setMessage] = useState("");
 
   const areasOfInterest = [
     "Afforestation",
@@ -39,23 +43,55 @@ const VolunteerAdmin = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Form Data:", formData);
-    alert("Form submitted successfully!");
-    setFormData({
-      name: "",
-      email: "",
-      phoneNumber: "",
-      areaOfInterest: [],
-      experience: "",
-    });
+    setIsLoading(true);
+    setMessage("");
+
+    try {
+      const data = new FormData();
+      data.append("name", formData.name);
+      data.append("email", formData.email);
+      data.append("phone", formData.phoneNumber);
+      data.append("interests", formData.areaOfInterest); // Serialize array
+      data.append("experience", formData.experience);
+     
+      const response = await addNewVolunteer(data);
+      setMessage(response.message);
+      setFormData({
+        name: "",
+        email: "",
+        phoneNumber: "",
+        areaOfInterest: [],
+        experience: "",
+      });
+      alert("Volunteer form submitted successfully")
+    } catch (error) {
+      setMessage(
+        error.response?.data?.error || "Something went wrong! Please try again."
+      );
+      alert("Something went wrong. Please try again")
+
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
     <div className="p-6 bg-gray-100 min-h-screen flex justify-center items-center">
       <div className="w-full max-w-5xl bg-white rounded-2xl shadow-lg p-8">
         <h1 className="text-3xl font-bold mb-8 text-center">Volunteer Form</h1>
+        {message && (
+          <div
+            className={`mb-6 text-center text-lg font-medium ${
+              message.includes("successfully")
+                ? "text-green-600"
+                : "text-red-600"
+            }`}
+          >
+            {message}
+          </div>
+        )}
         <form
           className="grid grid-cols-1 md:grid-cols-2 gap-6"
           onSubmit={handleSubmit}
@@ -144,8 +180,9 @@ const VolunteerAdmin = () => {
             <button
               type="submit"
               className="w-full md:w-auto bg-green-600 text-white px-8 py-3 text-lg rounded-lg hover:bg-green-700"
+              disabled={isLoading}
             >
-              SUBMIT
+              {isLoading ? "Submitting..." : "SUBMIT"}
             </button>
           </div>
         </form>

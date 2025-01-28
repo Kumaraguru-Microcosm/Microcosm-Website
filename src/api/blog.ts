@@ -2,8 +2,10 @@ import axios from "axios";
 const serverUrl = import.meta.env.VITE_BACKEND_URL;
 export const addNewBlog = async (blogDetails) => {
   try {
-    const res = await axios.post(`${serverUrl}/blogs/new`, blogDetails, {});
-    console.log(res);
+    const response = await fetch(`${serverUrl}/blogs/new`, {
+      method: 'POST',
+      body: blogDetails,
+    });
   } catch (error) {
     console.error(error);
   }

@@ -5,6 +5,7 @@ import sdgConversationImage from "../assets/f1.png";
 import birdWalkImage from "../assets/f1.png";
 import wetlandImage from "../assets/f1.png";
 import kareImage from "../assets/f1.png";
+import { getAllEvents } from "../api/event";
 
 const EventCard = ({ image, title, date, description, registrationLink }) => {
   return (
@@ -49,54 +50,59 @@ const EventCard = ({ image, title, date, description, registrationLink }) => {
 };
 
 const DynamicEvents = () => {
-  const events = [
-    {
-      id: 1,
-      title: "Campus Sustainability Tours",
-      date: "January 15, 2025",
-      description: "Explore the campus’s sustainability efforts with guided tours.",
-      image: sustainabilityImage,
-      registrationLink: "#",
-    },
-    {
-      id: 2,
-      title: "SDG Conversation Series",
-      date: "February 20, 2025",
-      description:
-        "Join the conversation about Sustainable Development Goals and their global impact.",
-      image: sdgConversationImage,
-      registrationLink: "#",
-    },
-    {
-      id: 3,
-      title: "Bird Walks",
-      date: "March 12, 2025",
-      description: "Discover the diverse bird species on our campus during a guided walk.",
-      image: birdWalkImage,
-      registrationLink: "#",
-    },
-    {
-      id: 4,
-      title: "Wetland Documentation",
-      date: "April 5, 2025",
-      description: "Learn about our local wetlands and contribute to documenting their health.",
-      image: wetlandImage,
-      registrationLink: "#",
-    },
-    {
-      id: 5,
-      title: "Community Outreach Activities (KARE)",
-      date: "May 10, 2025",
-      description: "Participate in community outreach programs aimed at environmental awareness.",
-      image: kareImage,
-      registrationLink: "#",
-    },
-  ];
+  // const events = [
+  //   {
+  //     id: 1,
+  //     title: "Campus Sustainability Tours",
+  //     date: "January 15, 2025",
+  //     description: "Explore the campus’s sustainability efforts with guided tours.",
+  //     image: sustainabilityImage,
+  //     registrationLink: "#",
+  //   },
+  //   {
+  //     id: 2,
+  //     title: "SDG Conversation Series",
+  //     date: "February 20, 2025",
+  //     description:
+  //       "Join the conversation about Sustainable Development Goals and their global impact.",
+  //     image: sdgConversationImage,
+  //     registrationLink: "#",
+  //   },
+  //   {
+  //     id: 3,
+  //     title: "Bird Walks",
+  //     date: "March 12, 2025",
+  //     description: "Discover the diverse bird species on our campus during a guided walk.",
+  //     image: birdWalkImage,
+  //     registrationLink: "#",
+  //   },
+  //   {
+  //     id: 4,
+  //     title: "Wetland Documentation",
+  //     date: "April 5, 2025",
+  //     description: "Learn about our local wetlands and contribute to documenting their health.",
+  //     image: wetlandImage,
+  //     registrationLink: "#",
+  //   },
+  //   {
+  //     id: 5,
+  //     title: "Community Outreach Activities (KARE)",
+  //     date: "May 10, 2025",
+  //     description: "Participate in community outreach programs aimed at environmental awareness.",
+  //     image: kareImage,
+  //     registrationLink: "#",
+  //   },
+  // ];
 
   const [currentPage, setCurrentPage] = useState(0);
   const [itemsPerPage, setItemsPerPage] = useState(3);
+  const [events,setEvents] = useState([])
 
   useEffect(() => {
+    (async() => {
+      const es = await getAllEvents()
+      setEvents(es)
+    })()
     const updateItemsPerPage = () => {
       if (window.innerWidth < 640) {
         setItemsPerPage(1);
@@ -140,7 +146,7 @@ const DynamicEvents = () => {
           {paginatedEvents.map((event) => (
             <EventCard
               key={event.id}
-              image={event.image}
+              image={event.imageUrl}
               title={event.title}
               date={event.date}
               description={event.description}

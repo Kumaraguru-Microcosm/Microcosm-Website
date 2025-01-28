@@ -1,5 +1,6 @@
+//@ts-nocheck
 import React, { useEffect, useState } from "react";
-import { addNewEvent, getAllEvents } from "../../api/event";
+import { addNewEvent, editEvent, getAllEvents } from "../../api/event";
 
 const EventAdmin = () => {
   const [events, setEvents] = useState([]);
@@ -10,6 +11,8 @@ const EventAdmin = () => {
     image: null,
     registrationLink: "",
   });
+  const [isEditing, setIsEditing] = useState(false)
+  const [currId,setCurrId] = useState("")
   useEffect(() => {
     (async () => {
       const events = await getAllEvents();
@@ -35,14 +38,38 @@ const EventAdmin = () => {
     formData.append("title", newEvent.title);
     formData.append("date", newEvent.date);
     formData.append("description", newEvent.description);
-    formData.append("image", newEvent.image);
-    formData.append("registrationLink", newEvent.registrationLink);
+    formData.append("link", newEvent.registrationLink);
 
     try {
       // Example API call
-      await addNewEvent({ ...newEvent, link: newEvent.registrationLink });
-      alert("Event added successfully!");
-      setEvents([...events, { ...newEvent, id: events.length + 1 }]);
+      if(isEditing){
+        if(newEvent.image){
+          formData.append("image", newEvent.image);
+
+        }
+        const edited = await editEvent(currId,formData)
+        console.log("this is the edited: ",edited)
+        console.log("this is the prev:", events)
+        setEvents((prev) => {
+          return prev.map((e) => {
+            if(e._id === edited._id){
+              return edited
+            }
+            return e
+          })
+        })
+
+      }else{
+        formData.append("image", newEvent.image);
+
+        await addNewEvent(formData)
+        setEvents([...events, { ...newEvent, id: events.length + 1 }]);
+
+      }
+
+      alert("Event updated successfully!");
+      setCurrId("")
+      setIsEditing(false)
     } catch (error) {
       console.error("Error adding event:", error);
     }
@@ -129,7 +156,7 @@ const EventAdmin = () => {
               accept="image/*"
               className="mt-1 w-full border rounded-md p-2"
               onChange={handleFileChange}
-              required
+              required={!isEditing}
             />
           </div>
 
@@ -138,7 +165,8 @@ const EventAdmin = () => {
               type="submit"
               className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
             >
-              Add Event
+              {isEditing ? "Edit Event" : 
+              "Add Event"}
             </button>
           </div>
         </form>
@@ -155,6 +183,7 @@ const EventAdmin = () => {
             >
               <img
                 src={
+                  event.imageUrl ? event.imageUrl : 
                   event.image instanceof File
                     ? URL.createObjectURL(event.image)
                     : event.image
@@ -168,14 +197,18 @@ const EventAdmin = () => {
                 Date: {new Date(event.date).toLocaleDateString()}
               </p>
               <a
-                href={event.registrationLink}
+                href={event.link}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-blue-500 underline mb-4"
               >
                 Registration Link
               </a>
-              <button className="bg-blue-500 text-white px-3 py-2 rounded-md hover:bg-blue-600">
+              <button className="bg-blue-500 text-white px-3 py-2 rounded-md hover:bg-blue-600" onClick={() => {
+                setIsEditing(true)
+                setCurrId(event._id)
+                setNewEvent({date:event.date,description:event.description,registrationLink:event.link,title:event.title})
+              }}>
                 Edit
               </button>
             </div>

@@ -15,6 +15,7 @@ import ProjectAdmin from "./components/project/ProjectAdmin";
 import BlogsAdmin from "./pages/BlogsAdmin";
 import EventAdmin from "./components/events/EventAdmin";
 import { getAllBlogs } from "./api/blog";
+import VolunteerShowcase from "./pages/VolunteerShowcase";
 
 const posts1 = [
   {
@@ -88,7 +89,9 @@ function App() {
         <Route path="/eduAndEvents" element={<EducationAndEvents />} />
         <Route path="/sessionDetails/:id" element={<SessionDetails />} />
 
+
         <Route path="/admin" element={<AdminPage />}>
+        <Route path="volunteer" element={<VolunteerShowcase />} />
           <Route path="project" element={<ProjectAdmin />} />
           <Route path="blogs" element={<BlogsAdmin />} />
           <Route path="event" element={<EventAdmin />} />

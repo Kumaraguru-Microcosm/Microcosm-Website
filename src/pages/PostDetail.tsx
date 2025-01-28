@@ -31,7 +31,7 @@ const PostDetail = ({ posts }) => {
             ← Back to Blog
           </Link>
           <img
-            src={post.image}
+            src={post.imageUrl}
             alt={post.title}
             className="w-full h-60 object-cover mb-4"
           />

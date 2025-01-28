@@ -61,7 +61,14 @@ const AdminPage: React.FC = () => {
                 <div className="flex items-center gap-4">
                   <ClipboardList />
                   <span className={`${isSidebarOpen ? "block" : "hidden"}`}>
-                    Project
+                  <Link
+                  to={"/admin/project"}
+                  className="flex items-center gap-4 px-2 py-3 text-gray-300 hover:bg-gray-700 hover:text-white rounded"
+                >
+                  <span className={`${isSidebarOpen ? "block" : "hidden"}`}>
+                    Projects
+                  </span>
+                </Link>
                   </span>
                 </div>
                 <ChevronDown

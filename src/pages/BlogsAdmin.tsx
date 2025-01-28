@@ -37,9 +37,12 @@ const BlogsAdmin = () => {
     if (newBlog.image) {
       formData.append("image", newBlog.image);
     }
+    for(const[key,val] of formData.entries()){
+      console.log(key,val)
+    }
 
     try {
-      await addNewBlog(newBlog);
+      await addNewBlog(formData);
 
       alert("Blog added successfully!");
       setBlogs([...blogs, { ...newBlog, id: blogs.length + 1 }]);
@@ -137,6 +140,7 @@ const BlogsAdmin = () => {
             >
               <img
                 src={
+                  blog.imageUrl? blog.imageUrl : 
                   blog.image instanceof File
                     ? URL.createObjectURL(blog.image)
                     : blog.image

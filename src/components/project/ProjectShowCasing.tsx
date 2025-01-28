@@ -1,25 +1,39 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Slider from "react-slick";
 import { motion } from "framer-motion";
-
-import { ongoingProjects, completedProjects, featuredProjects } from "./ProjectData";
+import { getAllProjects } from "../../api/project"; // Update the path as per your project structure
 
 const ProjectShowCasing = () => {
-  const [selectedCategory, setSelectedCategory] = useState("ongoing"); // Default to ongoing projects
+  const [selectedCategory, setSelectedCategory] = useState("Ongoing Projects"); // Default to "Ongoing Projects"
+  const [projects, setProjects] = useState([]);
 
   const categories = [
-    { name: "Ongoing Projects", value: "ongoing" },
-    { name: "Completed Projects", value: "completed" },
-    { name: "Featured Projects", value: "featured" }
+    { name: "Ongoing Projects", value: "Ongoing Projects" },
+    { name: "Completed Projects", value: "Completed Projects" },
+    { name: "Featured Projects", value: "Featured Projects" },
   ];
 
-  // Dynamically choose the project list based on selected category
+  // Fetch all projects from the backend
+  useEffect(() => {
+    const fetchProjects = async () => {
+      try {
+        const fetchedProjects = await getAllProjects();
+        setProjects(fetchedProjects);
+        console.log("These are the porjetcs: ",fetchedProjects)
+      } catch (error) {
+        console.error("Failed to fetch projects:", error);
+      }
+    };
+
+    fetchProjects();
+  }, []);
+
+  // Filter projects based on the selected category
   const getProjectList = () => {
-    if (selectedCategory === "ongoing") return ongoingProjects;
-    if (selectedCategory === "completed") return completedProjects;
-    return featuredProjects;
+    return projects.filter((project) => project.category === selectedCategory);
   };
 
+  // Slider settings
   const categorySliderSettings = {
     infinite: false,
     speed: 500,
@@ -50,8 +64,9 @@ const ProjectShowCasing = () => {
             <button
               key={category.value}
               onClick={() => setSelectedCategory(category.value)}
-              className={`px-4 py-2 text-lg font-semibold transition duration-300 ${selectedCategory === category.value ? "text-green-500" : "text-gray-700"
-                }`}
+              className={`px-4 py-2 text-lg font-semibold transition duration-300 ${
+                selectedCategory === category.value ? "text-green-500" : "text-gray-700"
+              }`}
             >
               {category.name}
             </button>
@@ -65,8 +80,9 @@ const ProjectShowCasing = () => {
           <button
             key={category.value}
             onClick={() => setSelectedCategory(category.value)}
-            className={`px-6 py-2 text-lg font-semibold transition duration-300 ${selectedCategory === category.value ? "text-green-500" : "text-gray-700"
-              }`}
+            className={`px-6 py-2 text-lg font-semibold transition duration-300 ${
+              selectedCategory === category.value ? "text-green-500" : "text-gray-700"
+            }`}
           >
             {category.name}
           </button>
@@ -77,10 +93,10 @@ const ProjectShowCasing = () => {
       <div className="sm:hidden">
         <Slider {...projectSliderSettings}>
           {getProjectList().map((project) => (
-            <a href={`/details/${project.id}`} key={project.id}>
+            <a href={`/details/${project._id}`} key={project._id}>
               <div className="bg-white rounded-lg shadow-md p-6 hover:shadow-xl transition-all duration-300">
                 <img
-                  src={project.image}
+                  src={project.imageUrl}
                   alt={project.title}
                   className="w-full h-48 sm:h-56 md:h-64 object-cover rounded-md mb-4"
                 />
@@ -92,7 +108,7 @@ const ProjectShowCasing = () => {
                 </p>
                 <hr className="my-4 border-gray-300" />
                 <div className="flex justify-end items-center">
-                  <a href={`/details/${project.id}`} className="text-green-500 font-semibold text-sm flex items-center">
+                  <a href={`/details/${project._id}`} className="text-green-500 font-semibold text-sm flex items-center">
                     Know More <span className="ml-2">→</span>
                   </a>
                 </div>
@@ -105,7 +121,7 @@ const ProjectShowCasing = () => {
       {/* Grid for Project List (Larger Screens) */}
       <div className="hidden sm:grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 mt-8 mb-6">
         {getProjectList().map((project) => (
-          <a href={`/details/${project.id}`} key={project.id}>
+          <a href={`/details/${project._id}`} key={project._id}>
             <motion.div
               whileHover={{ scale: 1.05 }}
               className="bg-white rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 flex flex-col max-w-xs mx-auto h-full"
@@ -113,7 +129,7 @@ const ProjectShowCasing = () => {
               {/* Image Section */}
               <div className="relative h-56">
                 <img
-                  src={project.image}
+                  src={project.imageUrl}
                   alt={project.title}
                   className="w-full h-full object-cover rounded-t-lg"
                 />
@@ -135,7 +151,7 @@ const ProjectShowCasing = () => {
                     {project.date || ""}
                   </span>
                   <a
-                    href={`/details/${project.id}`}
+                    href={`/details/${project._id}`}
                     className="text-green-500 font-semibold text-sm flex items-center hover:underline"
                   >
                     Know More <span className="ml-2">→</span>
@@ -146,8 +162,6 @@ const ProjectShowCasing = () => {
           </a>
         ))}
       </div>
-
-
     </div>
   );
 };
