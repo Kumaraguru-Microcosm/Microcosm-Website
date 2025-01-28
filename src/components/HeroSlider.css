@@ -1,0 +1,31 @@
+/* HeroSlider.css */
+.split-text {
+    display: inline-block;
+    overflow: hidden;
+  }
+  
+  .split-text span {
+    display: inline-block;
+    transform: translateY(100%);
+    opacity: 0;
+    animation: slideUp 0.5s forwards;
+  }
+  
+  @keyframes slideUp {
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+  
+  .split-text span:nth-child(1) { animation-delay: 0.1s; }
+  .split-text span:nth-child(2) { animation-delay: 0.2s; }
+  .split-text span:nth-child(3) { animation-delay: 0.3s; }
+  .split-text span:nth-child(4) { animation-delay: 0.4s; }
+  .split-text span:nth-child(5) { animation-delay: 0.5s; }
+  .split-text span:nth-child(6) { animation-delay: 0.6s; }
+  .split-text span:nth-child(7) { animation-delay: 0.7s; }
+  .split-text span:nth-child(8) { animation-delay: 0.8s; }
+  .split-text span:nth-child(9) { animation-delay: 0.9s; }
+  .split-text span:nth-child(10) { animation-delay: 1s; }
+  /* Add more nth-child rules if needed */

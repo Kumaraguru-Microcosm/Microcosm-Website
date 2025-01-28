@@ -4,6 +4,7 @@ import logo from "../assets/image.png";
 
 const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false); // State for dropdown
   const [isIntersecting, setIsIntersecting] = useState(true);
   const menuRef = useRef(null);
 
@@ -21,11 +22,12 @@ const Header = () => {
   const handleOutsideClick = (e) => {
     if (menuRef.current && !menuRef.current.contains(e.target)) {
       setIsMobileMenuOpen(false);
+      setIsDropdownOpen(false);
     }
   };
 
   useEffect(() => {
-    if (isMobileMenuOpen) {
+    if (isMobileMenuOpen || isDropdownOpen) {
       document.addEventListener("mousedown", handleOutsideClick);
     } else {
       document.removeEventListener("mousedown", handleOutsideClick);
@@ -34,7 +36,7 @@ const Header = () => {
     return () => {
       document.removeEventListener("mousedown", handleOutsideClick);
     };
-  }, [isMobileMenuOpen]);
+  }, [isMobileMenuOpen, isDropdownOpen]);
 
   // Intersection Observer logic to handle scroll transition
   useEffect(() => {
@@ -73,7 +75,7 @@ const Header = () => {
 
   const menuItems = [
     { name: "Home", path: "/" },
-    { name: "Education & Events", path: "/eduAndEvents" },
+    { name: "Events", path: "/eduAndEvents" },
     { name: "Get Involved", path: "/get-involved" },
     { name: "About Us", path: "/about" },
     { name: "Resources", path: "/resources" },
@@ -85,7 +87,7 @@ const Header = () => {
     <header
       className={`fixed top-0 left-0 w-full z-20 ${getHeaderStyles()}`}
     >
-      <nav className="w-full px-4 sm:px-6 lg:px-8">
+      <nav className="w-full px-4 sm:px-6 lg:px-8 mt-2">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
           <div className="flex items-center">
@@ -95,21 +97,63 @@ const Header = () => {
           {/* Desktop Navigation */}
           <div className="hidden md:flex flex-1 justify-between items-center">
             <div className="flex-1 flex justify-center space-x-4 lg:space-x-6">
-              {menuItems.map((item, index) => (
-                <NavLink
-                  key={index}
-                  to={item.path}
-                  className={({ isActive }) =>
-                    `px-3 py-2 rounded-md transition duration-300 ${
-                      isActive
-                        ? "bg-gradient-to-r from-green-400 to-blue-500 text-white"
-                        : "hover:bg-gradient-to-r hover:from-green-400 hover:to-blue-500"
-                    }`
-                  }
-                >
-                  {item.name}
-                </NavLink>
-              ))}
+              {menuItems.map((item, index) => {
+                if (item.name === "Get Involved") {
+                  return (
+                    <div
+                      key={index}
+                      className="relative"
+                      onMouseEnter={() => setIsDropdownOpen(true)}
+                      onMouseLeave={() => setIsDropdownOpen(false)}
+                    >
+                      <NavLink
+                        to={item.path}
+                        className={({ isActive }) =>
+                          `px-3 py-2 rounded-md transition duration-300 ${
+                            isActive
+                              ? "font-bold"
+                              : "hover:bg-clip-text hover:text-transparent hover:bg-gradient-to-r hover:from-green-400 hover:to-blue-500"
+                          }`
+                        }
+                      >
+                        {item.name}
+                      </NavLink>
+                      {isDropdownOpen && (
+                        <div className="absolute left-0 mt-2 w-48 bg-white text-black shadow-lg rounded-md">
+                          <NavLink
+                            to="/volunteer"
+                            className="block px-4 py-2 hover:bg-gray-100"
+                          >
+                            Volunteer
+                          </NavLink>
+                          <NavLink
+                            to="/internship"
+                            className="block px-4 py-2 hover:bg-gray-100"
+                          >
+                            Internship
+                          </NavLink>
+                        </div>
+                      )}
+                    </div>
+                  );
+                }
+
+                return (
+                  <NavLink
+                    key={index}
+                    to={item.path}
+                    className={({ isActive }) =>
+                      `px-3  rounded-md transition duration-300 ${
+                        isActive
+                          ? "font-bold"
+                          : "hover:bg-clip-text hover:text-transparent hover:bg-gradient-to-r hover:from-green-400 hover:to-blue-500"
+                      }`
+                    }
+                  >
+                    {item.name}
+                  </NavLink>
+                );
+              })}
             </div>
             <a
               href="#signin"
@@ -156,7 +200,7 @@ const Header = () => {
                   className={({ isActive }) =>
                     `block px-4 py-2 rounded-md transition duration-300 ${
                       isActive
-                        ? "bg-green-500 text-white"
+                        ? "bg-green-500 font-bold"
                         : "hover:bg-green-500 hover:text-white"
                     }`
                   }

@@ -15,7 +15,7 @@ const FeaturedProjects = () => {
       try {
         const allProjects = await getAllProjects();
         const featuredProjects = allProjects.filter(
-          (project) => project.category === "Featured Projects"
+          (project) => project.category === "Ongoing Projects"
         );
         setProjects(featuredProjects);
       } catch (error) {
@@ -73,7 +73,7 @@ const FeaturedProjects = () => {
   };
 
   return (
-    <section className="py-12 bg-gray-100">
+    <section className="py-12 ">
       <div className="container mx-auto px-4">
         <motion.h2
           initial={{ opacity: 0, y: 50 }}
@@ -81,14 +81,14 @@ const FeaturedProjects = () => {
           transition={{ duration: 0.8 }}
           className="text-4xl font-bold text-gray-800 mb-16 text-center"
         >
-          Featured Projects
+          Current Projects
         </motion.h2>
 
         {/* Display Project Cards */}
         <div className="flex flex-wrap justify-center gap-6">
           {paginatedProjects.map((project, index) => (
             <motion.div
-              key={project._id} // Assuming MongoDB ObjectID as `_id`
+              key={project._id} 
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{

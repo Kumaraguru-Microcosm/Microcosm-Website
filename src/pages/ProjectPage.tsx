@@ -12,7 +12,7 @@ const ProjectPage = () => {
         <ProjectShowCasing />
         {/* <Testimonial /> */}
         {/* <Projects /> */}
-        <Testimonial />
+        {/* <Testimonial /> */}
         <Footer />
     </div>
   );

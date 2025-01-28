@@ -88,6 +88,8 @@ function App() {
         <Route path="/post/:id" element={<PostDetail posts={posts} />} />
         <Route path="/eduAndEvents" element={<EducationAndEvents />} />
         <Route path="/sessionDetails/:id" element={<SessionDetails />} />
+        <Route path="/volunteer" element={<GetInvolved />} />
+        {/* <Route path="/internship" element={<Internship />} /> */}
 
 
         <Route path="/admin" element={<AdminPage />}>

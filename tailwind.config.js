@@ -4,7 +4,17 @@ export default {
     "./public/index.html", // Also scan the main HTML file
   ],
   theme: {
-    extend: {},
+    extend: {
+      animation: {
+        'zoom-in-5s': 'zoom-in 5s ease-in-out forwards',
+      },
+      keyframes: {
+        'zoom-in': {
+          '0%': { transform: 'scale(1)' },
+          '100%': { transform: 'scale(1.1)' },
+        },
+      },
+    },
   },
   plugins: [],
 };

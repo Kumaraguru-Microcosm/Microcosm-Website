@@ -9,6 +9,8 @@ import ImpactStatistics from '../components/ImpactStatistics';
 import DynamicEvents from '../components/DynamicEvents';
 import SubscribeSection from '../components/About/SubscribeSection';
 import AdminPage from './AdminPage';
+import SustainabilityGoals from '../components/SustainabilityGoals';
+import FocusAreas from '../components/SustainabilityGoals';
 
 
 const HomePage = () => {
@@ -16,8 +18,9 @@ const HomePage = () => {
         <div>
             <Header />
             <HeroSlider />
+            <FocusAreas />
             <ImpactStatistics />
-            <DynamicEvents />
+            {/* <DynamicEvents /> */}
             <FeaturedProjects />
             {/* <Testimonial /> */}
             <SubscribeSection />
