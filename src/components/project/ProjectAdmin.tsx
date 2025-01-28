@@ -1,6 +1,10 @@
 //ts-nocheck
 import React, { useEffect, useState } from "react";
-import { addNewProject, editProject, getAllProjects } from "../../api/project.ts"; // Adjust the path to the API file if necessary
+import {
+  addNewProject,
+  editProject,
+  getAllProjects,
+} from "../../api/project.ts"; // Adjust the path to the API file if necessary
 
 const categories = [
   { name: "Ongoing Projects" },
@@ -18,18 +22,18 @@ const ProjectAdmin = () => {
     keyHighlights: "",
     impactMetrics: "",
   });
-  const [projects,setProjects] = useState([])
-  const [isEditing,setIsEditing] = useState(false)
-  const [currEditId,setCurrEditId] = useState("")
+  const [projects, setProjects] = useState([]);
+  const [isEditing, setIsEditing] = useState(false);
+  const [currEditId, setCurrEditId] = useState("");
   useEffect(() => {
-    (async() => {
-      const ps = await getAllProjects()
-      setProjects(ps) 
-    })()
-  },[])
-
+    (async () => {
+      const ps = await getAllProjects();
+      setProjects(ps);
+    })();
+  }, []);
 
   const handleInputChange = (e) => {
+    console.log(newProject.impactMetrics);
     const { name, value } = e.target;
     setNewProject({ ...newProject, [name]: value });
   };
@@ -49,19 +53,22 @@ const ProjectAdmin = () => {
     formData.append("category", newProject.category);
 
     try {
-      for(const [key,val] of formData.entries()){
-        console.log(key,val)
+      for (const [key, val] of formData.entries()) {
+        console.log(key, val);
       }
-      if(isEditing){
-        formData.append("keyHighlights", newProject.keyHighlights.map(h => h));
+      if (isEditing) {
+        formData.append("keyHighlights", newProject.keyHighlights);
 
         formData.append("impactMetrics", newProject.impactMetrics);
 
-        if(newProject.image){
+        if (newProject.image) {
           formData.append("image", newProject.image);
         }
-        await editProject(currEditId,formData)
-      }else{
+        const updated = await editProject(currEditId, formData);
+        setProjects((prev) =>
+          prev.map((p) => (p._id === updated._id ? updated : p)),
+        );
+      } else {
         formData.append("keyHighlights", newProject.keyHighlights);
 
         formData.append("impactMetrics", newProject.impactMetrics);
@@ -69,13 +76,18 @@ const ProjectAdmin = () => {
         formData.append("image", newProject.image);
 
         const result = await addNewProject(formData);
-        console.log(result)
-        setProjects((projs) => [...projs,{...result.project,imageUrl:`http://localhost:3000/files/${result.project.image}`}])
+        console.log(result);
+        setProjects((projs) => [
+          ...projs,
+          {
+            ...result.project,
+            imageUrl: `http://localhost:3000/files/${result.project.image}`,
+          },
+        ]);
       }
-      setIsEditing(false)
-      setCurrEditId("")
-      
-     
+      setIsEditing(false);
+      setCurrEditId("");
+
       alert("Project updated successfully!");
 
       // Reset form
@@ -114,7 +126,9 @@ const ProjectAdmin = () => {
           </div>
 
           <div>
-            <label className="block text-sm font-medium mb-2">Upload Image</label>
+            <label className="block text-sm font-medium mb-2">
+              Upload Image
+            </label>
             <input
               type="file"
               accept="image/*"
@@ -137,7 +151,9 @@ const ProjectAdmin = () => {
           </div>
 
           <div>
-            <label className="block text-sm font-medium mb-2">Description</label>
+            <label className="block text-sm font-medium mb-2">
+              Description
+            </label>
             <textarea
               name="description"
               className="w-full border border-gray-300 rounded-lg p-3"
@@ -166,7 +182,9 @@ const ProjectAdmin = () => {
           </div>
 
           <div>
-            <label className="block text-sm font-medium mb-2">Key Highlights</label>
+            <label className="block text-sm font-medium mb-2">
+              Key Highlights
+            </label>
             <textarea
               name="keyHighlights"
               className="w-full border border-gray-300 rounded-lg p-3"
@@ -177,7 +195,9 @@ const ProjectAdmin = () => {
           </div>
 
           <div>
-            <label className="block text-sm font-medium mb-2">Impact Metrics</label>
+            <label className="block text-sm font-medium mb-2">
+              Impact Metrics
+            </label>
             <textarea
               name="impactMetrics"
               className="w-full border border-gray-300 rounded-lg p-3"
@@ -196,7 +216,6 @@ const ProjectAdmin = () => {
             </button>
           </div>
         </form>
-
       </div>
       <div className="mt-6">
         <h2 className="text-lg font-semibold mb-4">Existing Events</h2>
@@ -208,32 +227,50 @@ const ProjectAdmin = () => {
             >
               <img
                 src={
-                  event.imageUrl ? event.imageUrl : 
-                  event.image instanceof File
-                    ? URL.createObjectURL(event.image)
-                    : event.image
+                  event.imageUrl
+                    ? event.imageUrl
+                    : event.image instanceof File
+                      ? URL.createObjectURL(event.image)
+                      : event.image
                 }
                 alt={event.title}
                 className="rounded-md mb-4 object-cover h-40"
               />
               <h3 className="text-xl font-bold mb-2">{event.title}</h3>
               <p className="text-sm text-gray-600 mb-2">{event.description}</p>
-              <p className="text-sm text-gray-600 mb-2">Overview: {event.overview}</p>
+              <p className="text-sm text-gray-600 mb-2">
+                Overview: {event.overview}
+              </p>
 
-              <p className="text-sm text-gray-600 mb-2">Category: {event.category}</p>
-          
-              <p className="text-sm text-gray-600 mb-2">highlights: {event.keyHighlights.map((h) => <p>{h}</p>)
-              }</p>
-   <p className="text-sm text-gray-600 mb-2">Impact metrics: {JSON.stringify(event.impactMetrics)
-              }</p>
+              <p className="text-sm text-gray-600 mb-2">
+                Category: {event.category}
+              </p>
 
-            
-             
-              <button className="bg-blue-500 text-white px-3 py-2 rounded-md hover:bg-blue-600" onClick={() => {
-                setIsEditing(true)
-                setCurrEditId(event._id)
-                setNewProject({category:event.category,description:event.description,impactMetrics:JSON.stringify(event.impactMetrics),keyHighlights:event.keyHighlights.map((h) => h),overview:event.overview,title:event.title})
-              }}>
+              <p className="text-sm text-gray-600 mb-2">
+                highlights:{" "}
+                {event.keyHighlights.map((h) => (
+                  <p>{h}</p>
+                ))}
+              </p>
+              <p className="text-sm text-gray-600 mb-2">
+                Impact metrics: {JSON.stringify(event.impactMetrics)}
+              </p>
+
+              <button
+                className="bg-blue-500 text-white px-3 py-2 rounded-md hover:bg-blue-600"
+                onClick={() => {
+                  setIsEditing(true);
+                  setCurrEditId(event._id);
+                  setNewProject({
+                    category: event.category,
+                    description: event.description,
+                    impactMetrics: JSON.stringify(event.impactMetrics),
+                    keyHighlights: event.keyHighlights.map((h) => h),
+                    overview: event.overview,
+                    title: event.title,
+                  });
+                }}
+              >
                 Edit
               </button>
             </div>
