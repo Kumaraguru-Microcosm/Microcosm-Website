@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { addNewBlog, getAllBlogs } from "../api/blog";
+import { addNewBlog, editBlog, getAllBlogs } from "../api/blog";
 
 const BlogsAdmin = () => {
   const [blogs, setBlogs] = useState([]);
@@ -9,6 +9,8 @@ const BlogsAdmin = () => {
     image: null,
     date: "",
   });
+  const [isEditing, setIsEditing] = useState(false);
+  const [currId, setCurrId] = useState("");
 
   useEffect(() => {
     (async () => {
@@ -34,23 +36,35 @@ const BlogsAdmin = () => {
     formData.append("title", newBlog.title);
     formData.append("content", newBlog.content);
     formData.append("date", newBlog.date);
-    if (newBlog.image) {
-      formData.append("image", newBlog.image);
-    }
-    for(const[key,val] of formData.entries()){
-      console.log(key,val)
+
+    for (const [key, val] of formData.entries()) {
+      console.log(key, val);
     }
 
     try {
-      await addNewBlog(formData);
+      if (isEditing) {
+        console.log(newBlog.image);
+        if (newBlog.image) {
+          formData.append("image", newBlog.image);
+        }
+        const updated = await editBlog(currId, formData);
+        setBlogs((prev) =>
+          prev.map((b) => (b._id === updated._id ? updated : b)),
+        );
+      } else {
+        formData.append("image", newBlog.image);
+        await addNewBlog(formData);
+        setBlogs([...blogs, { ...newBlog, id: blogs.length + 1 }]);
+      }
 
       alert("Blog added successfully!");
-      setBlogs([...blogs, { ...newBlog, id: blogs.length + 1 }]);
     } catch (error) {
       console.error("Error adding blog:", error);
     }
 
     // Reset form
+    setIsEditing(false);
+    setCurrId("");
     setNewBlog({
       title: "",
       content: "",
@@ -103,7 +117,7 @@ const BlogsAdmin = () => {
               className="mt-1 w-full border rounded-md p-2"
               value={newBlog.date}
               onChange={handleInputChange}
-              required
+              required={!isEditing}
             />
           </div>
 
@@ -114,7 +128,7 @@ const BlogsAdmin = () => {
               accept="image/*"
               className="mt-1 w-full border rounded-md p-2"
               onChange={handleFileChange}
-              required
+              required={!isEditing}
             />
           </div>
 
@@ -123,7 +137,7 @@ const BlogsAdmin = () => {
               type="submit"
               className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
             >
-              Add Blog
+              {isEditing ? "Edit blog" : "Add Blog"}
             </button>
           </div>
         </form>
@@ -140,10 +154,11 @@ const BlogsAdmin = () => {
             >
               <img
                 src={
-                  blog.imageUrl? blog.imageUrl : 
-                  blog.image instanceof File
-                    ? URL.createObjectURL(blog.image)
-                    : blog.image
+                  blog.imageUrl
+                    ? blog.imageUrl
+                    : blog.image instanceof File
+                      ? URL.createObjectURL(blog.image)
+                      : blog.image
                 }
                 alt={blog.title}
                 className="rounded-md mb-4 object-cover h-40"
@@ -153,7 +168,18 @@ const BlogsAdmin = () => {
               <p className="text-sm text-gray-500 mb-4">
                 Date: {new Date(blog.date).toLocaleDateString()}
               </p>
-              <button className="bg-blue-500 text-white px-3 py-2 rounded-md hover:bg-blue-600">
+              <button
+                className="bg-blue-500 text-white px-3 py-2 rounded-md hover:bg-blue-600"
+                onClick={() => {
+                  setIsEditing(true);
+                  setCurrId(blog._id);
+                  setNewBlog({
+                    title: blog.title,
+                    content: blog.content,
+                    date: blog.date,
+                  });
+                }}
+              >
                 Edit
               </button>
             </div>
