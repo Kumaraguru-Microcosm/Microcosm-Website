@@ -43,15 +43,7 @@ const HeroSlider = () => {
   const projectPageSliderContent = [
     {
       image: projectBackgroundImage,
-      title: "Explore Our Projects",
-      description: "Innovative solutions shaping a better tomorrow.",
-      buttonText: "View Projects",
-      buttonLink: "/projects",
-      buttonColor: "bg-green-500 hover:bg-green-600",
-    },
-    {
-      image: projectBackgroundImage,
-      title: "Join Our Journey",
+      title: "Explore and Join Our Journey",
       description: "Collaborate and bring innovative ideas to life.",
       buttonText: "Get Involved",
       buttonLink: "/volunteer",

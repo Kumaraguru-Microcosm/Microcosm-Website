@@ -1,6 +1,11 @@
+import Footer from "./Footer";
+import Header from "./Header";
+
+
 const StudentStewardship = () => {
   return (
     <>
+    <Header />
       <div className="mx-[5%] my-10 p-6 bg-white border border-gray-200 rounded-lg shadow-md hover:shadow-lg transition-shadow ">
         <h2 className="text-2xl font-semibold text-gray-800 mb-3">
           Student Stewardship Programs
@@ -46,6 +51,7 @@ const StudentStewardship = () => {
         {/*   Learn More */}
         {/* </button> */}
       </div>
+      <Footer />
     </>
   );
 };

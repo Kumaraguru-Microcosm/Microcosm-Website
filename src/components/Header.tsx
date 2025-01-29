@@ -4,7 +4,9 @@ import logo from "../assets/image.png";
 
 const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false); // State for dropdown
+  const [isGetInvolvedDropdownOpen, setIsGetInvolvedDropdownOpen] = useState(false);
+  const [isAboutDropdownOpen, setIsAboutDropdownOpen] = useState(false);
+  const [isFocusAreasDropdownOpen, setIsFocusAreasDropdownOpen] = useState(false);
   const [isIntersecting, setIsIntersecting] = useState(true);
   const menuRef = useRef(null);
 
@@ -22,12 +24,13 @@ const Header = () => {
   const handleOutsideClick = (e) => {
     if (menuRef.current && !menuRef.current.contains(e.target)) {
       setIsMobileMenuOpen(false);
-      setIsDropdownOpen(false);
+      setIsGetInvolvedDropdownOpen(false);
+      setIsAboutDropdownOpen(false);
     }
   };
 
   useEffect(() => {
-    if (isMobileMenuOpen || isDropdownOpen) {
+    if (isMobileMenuOpen || isGetInvolvedDropdownOpen || isAboutDropdownOpen) {
       document.addEventListener("mousedown", handleOutsideClick);
     } else {
       document.removeEventListener("mousedown", handleOutsideClick);
@@ -36,9 +39,10 @@ const Header = () => {
     return () => {
       document.removeEventListener("mousedown", handleOutsideClick);
     };
-  }, [isMobileMenuOpen, isDropdownOpen]);
+  }, [isMobileMenuOpen, isGetInvolvedDropdownOpen, isAboutDropdownOpen]);
 
-  // Intersection Observer logic to handle scroll transition
+  // Intersection Observer logic (keep existing code)
+  // ... (keep existing useEffect and getHeaderStyles code)
   useEffect(() => {
     const observeHeaderScroll = () => {
       const observer = new IntersectionObserver(
@@ -84,9 +88,7 @@ const Header = () => {
   ];
 
   return (
-    <header
-      className={`fixed top-0 left-0 w-full z-20 ${getHeaderStyles()}`}
-    >
+    <header className={`fixed top-0 left-0 w-full z-20 ${getHeaderStyles()}`}>
       <nav className="w-full px-4 sm:px-6 lg:px-8 mt-2">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
@@ -103,8 +105,8 @@ const Header = () => {
                     <div
                       key={index}
                       className="relative"
-                      onMouseEnter={() => setIsDropdownOpen(true)}
-                      onMouseLeave={() => setIsDropdownOpen(false)}
+                      onMouseEnter={() => setIsGetInvolvedDropdownOpen(true)}
+                      onMouseLeave={() => setIsGetInvolvedDropdownOpen(false)}
                     >
                       <NavLink
                         to={item.path}
@@ -118,7 +120,7 @@ const Header = () => {
                       >
                         {item.name}
                       </NavLink>
-                      {isDropdownOpen && (
+                      {isGetInvolvedDropdownOpen && (
                         <div className="absolute left-0 mt-2 w-48 bg-white text-black shadow-lg rounded-md">
                           <NavLink
                             to="/volunteer"
@@ -138,20 +140,110 @@ const Header = () => {
                   );
                 }
 
+                if (item.name === "About Us") {
+                  return (
+                    <div
+                      key={index}
+                      className="relative"
+                      onMouseEnter={() => setIsAboutDropdownOpen(true)}
+                      onMouseLeave={() => setIsAboutDropdownOpen(false)}
+                    >
+                      <NavLink
+                        to={item.path}
+                        className={({ isActive }) =>
+                          `px-3 py-2 rounded-md transition duration-300 ${
+                            isActive
+                              ? "font-bold"
+                              : "hover:bg-clip-text hover:text-transparent hover:bg-gradient-to-r hover:from-green-400 hover:to-blue-500"
+                          }`
+                        }
+                      >
+                        {item.name}
+                      </NavLink>
+                      
+                      {isAboutDropdownOpen && (
+                        <div className="absolute left-0 mt-2 w-48 bg-white text-black shadow-lg rounded-md z-30">
+                          <NavLink
+                            to="/what-is-microcosm"
+                            className="block px-4 py-2 hover:bg-gray-100"
+                          >
+                            What is Microcosm
+                          </NavLink>
+                          <div
+                            className="relative"
+                            onMouseEnter={() => setIsFocusAreasDropdownOpen(true)}
+                            onMouseLeave={() => setIsFocusAreasDropdownOpen(false)}
+                          >
+                            <span className="block px-4 py-2 hover:bg-gray-100 cursor-default">
+                              Focus Areas
+                            </span>
+                            {isFocusAreasDropdownOpen && (
+                              <div className="absolute left-full top-0 ml-1 w-48 bg-white text-black shadow-lg rounded-md z-40">
+                                <NavLink
+                                  to="/energy-and-emission"
+                                  className="block px-4 py-2 hover:bg-gray-100"
+                                >
+                                  Energy And Emission
+                                </NavLink>
+                                <NavLink
+                                  to="/water-security"
+                                  className="block px-4 py-2 hover:bg-gray-100"
+                                >
+                                  Water Security
+                                </NavLink>
+                                <NavLink
+                                  to="/waste-management"
+                                  className="block px-4 py-2 hover:bg-gray-100"
+                                >
+                                  Waste Management
+                                </NavLink>
+                                <NavLink
+                                  to="/biodiversity-enrichment"
+                                  className="block px-4 py-2 hover:bg-gray-100"
+                                >
+                                  Biodiversity Enrichment
+                                </NavLink>
+                                <NavLink
+                                  to="/awareness"
+                                  className="block px-4 py-2 hover:bg-gray-100"
+                                >
+                                  Awareness
+                                </NavLink>
+                              </div>
+                            )}
+                          </div>
+                          <NavLink
+                            to="/teams"
+                            className="block px-4 py-2 hover:bg-gray-100"
+                          >
+                            Teams
+                          </NavLink>
+                          <NavLink
+                            to="/partners"
+                            className="block px-4 py-2 hover:bg-gray-100"
+                          >
+                            Partners
+                          </NavLink>
+                        </div>
+                      )}
+                    </div>
+                  );
+                }
+
                 return (
                   <NavLink
-                    key={index}
-                    to={item.path}
-                    className={({ isActive }) =>
-                      `px-3  rounded-md transition duration-300 ${
-                        isActive
-                          ? "font-bold"
-                          : "hover:bg-clip-text hover:text-transparent hover:bg-gradient-to-r hover:from-green-400 hover:to-blue-500"
-                      }`
-                    }
-                  >
-                    {item.name}
-                  </NavLink>
+                  key={index}
+                  to={item.path}
+                  className={({ isActive }) =>
+                    `px-3 rounded-md transition duration-300 ${
+                      isActive
+                        ? "font-bold"
+                        : "hover:bg-clip-text hover:text-transparent hover:bg-gradient-to-r hover:from-green-400 hover:to-blue-500"
+                    }`
+                  }
+                >
+                  {item.name}
+                </NavLink>
                 );
               })}
             </div>
@@ -163,7 +255,6 @@ const Header = () => {
             </a>
           </div>
 
-          {/* Mobile Menu Button */}
           <button
             className="md:hidden p-2"
             onClick={toggleMobileMenu}
@@ -185,8 +276,6 @@ const Header = () => {
             </svg>
           </button>
         </div>
-
-        {/* Mobile Navigation */}
         {isMobileMenuOpen && (
           <div
             ref={menuRef}

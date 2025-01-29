@@ -218,7 +218,7 @@ const ProjectAdmin = () => {
         </form>
       </div>
       <div className="mt-6">
-        <h2 className="text-lg font-semibold mb-4">Existing Events</h2>
+        <h2 className="text-lg font-semibold mb-4">Existing Projects</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {projects.map((event) => (
             <div
