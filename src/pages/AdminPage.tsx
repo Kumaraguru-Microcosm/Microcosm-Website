@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link, Outlet, useNavigate, useLocation } from "react-router-dom";
-import { Home, ClipboardList, Users, FileText, Menu, X, ChevronDown } from "lucide-react";
+import { Home, ClipboardList, Users, FileText, Menu, X, ChevronDown,BriefcaseBusiness } from "lucide-react";
 
 const AdminPage: React.FC = () => {
   const [isSidebarOpen, setSidebarOpen] = useState(true);
@@ -11,6 +11,7 @@ const AdminPage: React.FC = () => {
   const menuItems = [
     { name: "Event", to: "/admin/event", icon: <FileText /> },
     { name: "Volunteer", to: "/admin/volunteer", icon: <Users /> },
+    { name: "Internship", to: "/admin/internship", icon: <BriefcaseBusiness /> },
     { name: "Blogs", to: "/admin/blogs", icon: <Home /> },
   ];
 

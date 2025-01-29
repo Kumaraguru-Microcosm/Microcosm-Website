@@ -157,7 +157,7 @@ const Header = () => {
             </div>
             <a
               href="#signin"
-              className="bg-gradient-to-r from-green-400 to-blue-500 text-white px-4 py-2 rounded-md shadow-md hover:from-blue-400 hover:to-green-500 transition duration-300"
+              className="font-bold hover:bg-clip-text hover:text-transparent hover:bg-gradient-to-r hover:from-green-400 hover:to-blue-500"
             >
               Sign In
             </a>

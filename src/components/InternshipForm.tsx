@@ -1,36 +1,40 @@
 import React, { useState } from "react";
-import { addNewVolunteer } from "../api/volunteer"; // Adjust the path based on your project structure
+import { addNewInternship, addNewVolunteer } from "../api/volunteer"; // Create this API function
+import Header from "./Header";
+import Footer from "./Footer";
 
-const VolunteerAdmin = () => {
+const InternshipForm = () => {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     phoneNumber: "",
     areaOfInterest: [],
-    experience: "",
+    sop: "",
+    resume: null,
   });
 
   const [isLoading, setIsLoading] = useState(false);
   const [message, setMessage] = useState("");
 
   const areasOfInterest = [
-    "Afforestation",
-    "Water Management",
-    "Fund Raising",
+    "Environmental Sustainability",
     "Waste Management",
-    "Agriculture",
-    "Event Management",
-    "Social Management",
-    "Data Management",
-    "Documentation",
-    "Photography",
-    "Digital Design",
+    "Renewable Energy",
+    "Community Development",
+    "Research & Innovation",
+    "Social Entrepreneurship",
+    "Data Analysis",
+    "Project Management",
     "Others",
   ];
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
+  };
+
+  const handleFileChange = (e) => {
+    setFormData({ ...formData, resume: e.target.files[0] });
   };
 
   const handleCheckboxChange = (e) => {
@@ -53,34 +57,40 @@ const VolunteerAdmin = () => {
       data.append("name", formData.name);
       data.append("email", formData.email);
       data.append("phone", formData.phoneNumber);
-      data.append("interests", formData.areaOfInterest); // Serialize array
-      data.append("experience", formData.experience);
-     
-      const response = await addNewVolunteer(data);
+      data.append("interests", formData.areaOfInterest);
+      data.append("sop", formData.sop);
+      data.append("resume", formData.resume);
+
+      const response = await addNewInternship(data);
       setMessage(response.message);
       setFormData({
         name: "",
         email: "",
         phoneNumber: "",
         areaOfInterest: [],
-        experience: "",
+        sop: "",
+        resume: null,
       });
-      alert("Volunteer form submitted successfully")
+      alert("Internship application submitted successfully");
     } catch (error) {
+      console.log(error)
       setMessage(
         error.response?.data?.error || "Something went wrong! Please try again."
       );
-      alert("Something went wrong. Please try again")
-
+      alert("Something went wrong. Please try again");
     } finally {
       setIsLoading(false);
     }
   };
 
   return (
+    <>
+    <Header />
     <div className="p-6 bg-gray-100 min-h-screen flex justify-center items-center">
       <div className="w-full max-w-5xl bg-white rounded-2xl shadow-lg p-8">
-        <h1 className="text-3xl font-bold mb-8 text-center">Volunteer Form</h1>
+        <h1 className="text-3xl font-bold mb-8 text-center">
+          Microcosom Internship Application
+        </h1>
         {message && (
           <div
             className={`mb-6 text-center text-lg font-medium ${
@@ -126,7 +136,9 @@ const VolunteerAdmin = () => {
 
           {/* Phone Number */}
           <div>
-            <label className="block text-base font-medium mb-2">Phone Number *</label>
+            <label className="block text-base font-medium mb-2">
+              Phone Number *
+            </label>
             <input
               type="tel"
               name="phoneNumber"
@@ -138,9 +150,26 @@ const VolunteerAdmin = () => {
             />
           </div>
 
+          {/* Resume Upload */}
+          <div>
+            <label className="block text-base font-medium mb-2">
+              Upload Resume (PDF/DOC) *
+            </label>
+            <input
+              type="file"
+              name="resume"
+              onChange={handleFileChange}
+              className="w-full border rounded-lg p-3 text-lg"
+              accept=".pdf,.doc,.docx"
+              required
+            />
+          </div>
+
           {/* Area of Interest */}
           <div className="md:col-span-2">
-            <label className="block text-base font-medium mb-2">Area of Interest</label>
+            <label className="block text-base font-medium mb-2">
+              Area of Interest
+            </label>
             <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
               {areasOfInterest.map((area) => (
                 <label key={area} className="flex items-center space-x-2">
@@ -157,17 +186,18 @@ const VolunteerAdmin = () => {
             </div>
           </div>
 
-          {/* Experience */}
+          {/* Statement of Purpose */}
           <div className="md:col-span-2">
             <label className="block text-base font-medium mb-2">
-              Previous Experience in Selected Area of Interest
+              Statement of Purpose (SOP) *
             </label>
             <textarea
-              name="experience"
-              value={formData.experience}
+              name="sop"
+              value={formData.sop}
               onChange={handleChange}
-              className="w-full border rounded-lg p-3 text-lg focus:ring focus:ring-green-300 h-32"
-              placeholder="Describe your experience"
+              className="w-full border rounded-lg p-3 text-lg focus:ring focus:ring-green-300 h-48"
+              placeholder="Explain why you want this internship and how it aligns with your goals"
+              required
             ></textarea>
           </div>
 
@@ -179,24 +209,18 @@ const VolunteerAdmin = () => {
             </label>
             <button
               type="submit"
-              className="w-full md:w-auto bg-green-600 text-white px-8 py-3 text-lg rounded-lg hover:bg-green-700"
+              className="w-full md:w-auto bg-blue-600 text-white px-8 py-3 text-lg rounded-lg hover:bg-blue-700"
               disabled={isLoading}
             >
-              {isLoading ? "Submitting..." : "SUBMIT"}
+              {isLoading ? "Submitting..." : "SUBMIT APPLICATION"}
             </button>
           </div>
         </form>
       </div>
     </div>
+    <Footer />
+    </>
   );
 };
 
-export default VolunteerAdmin;
-
-
-
-
-
-
-
-
+export default InternshipForm;

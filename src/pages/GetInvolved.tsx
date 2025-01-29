@@ -1,5 +1,6 @@
 import Footer from "../components/Footer";
 import Header from "../components/Header";
+import InternshipForm from "../components/InternshipForm";
 import StudentStewardship from "../components/StudentStewardship";
 import VolunteerAdmin from "../components/VolunteerAdmin";
 
@@ -26,7 +27,7 @@ const GetInvolved = () => {
       <Header />
         <VolunteerAdmin  />
       <div className="flex justify-center items-center">
-        <StudentStewardship />
+        {/* <StudentStewardship /> */}
       </div>
       <Footer />
     </>

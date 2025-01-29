@@ -2,8 +2,8 @@ import React from "react";
 
 const SubscribeSection = () => {
   return (
-    <section className="flex justify-center items-center p-4 mt-8">
-      <div className="bg-white lg:shadow-lg lg:rounded-full flex flex-col md:flex-row items-center px-8 py-6 w-full max-w-4xl">
+    <section className="flex justify-center items-center p-4 mt-8 bg-white">
+      <div className="bg-white shadow-lg rounded-md flex flex-col md:flex-row items-center px-8 py-6 w-full max-w-4xl">
         {/* Icon */}
         <div className="flex-shrink-0 mb-4 md:mb-0 md:mr-6">
           <svg
@@ -11,7 +11,7 @@ const SubscribeSection = () => {
             fill="none"
             viewBox="0 0 24 24"
             strokeWidth="1.5"
-            stroke="green"
+            stroke="black"
             className="w-16 h-16 mx-auto md:mx-0"
           >
             <path
@@ -25,7 +25,7 @@ const SubscribeSection = () => {
         {/* Text */}
         <div className="text-center md:text-left mb-4 md:mb-0">
           <p className="text-gray-600 text-sm">Subscribe to our</p>
-          <h3 className="text-xl font-bold text-gray-900">Mailing List...</h3>
+          <h3 className="text-xl font-bold text-black">Mailing List...</h3>
         </div>
 
         {/* Input and Button */}
@@ -33,9 +33,9 @@ const SubscribeSection = () => {
           <input
             type="email"
             placeholder="Email"
-            className="w-full bg-transparent border-b border-gray-400 focus:outline-none focus:border-blue-500 px-4 py-2 text-sm mb-4 md:mb-0 md:mr-4"
+            className="w-full bg-transparent border-b border-black focus:outline-none focus:border-black px-4 py-2 text-sm mb-4 md:mb-0 md:mr-4 text-black"
           />
-          <button className="mt-4 md:mt-0 bg-gradient-to-r from-green-500 to-blue-500 text-white font-medium px-6 py-2 rounded-full shadow-md hover:from-green-600 hover:to-blue-600 focus:ring-2 focus:ring-green-400 focus:outline-none">
+          <button className="border border-black text-black text-lg px-6 py-2 rounded-full shadow transition duration-300 ease-in-out hover:bg-black hover:text-white">
             SUBMIT
           </button>
         </div>

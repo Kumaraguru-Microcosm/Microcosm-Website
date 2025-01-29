@@ -45,32 +45,26 @@ const EventCard = ({ event, onViewDetails }) => {
 const EventDetails = ({ event, onBack }) => {
   return (
     <div className="p-8">
-      {/* <button
-        onClick={onBack}
-        className="mb-4 text-blue-500 underline hover:text-blue-700"
-      >
-        Back
-      </button> */}
       <button
-          onClick={onBack}
-          className="flex items-center space-x-2 text-gray-700 hover:text-gray-900 font-semibold mb-4"
+        onClick={onBack}
+        className="flex items-center space-x-2 text-gray-700 hover:text-gray-900 font-semibold mb-4"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          strokeWidth={2}
+          stroke="currentColor"
+          className="w-5 h-5"
         >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth={2}
-            stroke="currentColor"
-            className="w-5 h-5"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M15.75 19.5L8.25 12l7.5-7.5"
-            />
-          </svg>
-          <span>Back</span>
-        </button>
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M15.75 19.5L8.25 12l7.5-7.5"
+          />
+        </svg>
+        <span>Back</span>
+      </button>
       <motion.div
         initial={{ opacity: 0, y: 50 }}
         animate={{ opacity: 1, y: 0 }}
@@ -140,8 +134,8 @@ const DynamicEvents = () => {
   );
 
   return (
-    <section className="p-8">
-      <div className="container mx-auto">
+    <section className="min-h-screen flex flex-col justify-center items-center p-8">
+      <div className="container mx-auto flex flex-col items-center">
         {selectedEvent ? (
           <EventDetails
             event={selectedEvent}

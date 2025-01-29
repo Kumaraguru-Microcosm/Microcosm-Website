@@ -16,6 +16,8 @@ import BlogsAdmin from "./pages/BlogsAdmin";
 import EventAdmin from "./components/events/EventAdmin";
 import { getAllBlogs } from "./api/blog";
 import VolunteerShowcase from "./pages/VolunteerShowcase";
+import InternshipForm from "./components/InternshipForm";
+import AdminInternship from "./components/AdminInternship";
 
 const posts1 = [
   {
@@ -89,6 +91,7 @@ function App() {
         <Route path="/eduAndEvents" element={<EducationAndEvents />} />
         <Route path="/sessionDetails/:id" element={<SessionDetails />} />
         <Route path="/volunteer" element={<GetInvolved />} />
+        <Route path="/internship" element={<InternshipForm />} />
         {/* <Route path="/internship" element={<Internship />} /> */}
 
 
@@ -97,6 +100,7 @@ function App() {
           <Route path="project" element={<ProjectAdmin />} />
           <Route path="blogs" element={<BlogsAdmin />} />
           <Route path="event" element={<EventAdmin />} />
+          <Route path="internship" element={<AdminInternship />} />
         </Route>
       </Routes>
     </Router>
