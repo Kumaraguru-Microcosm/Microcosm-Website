@@ -36,7 +36,7 @@ const AdminInternship = () => {
                   {volunteer.sop}
                 </p>
               
-                <a href={volunteer.resumeUrl} target="_blank" className="text-blue-500">View resume</a>
+                <a href={volunteer.resumeUrl} target="_blank" className="text-blue-500" download={"resume.pdf"}>View resume</a>
               </div>
             ))}
           </div>
