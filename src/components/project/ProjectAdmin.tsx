@@ -12,6 +12,12 @@ const categories = [
   { name: "Featured Projects" },
 ];
 
+const focusAreas = [
+  { name: "Domain1" },
+  { name: "Domain2" },
+  { name: "Domain3" },
+];
+
 const ProjectAdmin = () => {
   const [newProject, setNewProject] = useState({
     title: "",
@@ -21,6 +27,7 @@ const ProjectAdmin = () => {
     category: categories[0].name,
     keyHighlights: "",
     impactMetrics: "",
+    focusArea: focusAreas[0].name,
   });
   const [projects, setProjects] = useState([]);
   const [isEditing, setIsEditing] = useState(false);
@@ -51,6 +58,7 @@ const ProjectAdmin = () => {
     formData.append("description", newProject.description);
     formData.append("overview", newProject.overview);
     formData.append("category", newProject.category);
+    formData.append("focusArea", newProject.focusArea);
 
     try {
       for (const [key, val] of formData.entries()) {
@@ -183,6 +191,25 @@ const ProjectAdmin = () => {
 
           <div>
             <label className="block text-sm font-medium mb-2">
+              Focus Area:
+            </label>
+            <select
+              name="focusArea"
+              className="w-full border border-gray-300 rounded-lg p-3"
+              value={newProject.focusArea}
+              onChange={handleInputChange}
+              required
+            >
+              {focusAreas.map((category, index) => (
+                <option key={index} value={category.name}>
+                  {category.name}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium mb-2">
               Key Highlights
             </label>
             <textarea
@@ -244,6 +271,9 @@ const ProjectAdmin = () => {
 
               <p className="text-sm text-gray-600 mb-2">
                 Category: {event.category}
+              </p>
+              <p className="text-sm text-gray-600 mb-2">
+                Focus Area: {event.focusArea}
               </p>
 
               <p className="text-sm text-gray-600 mb-2">

@@ -130,7 +130,7 @@ const DynamicEvents = () => {
 
   const paginatedEvents = events.slice(
     currentPage * itemsPerPage,
-    currentPage * itemsPerPage + itemsPerPage
+    currentPage * itemsPerPage + itemsPerPage,
   );
 
   return (
@@ -155,7 +155,7 @@ const DynamicEvents = () => {
             <div className="flex flex-wrap justify-center gap-8">
               {paginatedEvents.map((event) => (
                 <EventCard
-                  key={event.id}
+                  key={event._id}
                   event={event}
                   onViewDetails={setSelectedEvent}
                 />
@@ -167,11 +167,10 @@ const DynamicEvents = () => {
                 <button
                   key={index}
                   onClick={() => handlePageClick(index)}
-                  className={`w-4 h-4 rounded-full transition-all ${
-                    currentPage === index
+                  className={`w-4 h-4 rounded-full transition-all ${currentPage === index
                       ? "bg-green-500 transform scale-125"
                       : "bg-gray-300 hover:bg-green-300"
-                  }`}
+                    }`}
                 ></button>
               ))}
             </div>

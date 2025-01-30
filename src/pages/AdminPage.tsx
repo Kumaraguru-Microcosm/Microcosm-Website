@@ -1,6 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { Link, Outlet, useNavigate, useLocation } from "react-router-dom";
-import { Home, ClipboardList, Users, FileText, Menu, X, ChevronDown,BriefcaseBusiness } from "lucide-react";
+import {
+  Home,
+  ClipboardList,
+  Users,
+  FileText,
+  Menu,
+  X,
+  ChevronDown,
+  BriefcaseBusiness,
+} from "lucide-react";
 
 const AdminPage: React.FC = () => {
   const [isSidebarOpen, setSidebarOpen] = useState(true);
@@ -11,7 +20,11 @@ const AdminPage: React.FC = () => {
   const menuItems = [
     { name: "Event", to: "/admin/event", icon: <FileText /> },
     { name: "Volunteer", to: "/admin/volunteer", icon: <Users /> },
-    { name: "Internship", to: "/admin/internship", icon: <BriefcaseBusiness /> },
+    {
+      name: "Internship",
+      to: "/admin/internship",
+      icon: <BriefcaseBusiness />,
+    },
     { name: "Blogs", to: "/admin/blogs", icon: <Home /> },
   ];
 
@@ -55,43 +68,21 @@ const AdminPage: React.FC = () => {
           <ul className="space-y-4">
             {/* Project Dropdown */}
             <li className="relative">
-              <button
-                className="flex items-center justify-between w-full px-4 py-3 text-gray-300 hover:bg-gray-700 hover:text-white rounded"
-                onClick={() => setDropdownOpen(!isDropdownOpen)}
-              >
+              <button className="flex items-center justify-between w-full px-4 py-3 text-gray-300 hover:bg-gray-700 hover:text-white rounded">
                 <div className="flex items-center gap-4">
                   <ClipboardList />
                   <span className={`${isSidebarOpen ? "block" : "hidden"}`}>
-                  <Link
-                  to={"/admin/project"}
-                  className="flex items-center gap-4 px-2 py-3 text-gray-300 hover:bg-gray-700 hover:text-white rounded"
-                >
-                  <span className={`${isSidebarOpen ? "block" : "hidden"}`}>
-                    Projects
-                  </span>
-                </Link>
+                    <Link
+                      to={"/admin/project"}
+                      className="flex items-center gap-4 px-2 py-3 text-gray-300 hover:bg-gray-700 hover:text-white rounded"
+                    >
+                      <span className={`${isSidebarOpen ? "block" : "hidden"}`}>
+                        Projects
+                      </span>
+                    </Link>
                   </span>
                 </div>
-                <ChevronDown
-                  className={`transition-transform ${
-                    isDropdownOpen ? "rotate-180" : ""
-                  } ${isSidebarOpen ? "block" : "hidden"}`}
-                />
               </button>
-              {isDropdownOpen && (
-                <ul className="pl-12 mt-2 space-y-2">
-                  {projectDropdownItems.map((item) => (
-                    <li key={item.name}>
-                      <Link
-                        to={item.to}
-                        className="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700 hover:text-white rounded"
-                      >
-                        {item.name}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              )}
             </li>
             {/* Other Menu Items */}
             {menuItems.map((item) => (
