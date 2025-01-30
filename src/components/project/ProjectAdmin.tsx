@@ -13,9 +13,10 @@ const categories = [
 ];
 
 const focusAreas = [
-  { name: "Domain1" },
-  { name: "Domain2" },
-  { name: "Domain3" },
+  { name: "Energy And Emission" },
+  { name: "water Security" },
+  { name: "Waste Management" },
+  { name: "Biodiversity Enrichment" },
 ];
 
 const ProjectAdmin = () => {
