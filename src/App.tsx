@@ -19,7 +19,11 @@ import VolunteerShowcase from "./pages/VolunteerShowcase";
 import InternshipForm from "./components/InternshipForm";
 import AdminInternship from "./components/AdminInternship";
 import Contact from "./pages/Contact";
-
+import EnergyAndEmission from "./components/FocusAreas/EnergyAndEmission";
+import WasteManagement from "./components/FocusAreas/WasteManagment";
+import WaterSecurity from "./components/FocusAreas/WaterSecurity";
+import BiodiversityEnergyEmission from "./components/FocusAreas/BiodiversityEnergyEmission";
+import StudentStewardshipPrograms from "./components/FocusAreas/StudentStewardshipPrograms";
 const posts1 = [
   {
     id: 1,
@@ -95,6 +99,14 @@ function App() {
         <Route path="/internship" element={<InternshipForm />} />
         <Route path="/contact" element={<Contact />} />
         {/* <Route path="/internship" element={<Internship />} /> */}
+        <Route path="/energy-and-emission" element={<EnergyAndEmission />} />
+        <Route path="/waste-management" element={<WasteManagement />} />
+        <Route path="/water-security" element={<WaterSecurity />} />
+        <Route
+          path="/biodiversity-enrichment"
+          element={<BiodiversityEnergyEmission />}
+        />
+        <Route path="/awareness" element={<StudentStewardshipPrograms />} />
 
         <Route path="/admin" element={<AdminPage />}>
           <Route path="volunteer" element={<VolunteerShowcase />} />
