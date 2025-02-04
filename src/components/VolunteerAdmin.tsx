@@ -1,5 +1,6 @@
-import React, { useState } from "react";
-import { addNewVolunteer } from "../api/volunteer"; // Adjust path if needed
+import React, { useEffect, useState } from "react";
+import { addNewVolunteer } from "../api/volunteer"; // Adjust the path based on your project structure
+import Captcha from "./Captcha";
 
 const VolunteerAdmin = () => {
   const [formData, setFormData] = useState({
@@ -14,6 +15,7 @@ const VolunteerAdmin = () => {
 
   const [isLoading, setIsLoading] = useState(false);
   const [message, setMessage] = useState("");
+  const [captchaVerified, setCaptchaVerified] = useState(false);
 
   const areasOfInterest = [
     "Afforestation",
@@ -72,10 +74,21 @@ const VolunteerAdmin = () => {
       });
       alert("Volunteer form submitted successfully");
     } catch (error) {
-      setMessage(error.response?.data?.error || "Something went wrong! Please try again.");
-      alert("Something went wrong. Please try again.");
+      setMessage(
+        error.response?.data?.error ||
+        "Something went wrong! Please try again.",
+      );
+      alert("Something went wrong. Please try again");
     } finally {
       setIsLoading(false);
+      setCaptchaVerified(false);
+      setFormData({
+        name: "",
+        email: "",
+        phoneNumber: "",
+        areaOfInterest: [],
+        experience: "",
+      });
     }
   };
 
@@ -85,9 +98,10 @@ const VolunteerAdmin = () => {
         <h1 className="text-3xl font-bold mb-8 text-center">Volunteer Form</h1>
         {message && (
           <div
-            className={`mb-6 text-center text-lg font-medium ${
-              message.includes("successfully") ? "text-green-600" : "text-red-600"
-            }`}
+            className={`mb-6 text-center text-lg font-medium ${message.includes("successfully")
+                ? "text-green-600"
+                : "text-red-600"
+              }`}
           >
             {message}
           </div>
@@ -121,7 +135,9 @@ const VolunteerAdmin = () => {
           </div>
           {/* Phone Number */}
           <div>
-            <label className="block text-base font-medium mb-2">Phone Number *</label>
+            <label className="block text-base font-medium mb-2">
+              Phone Number *
+            </label>
             <input
               type="tel"
               name="phoneNumber"
@@ -167,7 +183,9 @@ const VolunteerAdmin = () => {
           </div>
           {/* Area of Interest */}
           <div className="md:col-span-2">
-            <label className="block text-base font-medium mb-2">Area of Interest</label>
+            <label className="block text-base font-medium mb-2">
+              Area of Interest
+            </label>
             <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
               {areasOfInterest.map((area) => (
                 <label key={area} className="flex items-center space-x-2">
@@ -198,16 +216,13 @@ const VolunteerAdmin = () => {
           </div>
           {/* Submit Button */}
           <div className="md:col-span-2 flex flex-col md:flex-row justify-between items-center gap-4">
-            <label className="flex items-center space-x-2">
-              <input type="checkbox" required />
-              <span className="text-base">I'm not a robot</span>
-            </label>
+            <Captcha onClick={() => setCaptchaVerified(true)} />
             <button
               type="submit"
-              className="w-full md:w-auto bg-green-600 text-white px-8 py-3 text-lg rounded-lg hover:bg-green-700"
-              disabled={isLoading}
+              className={`w-full md:w-auto bg-blue-600 text-white px-8 py-3 text-lg rounded-lg ${captchaVerified && "hover:bg-blue-700 "} ${isLoading || (!captchaVerified && "bg-blue-300")}`}
+              disabled={isLoading || !captchaVerified}
             >
-              {isLoading ? "Submitting..." : "SUBMIT"}
+              {isLoading ? "Submitting..." : "SUBMIT APPLICATION"}
             </button>
           </div>
         </form>
