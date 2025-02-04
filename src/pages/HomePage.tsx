@@ -21,7 +21,7 @@ const HomePage = () => {
             <FocusAreas />
             <ImpactStatistics />
             {/* <DynamicEvents /> */}
-            <FeaturedProjects />
+            <FeaturedProjects categories={"category"} value={"Ongoing Projects"}/>
             {/* <Testimonial /> */}
             <SubscribeSection />
             <Footer />

@@ -15,7 +15,7 @@ const Header = () => {
   const location = useLocation();
   const isProjectDetailsPage = location.pathname.startsWith("/details");
   const isProjectPage = location.pathname === "/projects";
-  const isAboutPage = location.pathname === "/about";
+  const isAboutPage = location.pathname === "/what-is-microcosm";
   const isHomePage = location.pathname === "/";
   const isEduAndEventsPage = location.pathname === "/eduAndEvents";
 
@@ -81,12 +81,11 @@ const Header = () => {
 
   const menuItems = [
     { name: "Home", path: "/" },
+    { name: "About Us", path: "/what-is-microcosm" },
+    { name: "Projects", path: "/projects" },
     { name: "Events", path: "/eduAndEvents" },
     { name: "Get Involved", path: "/get-involved" },
-    { name: "About Us", path: "/about" },
     { name: "Resources", path: "/resources" },
-    { name: "Projects", path: "/projects" },
-    { name: "Admin", path: "/admin" },
     { name: "Contact", path: "/contact" },
   ];
 
@@ -223,14 +222,14 @@ const Header = () => {
                             to="/teams"
                             className="block px-4 py-2 hover:bg-gray-100"
                           >
-                            Teams
+                            Teams and Partners
                           </NavLink>
-                          <NavLink
+                          {/* <NavLink
                             to="/partners"
                             className="block px-4 py-2 hover:bg-gray-100"
                           >
                             Partners
-                          </NavLink>
+                          </NavLink> */}
                         </div>
                       )}
                     </div>
@@ -254,12 +253,7 @@ const Header = () => {
                 );
               })}
             </div>
-            <a
-              href="#signin"
-              className="font-bold hover:bg-clip-text hover:text-transparent hover:bg-gradient-to-r hover:from-green-400 hover:to-blue-500"
-            >
-              Sign In
-            </a>
+          
           </div>
 
           <button

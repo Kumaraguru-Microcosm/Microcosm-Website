@@ -1,6 +1,19 @@
-import React from "react";
+import React, { useRef, useState } from "react";
 
 const SubscribeSection = () => {
+  const [mail,setMail] = useState("")
+
+  const handleSubmit = async() => {
+    await fetch(`${import.meta.env.VITE_BACKEND_URL}/subscribe`,{
+      headers:{
+      "Content-Type":"application/json"
+    },
+    method:"POST",
+    body:JSON.stringify({email:mail}),
+  })
+  
+  setMail("")
+  }
   return (
     <section className="flex justify-center items-center p-4 mt-8 bg-white">
       <div className="bg-white shadow-lg rounded-md flex flex-col md:flex-row items-center px-8 py-6 w-full max-w-4xl">
@@ -31,11 +44,16 @@ const SubscribeSection = () => {
         {/* Input and Button */}
         <div className="w-full flex flex-col md:flex-row md:items-center md:ml-6">
           <input
+          required
+          value={mail}
+            onChange={(e) => setMail(e.target.value)}
             type="email"
             placeholder="Email"
             className="w-full bg-transparent border-b border-black focus:outline-none focus:border-black px-4 py-2 text-sm mb-4 md:mb-0 md:mr-4 text-black"
           />
-          <button className="border border-black text-black text-lg px-6 py-2 rounded-full shadow transition duration-300 ease-in-out hover:bg-black hover:text-white">
+          <button 
+          onClick={handleSubmit}
+          className="border border-black text-black text-lg px-6 py-2 rounded-full shadow transition duration-300 ease-in-out hover:bg-black hover:text-white">
             SUBMIT
           </button>
         </div>

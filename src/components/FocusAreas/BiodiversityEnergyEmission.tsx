@@ -2,6 +2,7 @@ import { FaArrowLeft } from 'react-icons/fa'; // Importing the arrow icon
 import Footer from "../Footer";
 import Header from "../Header";
 import { useNavigate } from 'react-router-dom';
+import FeaturedProjects from '../FeaturedProjects';
 
 const BiodiversityEnergyEmission = () => {
   const navigate = useNavigate();
@@ -84,6 +85,7 @@ const BiodiversityEnergyEmission = () => {
           </section>
         </div>
       </div>
+      <FeaturedProjects value={"EBiodiversity Enrichment"} categories={"focusArea"}  />
       <Footer />
     </>
   );

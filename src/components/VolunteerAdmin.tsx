@@ -1,11 +1,13 @@
 import React, { useState } from "react";
-import { addNewVolunteer } from "../api/volunteer"; // Adjust the path based on your project structure
+import { addNewVolunteer } from "../api/volunteer"; // Adjust path if needed
 
 const VolunteerAdmin = () => {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     phoneNumber: "",
+    graduationYear: "",
+    college: "",
     areaOfInterest: [],
     experience: "",
   });
@@ -47,31 +49,31 @@ const VolunteerAdmin = () => {
     e.preventDefault();
     setIsLoading(true);
     setMessage("");
-
     try {
       const data = new FormData();
       data.append("name", formData.name);
       data.append("email", formData.email);
       data.append("phone", formData.phoneNumber);
-      data.append("interests", formData.areaOfInterest); // Serialize array
+      data.append("graduationYear", formData.graduationYear);
+      data.append("college", formData.college);
+      data.append("interests", formData.areaOfInterest);
       data.append("experience", formData.experience);
-     
+
       const response = await addNewVolunteer(data);
       setMessage(response.message);
       setFormData({
         name: "",
         email: "",
         phoneNumber: "",
+        graduationYear: "",
+        college: "",
         areaOfInterest: [],
         experience: "",
       });
-      alert("Volunteer form submitted successfully")
+      alert("Volunteer form submitted successfully");
     } catch (error) {
-      setMessage(
-        error.response?.data?.error || "Something went wrong! Please try again."
-      );
-      alert("Something went wrong. Please try again")
-
+      setMessage(error.response?.data?.error || "Something went wrong! Please try again.");
+      alert("Something went wrong. Please try again.");
     } finally {
       setIsLoading(false);
     }
@@ -79,23 +81,18 @@ const VolunteerAdmin = () => {
 
   return (
     <div className="p-6 bg-gray-100 min-h-screen flex justify-center items-center">
-      <div className="w-full max-w-5xl bg-white rounded-2xl shadow-lg p-8">
+      <div className="w-full max-w-4xl bg-white rounded-2xl shadow-lg p-8">
         <h1 className="text-3xl font-bold mb-8 text-center">Volunteer Form</h1>
         {message && (
           <div
             className={`mb-6 text-center text-lg font-medium ${
-              message.includes("successfully")
-                ? "text-green-600"
-                : "text-red-600"
+              message.includes("successfully") ? "text-green-600" : "text-red-600"
             }`}
           >
             {message}
           </div>
         )}
-        <form
-          className="grid grid-cols-1 md:grid-cols-2 gap-6"
-          onSubmit={handleSubmit}
-        >
+        <form className="grid grid-cols-1 md:grid-cols-2 gap-6" onSubmit={handleSubmit}>
           {/* Name */}
           <div>
             <label className="block text-base font-medium mb-2">Name *</label>
@@ -109,7 +106,6 @@ const VolunteerAdmin = () => {
               required
             />
           </div>
-
           {/* Email */}
           <div>
             <label className="block text-base font-medium mb-2">Email *</label>
@@ -123,7 +119,6 @@ const VolunteerAdmin = () => {
               required
             />
           </div>
-
           {/* Phone Number */}
           <div>
             <label className="block text-base font-medium mb-2">Phone Number *</label>
@@ -137,7 +132,39 @@ const VolunteerAdmin = () => {
               required
             />
           </div>
-
+          {/* Graduation Year */}
+          <div>
+            <label className="block text-base font-medium mb-2">Graduation Year *</label>
+            <select
+              name="graduationYear"
+              value={formData.graduationYear}
+              onChange={handleChange}
+              className="w-full border rounded-lg p-3 text-lg focus:ring focus:ring-green-300"
+              required
+            >
+              <option value="">Select Year</option>
+              {[2024, 2025, 2026, 2027, 2028, 2029, 2030].map((year) => (
+                <option key={year} value={year}>
+                  {year}
+                </option>
+              ))}
+            </select>
+          </div>
+          {/* College Selection */}
+          <div>
+            <label className="block text-base font-medium mb-2">College *</label>
+            <select
+              name="college"
+              value={formData.college}
+              onChange={handleChange}
+              className="w-full border rounded-lg p-3 text-lg focus:ring focus:ring-green-300"
+              required
+            >
+              <option value="">Select College</option>
+              <option value="KCT">Kumaraguru College of Technology (KCT)</option>
+              <option value="KCLAS">Kumaraguru College of Liberal Arts & Science (KCLAS)</option>
+            </select>
+          </div>
           {/* Area of Interest */}
           <div className="md:col-span-2">
             <label className="block text-base font-medium mb-2">Area of Interest</label>
@@ -156,7 +183,6 @@ const VolunteerAdmin = () => {
               ))}
             </div>
           </div>
-
           {/* Experience */}
           <div className="md:col-span-2">
             <label className="block text-base font-medium mb-2">
@@ -170,7 +196,6 @@ const VolunteerAdmin = () => {
               placeholder="Describe your experience"
             ></textarea>
           </div>
-
           {/* Submit Button */}
           <div className="md:col-span-2 flex flex-col md:flex-row justify-between items-center gap-4">
             <label className="flex items-center space-x-2">
@@ -192,11 +217,3 @@ const VolunteerAdmin = () => {
 };
 
 export default VolunteerAdmin;
-
-
-
-
-
-
-
-

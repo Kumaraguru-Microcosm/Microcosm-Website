@@ -7,14 +7,16 @@ import FocusAreas from "../components/About/FocusAreas";
 import TeamAndPartners from "../components/About/TeamAndPartners";
 import SubscribeSection from "../components/About/SubscribeSection";
 import VolunteerAdmin from "../components/VolunteerAdmin";
+import MicrocosmSection from "../components/MicrocosmSection";
 
 const AboutUsPage = () => {
   return (
     <div>
         <Header />
         <HeroSlider />
-        <FocusAreas />
-        <TeamAndPartners />
+        <MicrocosmSection />
+        {/* <FocusAreas /> */}
+        {/* <TeamAndPartners /> */}
         <SubscribeSection />
         <Footer />
       </div>

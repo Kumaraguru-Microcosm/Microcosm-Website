@@ -2,6 +2,7 @@ import { FaArrowLeft } from 'react-icons/fa'; // Importing the arrow icon
 import Footer from "../Footer";
 import Header from "../Header";
 import { useNavigate } from 'react-router-dom';
+import FeaturedProjects from '../FeaturedProjects';
 
 const WaterSecurity = () => {
     const navigate = useNavigate();
@@ -83,7 +84,9 @@ const WaterSecurity = () => {
           </section>
         </div>
       </div>
+      <FeaturedProjects value={"water Security"} categories={"focusArea"}  />
       <Footer />
+
     </>
   );
 };

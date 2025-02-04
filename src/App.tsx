@@ -24,6 +24,7 @@ import WasteManagement from "./components/FocusAreas/WasteManagment";
 import WaterSecurity from "./components/FocusAreas/WaterSecurity";
 import BiodiversityEnergyEmission from "./components/FocusAreas/BiodiversityEnergyEmission";
 import StudentStewardshipPrograms from "./components/FocusAreas/StudentStewardshipPrograms";
+import TeamAndPartners from "./components/About/TeamAndPartners";
 const posts1 = [
   {
     id: 1,
@@ -87,7 +88,8 @@ function App() {
     <Router>
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="/about" element={<AboutPage />} />
+        <Route path="/what-is-microcosm" element={<AboutPage />} />
+        <Route path="/teams" element={<TeamAndPartners />}/>
         <Route path="/projects" element={<ProjectPage />} />
         <Route path="/details/:id" element={<ProjectDetails />} />
         <Route path="/get-involved" element={<GetInvolved />} />

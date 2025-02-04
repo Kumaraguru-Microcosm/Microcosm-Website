@@ -270,7 +270,7 @@ const ProjectAdmin = () => {
                 Overview: {event.overview}
               </p>
 
-              <p className="text-sm text-gray-600 mb-2">
+              {/* <p className="text-sm text-gray-600 mb-2">
                 Category: {event.category}
               </p>
               <p className="text-sm text-gray-600 mb-2">
@@ -285,7 +285,7 @@ const ProjectAdmin = () => {
               </p>
               <p className="text-sm text-gray-600 mb-2">
                 Impact metrics: {JSON.stringify(event.impactMetrics)}
-              </p>
+              </p> */}
 
               <button
                 className="bg-blue-500 text-white px-3 py-2 rounded-md hover:bg-blue-600"

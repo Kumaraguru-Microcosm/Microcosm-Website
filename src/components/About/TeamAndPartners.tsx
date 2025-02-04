@@ -10,6 +10,8 @@ import aws from "../../assets/partners/awslogo.png";
 import IBM from "../../assets/partners/IBM.png";
 import Dell from "../../assets/partners/Dell.png";
 import Cloudera from "../../assets/partners/cloudera.png";
+import Header from "../Header";
+import Footer from "../Footer";
 
 const teamMembers = [
   { name: "KEVIN BRYAN", role: "Interior Designer - Partner", image: tobyscott },
@@ -44,7 +46,9 @@ const TeamAndPartners = () => {
   }, []);
 
   return (
-    <div id="team-partners-section" className="py-12 overflow-hidden">
+    <>
+    <Header />
+    <div id="team-partners-section" className="py-12 overflow-hidden mt-8">
       {/* Meet Our Team Section */}
       <section
         className={`mb-16 transition-transform duration-1000 ease-in-out ${
@@ -91,6 +95,8 @@ const TeamAndPartners = () => {
         </div>
       </section>
     </div>
+    <Footer />
+    </>
   );
 };
 

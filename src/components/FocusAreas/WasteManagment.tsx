@@ -2,6 +2,7 @@ import { FaArrowLeft } from 'react-icons/fa';
 import Footer from "../Footer";
 import Header from "../Header";
 import { useNavigate } from "react-router-dom";
+import FeaturedProjects from '../FeaturedProjects';
 const WasteManagement = () => {
      const navigate = useNavigate();
   return (
@@ -121,6 +122,7 @@ const WasteManagement = () => {
 
         </div>
       </div>
+      <FeaturedProjects value={"Waste Management"} categories={"focusArea"}  />
       <Footer />
     </>
   );

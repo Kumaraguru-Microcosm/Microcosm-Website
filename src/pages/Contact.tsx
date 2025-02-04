@@ -106,16 +106,7 @@ const Contact = () => {
 };
 
 const Map = () => {
-  const iframe = ` <iframe
-      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2515.2990519071263!2d76.99003146509665!3d11.07731852848765!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ba8f81b7514a15f%3A0x155e29f8d14154fc!2sKumaraguru%20College%20of%20Technology!5e0!3m2!1sen!2sin!4v1733827630983!5m2!1sen!2sin"
-      // width="600"
-      // height="450"
-      style="border:0;"
-class="w-full md:w-[600px]"
-      allowfullscreen=""
-      loading="lazy"
-      referrerpolicy="no-referrer-when-downgrade"
-    />`;
+  const iframe = ` <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d14338.484200796482!2d76.98921554709541!3d11.079577467358344!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ba8f7eeb3874255%3A0x71fe012adb75066!2sAhimsa%20Vanam!5e0!3m2!1sen!2sin!4v1738320905802!5m2!1sen!2sin" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>`;
   return (
     <div className="flex md:px-[20%] px-5 my-5 gap-10 w-full flex-col md:flex-row">
       <div

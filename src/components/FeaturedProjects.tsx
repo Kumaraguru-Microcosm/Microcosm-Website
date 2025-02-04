@@ -3,19 +3,23 @@ import { motion } from "framer-motion";
 import ProjectCard from "./ProjectCard"; // Assumes a pre-built reusable card component
 import { getAllProjects } from "../api/project"; // Assumes API call is in this file
 
-const FeaturedProjects = () => {
+const FeaturedProjects = ({value,categories}) => {
   const [projects, setProjects] = useState([]); // State to store projects
   const [currentPage, setCurrentPage] = useState(0);
   const [itemsPerPage, setItemsPerPage] = useState(5);
   const [transitionDuration, setTransitionDuration] = useState(5000);
 
   // Fetch "Featured Projects" on component mount
+
+  console.log(value)
   useEffect(() => {
     const fetchFeaturedProjects = async () => {
       try {
         const allProjects = await getAllProjects();
         const featuredProjects = allProjects.filter(
-          (project) => project.category === "Ongoing Projects"
+          (project) => 
+            project[categories] === value
+          
         );
         setProjects(featuredProjects);
       } catch (error) {
@@ -86,6 +90,7 @@ const FeaturedProjects = () => {
 
         {/* Display Project Cards */}
         <div className="flex flex-wrap justify-center gap-6">
+          {paginatedProjects.length === 0 ? <p>No projects</p> : <>
           {paginatedProjects.map((project, index) => (
             <motion.div
               key={project._id} 
@@ -105,6 +110,8 @@ const FeaturedProjects = () => {
               </a>
             </motion.div>
           ))}
+          </>}
+
         </div>
 
         {/* Pagination Dots */}

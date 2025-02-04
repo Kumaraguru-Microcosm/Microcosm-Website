@@ -4,7 +4,7 @@ import { useLocation } from "react-router-dom";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import homeBackgroundImage from "../assets/Home/KI_Cover.jpg";
-import aboutBackgroundImage from "../assets/background.png";
+import aboutBackgroundImage from "../assets/microcosmBackgroundImage.png";
 import educationBackgroundImage from "../assets/Home/new1.png";
 import projectBackgroundImage from "../assets/Home/new.png"; 
 
@@ -12,7 +12,7 @@ import "./HeroSlider.css";
 
 const HeroSlider = () => {
   const location = useLocation();
-  const isAboutPage = location.pathname === "/about";
+  const isAboutPage = location.pathname === "/what-is-microcosm";
   const isProjectPage = location.pathname === "/projects";
   const isEducationEventPage = location.pathname === "/eduAndEvents";
   const isHomePage = location.pathname === "/";
@@ -32,8 +32,8 @@ const HeroSlider = () => {
   const homePageSliderContent = [
     {
       image: homeBackgroundImage,
-      title: "Achieve Your Dreams",
-      description: "Join us and make a difference in the world.",
+      title: "MICROCOSM",
+      description: "Kumaraguru Microcosm is an eco-sensitive initiative to create a coexisting, inclusive, and sustainable environment",
       buttonText: "Become a Volunteer",
       buttonLink: "/volunteer",
       buttonColor: "bg-blue-500 hover:bg-blue-600",
@@ -134,7 +134,7 @@ const HeroSlider = () => {
               <h1
                 className={`text-white ${
                   isHomePage
-                    ? "text-4xl sm:text-6xl md:text-7xl lg:text-8xl"
+                    ? "text-4xl sm:text-6xl md:text-7xl lg:text-7xl"
                     : "text-2xl sm:text-4xl md:text-5xl lg:text-6xl"
                 } font-bold mb-4`}
               >
@@ -143,7 +143,7 @@ const HeroSlider = () => {
               <p
                 className={`text-gray-200 ${
                   isHomePage
-                    ? "text-xl sm:text-2xl md:text-3xl lg:text-4xl"
+                    ? "text-xl sm:text-2xl md:text-3xl lg:text-2xl"
                     : "text-base sm:text-lg md:text-xl lg:text-2xl"
                 } mb-6`}
               >

@@ -2,6 +2,7 @@ import { FaArrowLeft } from 'react-icons/fa';
 import Footer from "../Footer";
 import Header from "../Header";
 import { useNavigate } from "react-router-dom";
+import FeaturedProjects from '../FeaturedProjects';
 
 const EnergyAndEmission = () => {
   const navigate = useNavigate();
@@ -102,6 +103,7 @@ const EnergyAndEmission = () => {
           </section>
         </div>
       </div>
+      <FeaturedProjects value={"Energy And Emission"} categories={"focusArea"}  />
       <Footer />
     </>
   );
