@@ -1,11 +1,13 @@
 import { useState } from "react";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
+import Captcha from "../components/Captcha";
 
 const Contact = () => {
   const [email, setEmail] = useState("");
   const [subject, setSubject] = useState("");
   const [message, setMessage] = useState("");
+  const [captchaVerified, setCaptchaVerified] = useState(false);
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -90,12 +92,16 @@ const Contact = () => {
                 placeholder="Leave a message..."
               ></textarea>
             </div>
-            <button
-              onClick={handleSubmit}
-              className="py-3 px-5 text-sm font-medium text-center text-white bg-black rounded-lg bg-primary-700 sm:w-fit hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800 float-right"
-            >
-              Send message
-            </button>
+            <div className="flex lg:flex-row flex-col gap-3 justify-between">
+              <Captcha onClick={() => setCaptchaVerified(true)} />
+              <button
+                disabled={!captchaVerified}
+                onClick={handleSubmit}
+                className={`h-[50px] px-5 text-sm font-medium text-center text-white bg-black rounded-lg bg-primary-700 sm:w-fit hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800 float-right ${!captchaVerified && "bg-gray-400"}`}
+              >
+                Send message
+              </button>
+            </div>
           </form>
         </div>
       </section>
