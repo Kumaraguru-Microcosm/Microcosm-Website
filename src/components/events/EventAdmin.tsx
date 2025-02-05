@@ -11,8 +11,8 @@ const EventAdmin = () => {
     image: null,
     registrationLink: "",
   });
-  const [isEditing, setIsEditing] = useState(false)
-  const [currId,setCurrId] = useState("")
+  const [isEditing, setIsEditing] = useState(false);
+  const [currId, setCurrId] = useState("");
   useEffect(() => {
     (async () => {
       const events = await getAllEvents();
@@ -41,35 +41,28 @@ const EventAdmin = () => {
     formData.append("link", newEvent.registrationLink);
 
     try {
-      // Example API call
-      if(isEditing){
-        if(newEvent.image){
-          formData.append("image", newEvent.image);
-
-        }
-        const edited = await editEvent(currId,formData)
-        console.log("this is the edited: ",edited)
-        console.log("this is the prev:", events)
-        setEvents((prev) => {
-          return prev.map((e) => {
-            if(e._id === edited._id){
-              return edited
-            }
-            return e
-          })
-        })
-
-      }else{
+      if (isEditing) {
         formData.append("image", newEvent.image);
 
-        await addNewEvent(formData)
-        setEvents([...events, { ...newEvent, id: events.length + 1 }]);
+        const edited = await editEvent(currId, formData);
+        setEvents((prev) => {
+          return prev.map((e) => {
+            if (e._id === edited._id) {
+              return edited;
+            }
+            return e;
+          });
+        });
+      } else {
+        formData.append("image", newEvent.image);
 
+        const event = await addNewEvent(formData);
+        setEvents([...events, { ...newEvent, _id: event._id }]);
       }
 
       alert("Event updated successfully!");
-      setCurrId("")
-      setIsEditing(false)
+      setCurrId("");
+      setIsEditing(false);
     } catch (error) {
       console.error("Error adding event:", error);
     }
@@ -165,8 +158,7 @@ const EventAdmin = () => {
               type="submit"
               className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
             >
-              {isEditing ? "Edit Event" : 
-              "Add Event"}
+              {isEditing ? "Edit Event" : "Add Event"}
             </button>
           </div>
         </form>
@@ -183,10 +175,11 @@ const EventAdmin = () => {
             >
               <img
                 src={
-                  event.imageUrl ? event.imageUrl : 
-                  event.image instanceof File
-                    ? URL.createObjectURL(event.image)
-                    : event.image
+                  event.imageUrl
+                    ? event.imageUrl
+                    : event.image instanceof File
+                      ? URL.createObjectURL(event.image)
+                      : event.image
                 }
                 alt={event.title}
                 className="rounded-md mb-4 object-cover h-40"
@@ -204,11 +197,19 @@ const EventAdmin = () => {
               >
                 Registration Link
               </a>
-              <button className="bg-blue-500 text-white px-3 py-2 rounded-md hover:bg-blue-600" onClick={() => {
-                setIsEditing(true)
-                setCurrId(event._id)
-                setNewEvent({date:event.date,description:event.description,registrationLink:event.link,title:event.title})
-              }}>
+              <button
+                className="bg-blue-500 text-white px-3 py-2 rounded-md hover:bg-blue-600"
+                onClick={() => {
+                  setIsEditing(true);
+                  setCurrId(event._id);
+                  setNewEvent({
+                    date: event.date,
+                    description: event.description,
+                    registrationLink: event.link,
+                    title: event.title,
+                  });
+                }}
+              >
                 Edit
               </button>
             </div>

@@ -18,6 +18,9 @@ const Header = () => {
   const isAboutPage = location.pathname === "/what-is-microcosm";
   const isHomePage = location.pathname === "/";
   const isEduAndEventsPage = location.pathname === "/eduAndEvents";
+  const isVolunteerDisabled = import.meta.env.VITE_DISABLE_VOLUNTEER === "true";
+  const isInternshipDisabled =
+    import.meta.env.VITE_DISABLE_INTERNSHIP === "true";
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen((prev) => !prev);
@@ -79,7 +82,7 @@ const Header = () => {
     return "bg-white text-black shadow-lg transition-all duration-300 ease-in-out";
   };
 
-  const menuItems = [
+  let menuItems = [
     { name: "Home", path: "/" },
     { name: "About Us", path: "/what-is-microcosm" },
     { name: "Projects", path: "/projects" },
@@ -88,6 +91,9 @@ const Header = () => {
     { name: "Resources", path: "/resources" },
     { name: "Contact", path: "/contact" },
   ];
+  if (isVolunteerDisabled && isInternshipDisabled) {
+    menuItems = menuItems.filter((i) => i.name !== "Get Involved");
+  }
 
   return (
     <header className={`fixed top-0 left-0 w-full z-20 ${getHeaderStyles()}`}>
@@ -111,12 +117,11 @@ const Header = () => {
                       onMouseLeave={() => setIsGetInvolvedDropdownOpen(false)}
                     >
                       <NavLink
-                        to={item.path}
+                        to={"#"}
                         className={({ isActive }) =>
-                          `px-3 py-2 rounded-md transition duration-300 ${
-                            isActive
-                              ? "font-bold"
-                              : "hover:bg-clip-text hover:text-transparent hover:bg-gradient-to-r hover:from-green-400 hover:to-blue-500"
+                          `px-3 py-2 rounded-md transition duration-300 ${isActive
+                            ? "font-bold"
+                            : "hover:bg-clip-text hover:text-transparent hover:bg-gradient-to-r hover:from-green-400 hover:to-blue-500"
                           }`
                         }
                       >
@@ -124,18 +129,22 @@ const Header = () => {
                       </NavLink>
                       {isGetInvolvedDropdownOpen && (
                         <div className="absolute left-0 mt-2 w-48 bg-white text-black shadow-lg rounded-md">
-                          <NavLink
-                            to="/volunteer"
-                            className="block px-4 py-2 hover:bg-gray-100"
-                          >
-                            Volunteer
-                          </NavLink>
-                          <NavLink
-                            to="/internship"
-                            className="block px-4 py-2 hover:bg-gray-100"
-                          >
-                            Internship
-                          </NavLink>
+                          {!isVolunteerDisabled && (
+                            <NavLink
+                              to="/volunteer"
+                              className="block px-4 py-2 hover:bg-gray-100"
+                            >
+                              Volunteer
+                            </NavLink>
+                          )}
+                          {!isInternshipDisabled && (
+                            <NavLink
+                              to="/internship"
+                              className="block px-4 py-2 hover:bg-gray-100"
+                            >
+                              Internship
+                            </NavLink>
+                          )}
                         </div>
                       )}
                     </div>
@@ -153,10 +162,9 @@ const Header = () => {
                       <NavLink
                         to={item.path}
                         className={({ isActive }) =>
-                          `px-3 py-2 rounded-md transition duration-300 ${
-                            isActive
-                              ? "font-bold"
-                              : "hover:bg-clip-text hover:text-transparent hover:bg-gradient-to-r hover:from-green-400 hover:to-blue-500"
+                          `px-3 py-2 rounded-md transition duration-300 ${isActive
+                            ? "font-bold"
+                            : "hover:bg-clip-text hover:text-transparent hover:bg-gradient-to-r hover:from-green-400 hover:to-blue-500"
                           }`
                         }
                       >
@@ -241,10 +249,9 @@ const Header = () => {
                     key={index}
                     to={item.path}
                     className={({ isActive }) =>
-                      `px-3  rounded-md transition duration-300 ${
-                        isActive
-                          ? "font-bold"
-                          : "hover:bg-clip-text hover:text-transparent hover:bg-gradient-to-r hover:from-green-400 hover:to-blue-500"
+                      `px-3  rounded-md transition duration-300 ${isActive
+                        ? "font-bold"
+                        : "hover:bg-clip-text hover:text-transparent hover:bg-gradient-to-r hover:from-green-400 hover:to-blue-500"
                       }`
                     }
                   >
@@ -253,7 +260,6 @@ const Header = () => {
                 );
               })}
             </div>
-          
           </div>
 
           <button
@@ -288,10 +294,9 @@ const Header = () => {
                   key={index}
                   to={item.path}
                   className={({ isActive }) =>
-                    `block px-4 py-2 rounded-md transition duration-300 ${
-                      isActive
-                        ? "bg-green-500 font-bold"
-                        : "hover:bg-green-500 hover:text-white"
+                    `block px-4 py-2 rounded-md transition duration-300 ${isActive
+                      ? "bg-green-500 font-bold"
+                      : "hover:bg-green-500 hover:text-white"
                     }`
                   }
                   onClick={() => setIsMobileMenuOpen(false)}

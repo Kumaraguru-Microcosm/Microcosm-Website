@@ -43,18 +43,17 @@ const BlogsAdmin = () => {
 
     try {
       if (isEditing) {
+        formData.append("image", newBlog.image);
         console.log(newBlog.image);
-        if (newBlog.image) {
-          formData.append("image", newBlog.image);
-        }
+
         const updated = await editBlog(currId, formData);
         setBlogs((prev) =>
           prev.map((b) => (b._id === updated._id ? updated : b)),
         );
       } else {
         formData.append("image", newBlog.image);
-        await addNewBlog(formData);
-        setBlogs([...blogs, { ...newBlog, id: blogs.length + 1 }]);
+        const blog = await addNewBlog(formData);
+        setBlogs([...blogs, { ...newBlog, _id: blog._id }]);
       }
 
       alert("Blog added successfully!");
@@ -126,6 +125,7 @@ const BlogsAdmin = () => {
             <input
               type="file"
               accept="image/*"
+              name="image"
               className="mt-1 w-full border rounded-md p-2"
               onChange={handleFileChange}
               required={!isEditing}
@@ -172,6 +172,7 @@ const BlogsAdmin = () => {
                 className="bg-blue-500 text-white px-3 py-2 rounded-md hover:bg-blue-600"
                 onClick={() => {
                   setIsEditing(true);
+                  console.log("setting edit and the id is: ", blog._id);
                   setCurrId(blog._id);
                   setNewBlog({
                     title: blog.title,

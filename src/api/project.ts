@@ -18,21 +18,20 @@ export const addNewProject = async (projectDetails: FormData) => {
   }
 };
 
-
-export const editProject = async(id,details) => {
+export const editProject = async (id, details) => {
   try {
-    const res = await axios.post(`${serverUrl}/projects/edit/${id}`, details, {
-      headers: {
-        "Content-Type": "application/json",
-      },
+    const res = await fetch(`${serverUrl}/projects/edit/${id}`, {
+      method: "POST",
+      body: details,
     });
-    console.log("Project edited successfully:", res.data);
-    return res.data;
+    const respJson = await res.json();
+    console.log("Project edited successfully:", respJson);
+    return respJson;
   } catch (error) {
     console.error("Error adding project:", error);
     throw error;
   }
-}
+};
 // Get all projects
 export const getAllProjects = async () => {
   try {

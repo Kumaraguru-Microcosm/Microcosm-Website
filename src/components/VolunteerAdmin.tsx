@@ -76,7 +76,7 @@ const VolunteerAdmin = () => {
     } catch (error) {
       setMessage(
         error.response?.data?.error ||
-        "Something went wrong! Please try again.",
+          "Something went wrong! Please try again.",
       );
       alert("Something went wrong. Please try again");
     } finally {
@@ -95,18 +95,22 @@ const VolunteerAdmin = () => {
   return (
     <div className="p-6 bg-gray-100 min-h-screen flex justify-center items-center">
       <div className="w-full max-w-4xl bg-white rounded-2xl shadow-lg p-8">
-        <h1 className="text-3xl font-bold mb-8 text-center">Volunteer Form</h1>
+        <h1 className="text-3xl font-bold mt-7 text-center">Volunteer Form</h1>
         {message && (
           <div
-            className={`mb-6 text-center text-lg font-medium ${message.includes("successfully")
+            className={`mb-6 text-center text-lg font-medium ${
+              message.includes("successfully")
                 ? "text-green-600"
                 : "text-red-600"
-              }`}
+            }`}
           >
             {message}
           </div>
         )}
-        <form className="grid grid-cols-1 md:grid-cols-2 gap-6" onSubmit={handleSubmit}>
+        <form
+          className="grid grid-cols-1 md:grid-cols-2 gap-6"
+          onSubmit={handleSubmit}
+        >
           {/* Name */}
           <div>
             <label className="block text-base font-medium mb-2">Name *</label>
@@ -150,7 +154,9 @@ const VolunteerAdmin = () => {
           </div>
           {/* Graduation Year */}
           <div>
-            <label className="block text-base font-medium mb-2">Graduation Year *</label>
+            <label className="block text-base font-medium mb-2">
+              Graduation Year *
+            </label>
             <select
               name="graduationYear"
               value={formData.graduationYear}
@@ -168,7 +174,9 @@ const VolunteerAdmin = () => {
           </div>
           {/* College Selection */}
           <div>
-            <label className="block text-base font-medium mb-2">College *</label>
+            <label className="block text-base font-medium mb-2">
+              College *
+            </label>
             <select
               name="college"
               value={formData.college}
@@ -177,8 +185,12 @@ const VolunteerAdmin = () => {
               required
             >
               <option value="">Select College</option>
-              <option value="KCT">Kumaraguru College of Technology (KCT)</option>
-              <option value="KCLAS">Kumaraguru College of Liberal Arts & Science (KCLAS)</option>
+              <option value="KCT">
+                Kumaraguru College of Technology (KCT)
+              </option>
+              <option value="KCLAS">
+                Kumaraguru College of Liberal Arts & Science (KCLAS)
+              </option>
             </select>
           </div>
           {/* Area of Interest */}
@@ -219,7 +231,7 @@ const VolunteerAdmin = () => {
             <Captcha onClick={() => setCaptchaVerified(true)} />
             <button
               type="submit"
-              className={`w-full md:w-auto bg-blue-600 text-white px-8 py-3 text-lg rounded-lg ${captchaVerified && "hover:bg-blue-700 "} ${isLoading || (!captchaVerified && "bg-blue-300")}`}
+              className={`w-full md:w-auto  text-white px-8 py-3 text-lg rounded-lg ${captchaVerified && "hover:bg-blue-700 "} ${isLoading || !captchaVerified ? "bg-blue-300" : "bg-blue-600"}`}
               disabled={isLoading || !captchaVerified}
             >
               {isLoading ? "Submitting..." : "SUBMIT APPLICATION"}

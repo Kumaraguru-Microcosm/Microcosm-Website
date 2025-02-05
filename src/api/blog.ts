@@ -6,6 +6,8 @@ export const addNewBlog = async (blogDetails) => {
       method: "POST",
       body: blogDetails,
     });
+    const respJson = await response.json();
+    return respJson;
   } catch (error) {
     console.error(error);
   }
@@ -21,16 +23,15 @@ export const getAllBlogs = async () => {
     console.error(error);
   }
 };
-
 export const editBlog = async (id, blogDetails) => {
   try {
-    const res = await axios.post(`${serverUrl}/blogs/edit/${id}`, blogDetails, {
-      headers: {
-        "Content-Type": "application/json",
-      },
+    const res = await fetch(`${serverUrl}/blogs/edit/${id}`, {
+      method: "POST",
+      body: blogDetails,
     });
-    console.log("blog updated successfully:", res.data);
-    return res.data;
+    const respJson = await res.json();
+    console.log("blog updated successfully:", respJson);
+    return respJson;
   } catch (error) {
     console.error(error);
   }

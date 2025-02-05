@@ -7,25 +7,29 @@ export const addNewEvent = async (eventDetails) => {
         "Content-Type": "multipart/form-data",
       },
     });
-    console.log(res);
+    console.log(res.data);
+    return res.data;
   } catch (error) {
     console.error(error);
   }
 };
 
-export const editEvent = async(id,details)=>{
+export const editEvent = async (id, details) => {
   try {
-    const res = await axios.post(`${serverUrl}/events/edit/${id}`, details, {
-      headers: {
-        "Content-Type": "application/json",
-      },
+    const res = await fetch(`${serverUrl}/events/edit/${id}`, {
+      method: "POST",
+      body: details,
     });
-    return {...res.data,imageUrl:`http://localhost:3000/files/${res.data.image}`}
+    const respJson = await res.json();
+    console.log("this is resp: ", respJson);
+    return {
+      ...respJson.data,
+      imageUrl: `http://localhost:3000/files/${respJson.data.image}`,
+    };
   } catch (error) {
     console.error(error);
-
   }
-}
+};
 export const getAllEvents = async () => {
   try {
     const res = await fetch(`${serverUrl}/events/all`);

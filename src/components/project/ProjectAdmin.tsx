@@ -12,14 +12,14 @@ const categories = [
   { name: "Featured Projects" },
 ];
 
-const focusAreas = [
-  { name: "Energy And Emission" },
-  { name: "water Security" },
-  { name: "Waste Management" },
-  { name: "Biodiversity Enrichment" },
-];
-
 const ProjectAdmin = () => {
+  const focusAreas = [
+    { name: "Energy And Emission" },
+    { name: "water Security" },
+    { name: "Waste Management" },
+    { name: "Biodiversity Enrichment" },
+  ];
+
   const [newProject, setNewProject] = useState({
     title: "",
     image: null,
@@ -66,13 +66,11 @@ const ProjectAdmin = () => {
         console.log(key, val);
       }
       if (isEditing) {
+        formData.append("image", newProject.image);
         formData.append("keyHighlights", newProject.keyHighlights);
 
         formData.append("impactMetrics", newProject.impactMetrics);
 
-        if (newProject.image) {
-          formData.append("image", newProject.image);
-        }
         const updated = await editProject(currEditId, formData);
         setProjects((prev) =>
           prev.map((p) => (p._id === updated._id ? updated : p)),
