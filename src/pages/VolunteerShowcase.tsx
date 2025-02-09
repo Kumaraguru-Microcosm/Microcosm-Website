@@ -1,10 +1,16 @@
 import { useEffect, useState } from "react";
-import { getAllVolunteerApplications } from "../api/volunteer";
+import {
+  deleteVolunteer,
+  getAllVolunteerApplications,
+  getFilterVolunteers,
+} from "../api/volunteer";
 
 const VolunteerShowcase = () => {
   const [volunteers, setVolunteers] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(6); // Items per page
+  const [fromDate, setFromDate] = useState("");
+  const [toDate, setToDate] = useState("");
 
   useEffect(() => {
     (async () => {
@@ -22,9 +28,41 @@ const VolunteerShowcase = () => {
       prevVolunteers.map((volunteer) =>
         volunteer._id === id
           ? { ...volunteer, verified: !volunteer.verified }
-          : volunteer
-      )
+          : volunteer,
+      ),
     );
+  };
+  const exportToCSV = () => {
+    const headers = [
+      "Name",
+      "Email",
+      "Phone",
+      "Interests",
+      "College",
+      "Graduation Year",
+      "Experience",
+    ];
+    const rows = volunteers.map((volunteer) => [
+      ` "${volunteer.name}"`,
+      `"${volunteer.email}"`,
+      `"${volunteer.phone}"`,
+      `"${volunteer.interests.join(";")}"`,
+      `"${volunteer.college}"`,
+      `"${volunteer.graduationYear}"`,
+      `"${volunteer.experience}"`,
+    ]);
+    const csvContent = [headers, ...rows].map((e) => e.join(",")).join("\n");
+    const blob = new Blob([csvContent], { type: "text/csv" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    if (fromDate !== "") {
+      a.download = `volunteer_applications_${fromDate}_${toDate}.csv`;
+    } else {
+      a.download = `volunteer_applications.csv`;
+    }
+    a.click();
+    URL.revokeObjectURL(url);
   };
 
   const indexOfLastItem = currentPage * itemsPerPage;
@@ -35,9 +73,42 @@ const VolunteerShowcase = () => {
 
   return (
     <div className="p-6 bg-gray-100 min-h-screen flex flex-col items-center">
-      <h1 className="text-4xl font-bold text-center text-gray-800 mb-10">
-        Volunteer Applications
-      </h1>
+      <div className="flex gap-5 justify-evenly">
+        <h1 className="text-4xl font-bold  text-gray-800 mb-10">
+          Volunteer Applications
+        </h1>
+        <div>
+          <label htmlFor="fromDate">from</label>
+          <input
+            type="date"
+            className="p-1 mx-2"
+            value={fromDate}
+            onChange={(e) => setFromDate(e.target.value)}
+          />
+        </div>
+        <div>
+          <label htmlFor="toDate">to</label>
+          <input
+            type="date"
+            className="p-1 mx-2"
+            value={toDate}
+            onChange={async (e) => {
+              setToDate(e.target.value);
+              const volunteers = await getFilterVolunteers(
+                fromDate,
+                e.target.value,
+              );
+              setVolunteers(volunteers);
+            }}
+          />
+          <button
+            className="px-4 py-2 mx-3 bg-blue-600 text-white rounded-md hover:bg-blue-700"
+            onClick={exportToCSV}
+          >
+            Export to CSV
+          </button>
+        </div>
+      </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 w-full max-w-7xl">
         {volunteers.length === 0 ? (
@@ -61,30 +132,55 @@ const VolunteerShowcase = () => {
                   <span className="font-medium">Phone:</span> {volunteer.phone}
                 </p>
                 <p className="text-gray-600 mb-2">
-                  <span className="font-medium">Graduation Year:</span> {volunteer.graduationYear}
+                  <span className="font-medium">Graduation Year:</span>{" "}
+                  {volunteer.graduationYear}
                 </p>
                 <p className="text-gray-600 mb-2">
-                  <span className="font-medium">College:</span> {volunteer.college}
+                  <span className="font-medium">College:</span>{" "}
+                  {volunteer.college}
                 </p>
                 <p className="text-gray-600 mb-2 truncate">
-                  <span className="font-medium">Interests:</span> {volunteer.interests.join(", ")}
+                  <span className="font-medium">Interests:</span>{" "}
+                  {volunteer.interests.join(", ")}
                 </p>
                 <p className="text-gray-600 line-clamp-3">
-                  <span className="font-medium">Experience:</span> {volunteer.experience}
+                  <span className="font-medium">Experience:</span>{" "}
+                  {volunteer.experience}
                 </p>
               </div>
 
               {/* Verification Button */}
-              <button
-                onClick={() => toggleVerification(volunteer._id)}
-                className={`mt-4 px-4 py-2 rounded-md text-sm font-medium transition-all ${
-                  volunteer.verified
-                    ? "bg-green-500 text-white hover:bg-green-600"
-                    : "bg-gray-200 text-gray-700 hover:bg-gray-300"
-                }`}
-              >
-                {volunteer.verified ? "Verified" : "Not Verified"}
-              </button>
+              <div className="flex justify-between">
+                <button
+                  onClick={() => toggleVerification(volunteer._id)}
+                  className={`mt-4 px-4 py-2 rounded-md text-sm font-medium transition-all ${
+                    volunteer.verified
+                      ? "bg-green-500 text-white hover:bg-green-600"
+                      : "bg-gray-200 text-gray-700 hover:bg-gray-300"
+                  }`}
+                >
+                  {volunteer.verified ? "Verified" : "Not Verified"}
+                </button>
+                <button
+                  className="bg-red-500 rounded-md text-white px-3 py-2 self-end"
+                  onClick={async () => {
+                    const response = confirm(
+                      `Are you sure want to delete this volunteer application of ${volunteer.name}?`,
+                    );
+                    if (response) {
+                      const res = await deleteVolunteer(volunteer._id);
+                      console.log(res);
+                      if (res?.status === 204) {
+                        setVolunteers((prev) =>
+                          prev.filter((i) => i._id !== volunteer._id),
+                        );
+                      }
+                    }
+                  }}
+                >
+                  Delete
+                </button>
+              </div>
             </div>
           ))
         )}
@@ -94,7 +190,8 @@ const VolunteerShowcase = () => {
       {totalPages > 1 && (
         <div className="mt-12 flex flex-col sm:flex-row items-center justify-between gap-4 w-full max-w-7xl">
           <div className="text-gray-600 text-sm">
-            Showing {indexOfFirstItem + 1} - {Math.min(indexOfLastItem, volunteers.length)} of{" "}
+            Showing {indexOfFirstItem + 1} -{" "}
+            {Math.min(indexOfLastItem, volunteers.length)} of{" "}
             {volunteers.length} results
           </div>
 

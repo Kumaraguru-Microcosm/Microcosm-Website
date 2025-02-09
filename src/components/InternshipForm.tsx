@@ -79,11 +79,12 @@ const InternshipForm = () => {
       console.log(error);
       setMessage(
         error.response?.data?.error ||
-        "Something went wrong! Please try again.",
+          "Something went wrong! Please try again.",
       );
       alert("Something went wrong. Please try again");
     } finally {
       setIsLoading(false);
+      setCaptchaVerified(false);
     }
   };
 
@@ -97,10 +98,11 @@ const InternshipForm = () => {
           </h1>
           {message && (
             <div
-              className={`mb-6 text-center text-lg font-medium ${message.includes("successfully")
+              className={`mb-6 text-center text-lg font-medium ${
+                message.includes("successfully")
                   ? "text-green-600"
                   : "text-red-600"
-                }`}
+              }`}
             >
               {message}
             </div>
@@ -211,7 +213,7 @@ const InternshipForm = () => {
               <Captcha onClick={() => setCaptchaVerified(true)} />
               <button
                 type="submit"
-                className={`w-full md:w-auto bg-blue-600 text-white px-8 py-3 text-lg rounded-lg ${captchaVerified && "hover:bg-blue-700 "} ${isLoading || (!captchaVerified && "bg-blue-300")}`}
+                className={`w-full md:w-auto  text-white px-8 py-3 text-lg rounded-lg ${captchaVerified && "hover:bg-blue-700 "} ${isLoading || !captchaVerified ? "bg-blue-300" : "bg-blue-600"}`}
                 disabled={isLoading || !captchaVerified}
               >
                 {isLoading ? "Submitting..." : "SUBMIT APPLICATION"}
