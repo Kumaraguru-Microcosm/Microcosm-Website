@@ -1,0 +1,21 @@
+{
+  "events": [
+    {
+      "_id": {
+        "$oid": "67a38a6e884de3340be5c7d5"
+      },
+      "title": "sn3",
+      "link": "https://localhost:3000",
+      "description": "n5",
+      "image": "d5628f9f203d610df008b2618d1fa172.jpg",
+      "date": "2025-02-05",
+      "createdAt": {
+        "$date": "2025-02-05T15:57:34.903Z"
+      },
+      "updatedAt": {
+        "$date": "2025-02-05T16:01:36.297Z"
+      },
+      "__v": 0
+    }
+  ]
+}
