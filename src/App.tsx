@@ -72,7 +72,7 @@ const posts1 = [
     id: 6,
     title: "coral reefs: underwater rainforests",
     content:
-      "coral reefs are vibrant ecosystems that support a wide variety of marine life...",
+      "coral reefs are vibrant ecosystems that support a wide variety of marine life..",
     image: "https://via.placeholder.com/600x300",
     date: "2024-12-05",
   },
