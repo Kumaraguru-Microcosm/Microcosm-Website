@@ -83,6 +83,7 @@ function App() {
   useEffect(() => {
     (async () => {
       const p = await getAllBlogs();
+      console.log("this is p:", p);
       setPosts(p);
     })();
   }, []);

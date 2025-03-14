@@ -1,0 +1,15 @@
+{
+  "blogs": [
+    {
+      "_id": 1,
+      "title": "some blog2",
+      "content": "some content3",
+      "imageUrl": "/images/book cover.jpg",
+      "author": "Admin",
+      "date": "2025-02-05",
+      "createdAt": "2025-02-05",
+      "updatedAt": "2025-02-05",
+      "__v": 0
+    }
+  ]
+}

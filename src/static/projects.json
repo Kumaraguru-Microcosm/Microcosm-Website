@@ -1,0 +1,18 @@
+{
+  "projects": [
+    {
+      "_id": 1,
+      "category": "Ongoing Projects",
+      "title": "sk2",
+      "imageUrl": "/images/book cover.jpg",
+      "description": "kjn",
+      "overview": "skjnr",
+      "keyHighlights": ["d", "d"],
+      "focusArea": "Water Management",
+      "impactMetrics": {
+        "djn": "djn"
+      },
+      "__v": 0
+    }
+  ]
+}

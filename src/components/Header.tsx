@@ -87,7 +87,7 @@ const Header = () => {
     { name: "About Us", path: "/what-is-microcosm" },
     { name: "Projects", path: "/projects" },
     { name: "Events", path: "/eduAndEvents" },
-    { name: "Get Involved", path: "/get-involved" },
+    // { name: "Get Involved", path: "/get-involved" },
     { name: "Resources", path: "/resources" },
     { name: "Contact", path: "/contact" },
   ];

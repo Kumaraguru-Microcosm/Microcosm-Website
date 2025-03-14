@@ -4,7 +4,7 @@ import Footer from "../components/Footer";
 
 const PostDetail = ({ posts }) => {
   const { id } = useParams();
-  const post = posts.find((p) => p._id === id);
+  const post = posts.find((p) => p._id === +id);
 
   if (!post) {
     return (
