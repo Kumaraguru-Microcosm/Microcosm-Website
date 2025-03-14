@@ -4,11 +4,13 @@ import logo from "../assets/image.png";
 
 const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [isGetInvolvedDropdownOpen, setIsGetInvolvedDropdownOpen] =
-    useState(false);
+  const [isGetInvolvedDropdownOpen, setIsGetInvolvedDropdownOpen] = useState(false);
   const [isAboutDropdownOpen, setIsAboutDropdownOpen] = useState(false);
-  const [isFocusAreasDropdownOpen, setIsFocusAreasDropdownOpen] =
-    useState(false);
+  const [isFocusAreasDropdownOpen, setIsFocusAreasDropdownOpen] = useState(false);
+  // Mobile-specific states
+  const [mobileAboutDropdownOpen, setMobileAboutDropdownOpen] = useState(false);
+  const [mobileFocusAreasDropdownOpen, setMobileFocusAreasDropdownOpen] = useState(false);
+  const [mobileGetInvolvedDropdownOpen, setMobileGetInvolvedDropdownOpen] = useState(false);
   const [isIntersecting, setIsIntersecting] = useState(true);
   const menuRef = useRef(null);
 
@@ -19,11 +21,17 @@ const Header = () => {
   const isHomePage = location.pathname === "/";
   const isEduAndEventsPage = location.pathname === "/eduAndEvents";
   const isVolunteerDisabled = import.meta.env.VITE_DISABLE_VOLUNTEER === "true";
-  const isInternshipDisabled =
-    import.meta.env.VITE_DISABLE_INTERNSHIP === "true";
-
+  const isInternshipDisabled = import.meta.env.VITE_DISABLE_INTERNSHIP === "true";
   const toggleMobileMenu = () => {
-    setIsMobileMenuOpen((prev) => !prev);
+    setIsMobileMenuOpen((prev) => {
+      if (prev) {
+        // Reset dropdown states when closing the menu
+        setMobileAboutDropdownOpen(false);
+        setMobileFocusAreasDropdownOpen(false);
+        setMobileGetInvolvedDropdownOpen(false);
+      }
+      return !prev;
+    });
   };
 
   const handleOutsideClick = (e) => {
@@ -31,6 +39,10 @@ const Header = () => {
       setIsMobileMenuOpen(false);
       setIsGetInvolvedDropdownOpen(false);
       setIsAboutDropdownOpen(false);
+      // Reset mobile states too
+      setMobileAboutDropdownOpen(false);
+      setMobileFocusAreasDropdownOpen(false);
+      setMobileGetInvolvedDropdownOpen(false);
     }
   };
 
@@ -46,8 +58,6 @@ const Header = () => {
     };
   }, [isMobileMenuOpen, isGetInvolvedDropdownOpen, isAboutDropdownOpen]);
 
-  // Intersection Observer logic (keep existing code)
-  // ... (keep existing useEffect and getHeaderStyles code)
   useEffect(() => {
     const observeHeaderScroll = () => {
       const observer = new IntersectionObserver(
@@ -249,7 +259,7 @@ const Header = () => {
                     key={index}
                     to={item.path}
                     className={({ isActive }) =>
-                      `px-3  rounded-md transition duration-300 ${isActive
+                      `px-3 rounded-md transition duration-300 ${isActive
                         ? "font-bold"
                         : "hover:bg-clip-text hover:text-transparent hover:bg-gradient-to-r hover:from-green-400 hover:to-blue-500"
                       }`
@@ -278,32 +288,198 @@ const Header = () => {
                 strokeLinecap="round"
                 strokeLinejoin="round"
                 strokeWidth="2"
-                d="M4 6h16M4 12h16M4 18h16"
+                d={isMobileMenuOpen 
+                  ? "M6 18L18 6M6 6l12 12" // X shape when menu is open
+                  : "M4 6h16M4 12h16M4 18h16" // Hamburger when menu is closed
+                }
               />
             </svg>
           </button>
         </div>
+
+        {/* Mobile Navigation Menu */}
         {isMobileMenuOpen && (
           <div
             ref={menuRef}
             className="absolute top-16 left-0 w-full bg-gray-800 text-white shadow-lg md:hidden"
           >
-            <div className="flex flex-col items-center space-y-2 py-4">
-              {menuItems.map((item, index) => (
-                <NavLink
-                  key={index}
-                  to={item.path}
-                  className={({ isActive }) =>
-                    `block px-4 py-2 rounded-md transition duration-300 ${isActive
-                      ? "bg-green-500 font-bold"
-                      : "hover:bg-green-500 hover:text-white"
-                    }`
-                  }
-                  onClick={() => setIsMobileMenuOpen(false)}
-                >
-                  {item.name}
-                </NavLink>
-              ))}
+            <div className="flex flex-col items-start space-y-2 py-4 px-4">
+              {menuItems.map((item, index) => {
+                if (item.name === "Get Involved" && (!isVolunteerDisabled || !isInternshipDisabled)) {
+                  return (
+                    <div key={index} className="w-full">
+                      <button
+                        className={`w-full text-left px-4 py-2 rounded-md transition duration-300 hover:bg-gray-700 ${mobileGetInvolvedDropdownOpen ? "bg-gray-700" : ""}`}
+                        onClick={() => setMobileGetInvolvedDropdownOpen(!mobileGetInvolvedDropdownOpen)}
+                      >
+                        {item.name}
+                        <span className="float-right text-white">
+                          {mobileGetInvolvedDropdownOpen ? "▼" : ">"}
+                        </span>
+                      </button>
+                      
+                      {mobileGetInvolvedDropdownOpen && (
+                        <div className="ml-4 mt-2 border-l-2 border-green-500 pl-2">
+                          {!isVolunteerDisabled && (
+                            <NavLink
+                              to="/volunteer"
+                              className="block px-4 py-2 rounded-md hover:bg-gray-700"
+                              onClick={() => {
+                                setIsMobileMenuOpen(false);
+                                setMobileGetInvolvedDropdownOpen(false);
+                              }}
+                            >
+                              Volunteer
+                            </NavLink>
+                          )}
+                          {!isInternshipDisabled && (
+                            <NavLink
+                              to="/internship"
+                              className="block px-4 py-2 rounded-md hover:bg-gray-700"
+                              onClick={() => {
+                                setIsMobileMenuOpen(false);
+                                setMobileGetInvolvedDropdownOpen(false);
+                              }}
+                            >
+                              Internship
+                            </NavLink>
+                          )}
+                        </div>
+                      )}
+                    </div>
+                  );
+                }
+
+                if (item.name === "About Us") {
+                  return (
+                    <div key={index} className="w-full">
+                      <button
+                        className={`w-full text-left px-4 py-2 rounded-md transition duration-300 hover:bg-gray-700 ${mobileAboutDropdownOpen ? "bg-gray-700" : ""}`}
+                        onClick={() => setMobileAboutDropdownOpen(!mobileAboutDropdownOpen)}
+                      >
+                        {item.name}
+                        <span className="float-right text-white">
+                          {mobileAboutDropdownOpen ? "▼" : ">"}
+                        </span>
+                      </button>
+                      
+                      {mobileAboutDropdownOpen && (
+                        <div className="ml-4 mt-2 border-l-2 border-green-500 pl-2">
+                          <NavLink
+                            to="/what-is-microcosm"
+                            className="block px-4 py-2 rounded-md hover:bg-gray-700"
+                            onClick={() => {
+                              setIsMobileMenuOpen(false);
+                              setMobileAboutDropdownOpen(false);
+                            }}
+                          >
+                            What is Microcosm
+                          </NavLink>
+                          
+                          <div>
+                            <button
+                              className={`w-full text-left px-4 py-2 rounded-md transition duration-300 hover:bg-gray-700 ${mobileFocusAreasDropdownOpen ? "bg-gray-700" : ""}`}
+                              onClick={() => setMobileFocusAreasDropdownOpen(!mobileFocusAreasDropdownOpen)}
+                            >
+                              Focus Areas
+                              <span className="float-right text-white">
+                                {mobileFocusAreasDropdownOpen ? "▼" : ">"}
+                              </span>
+                            </button>
+                            
+                            {mobileFocusAreasDropdownOpen && (
+                              <div className="ml-4 mt-2 border-l-2 border-green-400 pl-2">
+                                <NavLink
+                                  to="/energy-and-emission"
+                                  className="block px-4 py-2 rounded-md hover:bg-gray-700"
+                                  onClick={() => {
+                                    setIsMobileMenuOpen(false);
+                                    setMobileAboutDropdownOpen(false);
+                                    setMobileFocusAreasDropdownOpen(false);
+                                  }}
+                                >
+                                  Energy And Emission
+                                </NavLink>
+                                <NavLink
+                                  to="/water-security"
+                                  className="block px-4 py-2 rounded-md hover:bg-gray-700"
+                                  onClick={() => {
+                                    setIsMobileMenuOpen(false);
+                                    setMobileAboutDropdownOpen(false);
+                                    setMobileFocusAreasDropdownOpen(false);
+                                  }}
+                                >
+                                  Water Security
+                                </NavLink>
+                                <NavLink
+                                  to="/waste-management"
+                                  className="block px-4 py-2 rounded-md hover:bg-gray-700"
+                                  onClick={() => {
+                                    setIsMobileMenuOpen(false);
+                                    setMobileAboutDropdownOpen(false);
+                                    setMobileFocusAreasDropdownOpen(false);
+                                  }}
+                                >
+                                  Waste Management
+                                </NavLink>
+                                <NavLink
+                                  to="/biodiversity-enrichment"
+                                  className="block px-4 py-2 rounded-md hover:bg-gray-700"
+                                  onClick={() => {
+                                    setIsMobileMenuOpen(false);
+                                    setMobileAboutDropdownOpen(false);
+                                    setMobileFocusAreasDropdownOpen(false);
+                                  }}
+                                >
+                                  Biodiversity Enrichment
+                                </NavLink>
+                                <NavLink
+                                  to="/awareness"
+                                  className="block px-4 py-2 rounded-md hover:bg-gray-700"
+                                  onClick={() => {
+                                    setIsMobileMenuOpen(false);
+                                    setMobileAboutDropdownOpen(false);
+                                    setMobileFocusAreasDropdownOpen(false);
+                                  }}
+                                >
+                                  Awareness
+                                </NavLink>
+                              </div>
+                            )}
+                          </div>
+                          
+                          <NavLink
+                            to="/teams"
+                            className="block px-4 py-2 rounded-md hover:bg-gray-700"
+                            onClick={() => {
+                              setIsMobileMenuOpen(false);
+                              setMobileAboutDropdownOpen(false);
+                            }}
+                          >
+                            Teams and Partners
+                          </NavLink>
+                        </div>
+                      )}
+                    </div>
+                  );
+                }
+
+                return (
+                  <NavLink
+                    key={index}
+                    to={item.path}
+                    className={({ isActive }) =>
+                      `block w-full px-4 py-2 rounded-md transition duration-300 ${isActive
+                        ? "bg-gray-700 font-bold"
+                        : "hover:bg-gray-700"
+                      }`
+                    }
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
+                    {item.name}
+                  </NavLink>
+                );
+              })}
             </div>
           </div>
         )}
