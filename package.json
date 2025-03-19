@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "predeploy": "npm run build",
-    "deploy": "gh-pages -b static-v1 -d dist",
+    "deploy": "gh-pages -b deployss-v1 -d dist",
     "homepage": "https://kumaraguru-microcosm.github.io/Microcosm-Website/",
     "dev": "vite",
     "dev-host": "vite --host",
