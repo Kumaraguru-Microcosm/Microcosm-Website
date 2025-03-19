@@ -11,7 +11,7 @@ const EducationAndEvents = () => {
       <div className="education-events">
         <Header />
         <HeroSlider />
-        {/* <UpcomingEventsCalendar /> */}
+        <UpcomingEventsCalendar />
         <DynamicEvents />
         {/* <PastEventsArchive /> */}
         <Footer />

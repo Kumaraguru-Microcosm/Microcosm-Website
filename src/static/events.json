@@ -2,11 +2,26 @@
   "events": [
     {
       "_id": 1,
-      "title": "sn3",
+      "title": "Student Conclave For Climate Action 2025",
       "link": "https://localhost:3000",
-      "description": "n5",
-      "imageUrl": "/images/book cover.jpg",
-      "date": "2025-02-05",
+      "description":"Have a game-changing idea for the planet? This is your moment!, Pitch for Planet is a dynamic platform where students pitch innovative sustainability, solutions before a panel of experts, investors, and industry experts. The best ideas don’t just win applause—they win funding and support to turn vision into action!,  Winner’s Reward: ₹1 Lakh Seed Fund,  Pitch Themes: Climate-Smart Agriculture – Innovations for sustainable farming and food security, Water Conservation – Solutions to optimize water use and reduce waste, Waste Management – Transforming waste into resources and reducing environmental impact, Energy Transition – Advancing clean and renewable energy solutions.",
+      "imageUrl": "/assets/events/image.png",
+      "date": "2025-03-05",
+      "createdAt": {
+        "$date": "2025-02-05T15:57:34.903Z"
+      },
+      "updatedAt": {
+        "$date": "2025-02-05T16:01:36.297Z"
+      },
+      "__v": 0
+    },
+    {
+      "_id": 2,
+      "title": "Farming Excellence Conclave",
+      "link": "https://localhost:3000",
+      "description":"Kumaraguru Institutions warmly invites you to a special session as part of the Pongal Vizha celebrations, where we embrace the synergy between Agriculture and Technology. This event will explore innovative water management solutions and showcase how Artificial Intelligence is transforming modern farming practices to enhance efficiency and sustainability,  We are honored to host Mr. Dhevendhiran K from Mobitech Wireless Solution Private Limited as our speaker. Join us on January 10, 2025, at 10:00 AM in the MBA Lecture Hall, Kumaraguru Campus, Coimbatore, for an engaging discussion that bridges tradition and technology. Don't miss this opportunity to gain valuable insights into the future of agriculture!..",
+      "imageUrl": "/assets/Home/image.png",
+      "date": "2025-01-10",
       "createdAt": {
         "$date": "2025-02-05T15:57:34.903Z"
       },

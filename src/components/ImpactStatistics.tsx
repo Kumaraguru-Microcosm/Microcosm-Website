@@ -2,7 +2,7 @@ import React from "react";
 import CountUp from "react-countup";
 import { motion } from "framer-motion";
 import { Leaf, Sun } from "lucide-react"; // Replace with your icon library
-import stat from "../assets/Home/impact.png"; // Replace with your image path
+import stat from "/assets/Home/impact.png"; // Replace with your image path
 
 const ImpactStatistics = () => {
   const stats = [

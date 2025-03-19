@@ -8,10 +8,10 @@ import {
   isSameDay,
 } from "date-fns";
 
-import sustainabilityImage from "../../assets/events/sustainabilityImage.png";
-import sdgConversationImage from "../../assets/events/sdgConversationImage.png";
-import birdWalkImage from "../../assets/events/birdWalkImage.png";
-import wetlandImage from "../../assets/events/wetLandImage.png";
+import sustainabilityImage from "/assets/events/sustainabilityImage.png";
+import sdgConversationImage from "/assets/events/sdgConversationImage.png";
+import birdWalkImage from "/assets/events/birdWalkImage.png";
+import wetlandImage from "/assets/events/wetLandImage.png";
 const kareImage = "/path/to/kareImage.jpg";
 
 const events = [

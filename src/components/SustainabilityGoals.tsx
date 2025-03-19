@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import awareness from "../assets/Home/awareness.png";
-import biodiversity from "../assets/Home/biodiversity.png";
-import energy from "../assets/Home/Energy.png";
-import waste from "../assets/Home/waste.png";
-import water from "../assets/Home/water.png";
+import awareness from "/assets/Home/awareness.png";
+import biodiversity from "/assets/Home/biodiversity.png";
+import energy from "/assets/Home/Energy.png";
+import waste from "/assets/Home/waste.png";
+import water from "/assets/Home/water.png";
 
 interface FocusArea {
   id: number;

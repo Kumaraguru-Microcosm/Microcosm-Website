@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { NavLink, useLocation } from "react-router-dom";
-import logo from "../assets/image.png";
+import logo from "/assets/image.png";
 
 const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);

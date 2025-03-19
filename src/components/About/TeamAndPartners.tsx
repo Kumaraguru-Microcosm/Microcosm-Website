@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
-import saravanan from "../../assets/teams/saravanan.png";
-import vaishnavee from "../../assets/teams/vaishnavee.png";
-import nethaji from "../../assets/teams/nethaji.png";
-import keerthana from "../../assets/teams/keerthana.png";
-import arulagam from "../../assets/partners/Arulagam.jpeg";
-import cns from "../../assets/partners/CNS.jpeg";
-import env from "../../assets/partners/envDefF.svg";
-import neera from "../../assets/partners/neera.png";
-import tnbs from "../../assets/partners/TNBS.jpeg";
+import saravanan from "/assets/teams/saravanan.png";
+import vaishnavee from "/assets/teams/vaishnavee.png";
+import nethaji from "/assets/teams/nethaji.png";
+import keerthana from "/assets/teams/keerthana.png";
+import arulagam from "/assets/partners/Arulagam.jpeg";
+import cns from "/assets/partners/CNS.jpeg";
+import env from "/assets/partners/envDefF.svg";
+import neera from "/assets/partners/neera.png";
+import tnbs from "/assets/partners/TNBS.jpeg";
 import Header from "../Header";
 import Footer from "../Footer";
 
