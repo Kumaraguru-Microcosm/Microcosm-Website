@@ -14,21 +14,6 @@
         "$date": "2025-02-05T16:01:36.297Z"
       },
       "__v": 0
-    },
-    {
-      "_id": 2,
-      "title": "Farming Excellence Conclave",
-      "link": "https://localhost:3000",
-      "description":"Kumaraguru Institutions warmly invites you to a special session as part of the Pongal Vizha celebrations, where we embrace the synergy between Agriculture and Technology. This event will explore innovative water management solutions and showcase how Artificial Intelligence is transforming modern farming practices to enhance efficiency and sustainability,  We are honored to host Mr. Dhevendhiran K from Mobitech Wireless Solution Private Limited as our speaker. Join us on January 10, 2025, at 10:00 AM in the MBA Lecture Hall, Kumaraguru Campus, Coimbatore, for an engaging discussion that bridges tradition and technology. Don't miss this opportunity to gain valuable insights into the future of agriculture!..",
-      "imageUrl": "/assets/Home/image.png",
-      "date": "2025-01-10",
-      "createdAt": {
-        "$date": "2025-02-05T15:57:34.903Z"
-      },
-      "updatedAt": {
-        "$date": "2025-02-05T16:01:36.297Z"
-      },
-      "__v": 0
     }
   ]
 }
