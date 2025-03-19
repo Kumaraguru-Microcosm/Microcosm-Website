@@ -40,6 +40,9 @@ const PostDetail = ({ posts }) => {
           </h1>
           <p className="text-gray-600 text-sm mb-4">{post.date}</p>
           <p className="text-gray-700 leading-relaxed">{post.content}</p>
+          <p className="text-gray-700 leading-relaxed">{post.anotherContent}</p><br />
+          <p className="text-gray-700 leading-relaxed">{post.anotherContent1}</p><br />
+          <p className="text-gray-700 leading-relaxed">{post.anotherContent2}</p><br />
           <p className="mt-10">Written By</p>
           <p>{post.author}</p>
         </div>

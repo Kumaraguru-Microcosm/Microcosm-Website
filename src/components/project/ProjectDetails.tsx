@@ -98,6 +98,10 @@ const ProjectDetails = () => {
         <div className="space-y-12">
           <section>
             <h2 className="text-3xl font-bold text-gray-800 mb-4">Overview</h2>
+            <p className="text-lg leading-relaxed text-gray-700">{project.overview}</p>
+          </section>
+          <section>
+            <h2 className="text-3xl font-bold text-gray-800 mb-4">Description</h2>
             <p className="text-lg leading-relaxed text-gray-700">{project.description}</p>
           </section>
 

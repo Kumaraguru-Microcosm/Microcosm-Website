@@ -1,34 +1,29 @@
 import React, { useEffect, useState } from "react";
-import tobyscott from "../../assets/teams/toby-scott.png";
-import murielmoore from "../../assets/teams/muriel-moore.png";
-import pokbenjamin from "../../assets/teams/pok-benjamin.png";
-import microsoft from "../../assets/partners/microsoftlogo.png";
-import salesforce from "../../assets/partners/salesforcelogo.png";
-import webmerge from "../../assets/partners/webmergelogo.png";
-import kentico from "../../assets/partners/kentico.png";
-import aws from "../../assets/partners/awslogo.png";
-import IBM from "../../assets/partners/IBM.png";
-import Dell from "../../assets/partners/Dell.png";
-import Cloudera from "../../assets/partners/cloudera.png";
+import saravanan from "../../assets/teams/saravanan.png";
+import vaishnavee from "../../assets/teams/vaishnavee.png";
+import nethaji from "../../assets/teams/nethaji.png";
+import keerthana from "../../assets/teams/keerthana.png";
+import arulagam from "../../assets/partners/Arulagam.jpeg";
+import cns from "../../assets/partners/CNS.jpeg";
+import env from "../../assets/partners/envDefF.svg";
+import neera from "../../assets/partners/neera.png";
+import tnbs from "../../assets/partners/TNBS.jpeg";
 import Header from "../Header";
 import Footer from "../Footer";
 
 const teamMembers = [
-  { name: "KEVIN BRYAN", role: "Interior Designer - Partner", image: tobyscott },
-  { name: "TOBY SCOTT", role: "Architect Director - Partner", image: tobyscott },
-  { name: "MURIEL MOORE", role: "Architect Manager - Partner", image: murielmoore },
-  { name: "POK BENJAMIN", role: "Interior Manager - Partner", image: pokbenjamin },
+  { name: "Mr. Saravanan Chandrasekaran", role: "Assistant Vice President , Kumaraguru Institutions", image: saravanan },
+  { name: "Mrs. Vaishnavee K B", role: "Program Manager , Microcosm", image: vaishnavee },
+  { name: "Mr. Nethaji Subash M", role: "Senior Executive, Microcosm", image: nethaji },
+  { name: "Ms. Keerthana N", role: "Junior Research Fellow, Microcosm", image: keerthana },
 ];
 
 const partners = [
-  { name: "Microsoft", image: microsoft },
-  { name: "Salesforce", image: salesforce },
-  { name: "WebMerge", image: webmerge },
-  { name: "Kentico", image: kentico },
-  { name: "AWS", image: aws },
-  { name: "IBM", image: IBM },
-  { name: "Dell", image: Dell },
-  { name: "Cloudera", image: Cloudera },
+  { name: "Environmental Defense Fund", image: env },
+  { name: "Coimbatore Nature Society", image: cns },
+  { name: "Tamil Nadu Butterfly Society", image: tnbs },
+  { name: "Arulagam", image: arulagam },
+  { name: "Kousika Neerkarangal", image: neera },
 ];
 
 const TeamAndPartners = () => {
@@ -75,25 +70,26 @@ const TeamAndPartners = () => {
       </section>
 
       {/* Our Partners Section */}
-      <section
-        className={`transition-transform duration-1000 ease-in-out ${
-          isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
-        }`}
-      >
-        <h2 className="text-3xl font-bold text-center text-gray-800 mb-8">Our Partners</h2>
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 max-w-6xl mx-auto">
-          {partners.map((partner, index) => (
-            <div key={index} className="flex items-center justify-center">
-              <img
-                src={partner.image}
-                alt={partner.name}
-                className="w-full h-auto object-cover rounded-lg"
-                style={{ maxHeight: "120px" }}
-              />
-            </div>
-          ))}
-        </div>
-      </section>
+<section
+  className={`transition-transform duration-1000 ease-in-out ${
+    isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
+  }`}
+>
+  <h2 className="text-3xl font-bold text-center text-gray-800 mb-8">Our Partners</h2>
+  <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-6 max-w-6xl mx-auto">
+    {partners.map((partner, index) => (
+      <div key={index} className="flex flex-col items-center text-center">
+        <img
+          src={partner.image}
+          alt={partner.name}
+          className="w-24 h-24 object-contain rounded-lg shadow-md"
+        />
+        <p className="text-sm text-gray-700 mt-2 font-medium">{partner.name}</p>
+      </div>
+    ))}
+  </div>
+</section>
+
     </div>
     <Footer />
     </>

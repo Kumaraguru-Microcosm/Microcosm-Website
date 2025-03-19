@@ -9,8 +9,7 @@ const ProjectShowCasing = () => {
 
   const categories = [
     { name: "Ongoing Projects", value: "Ongoing Projects" },
-    { name: "Completed Projects", value: "Completed Projects" },
-    { name: "Featured Projects", value: "Featured Projects" },
+    { name: "Completed Projects", value: "Completed Projects" }
   ];
 
   // Fetch all projects from the backend
@@ -19,7 +18,7 @@ const ProjectShowCasing = () => {
       try {
         const fetchedProjects = await getAllProjects();
         setProjects(fetchedProjects);
-        console.log("These are the porjetcs: ", fetchedProjects);
+        console.log("These are the projects: ", fetchedProjects);
       } catch (error) {
         console.error("Failed to fetch projects:", error);
       }
@@ -33,6 +32,8 @@ const ProjectShowCasing = () => {
     return projects.filter((project) => project.category === selectedCategory);
   };
 
+  const filteredProjects = getProjectList();
+
   // Slider settings
   const categorySliderSettings = {
     infinite: false,
@@ -44,12 +45,12 @@ const ProjectShowCasing = () => {
 
   const projectSliderSettings = {
     dots: true,
-    infinite: true,
+    infinite: filteredProjects.length > 1, // Prevent infinite looping for a single project
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
-    arrows: true,
-    autoplay: true,
+    arrows: filteredProjects.length > 1, // Show arrows only if more than one project
+    autoplay: filteredProjects.length > 1, // Autoplay only if more than one project
     autoplaySpeed: 3000,
   };
 
@@ -66,10 +67,11 @@ const ProjectShowCasing = () => {
             <button
               key={category.value}
               onClick={() => setSelectedCategory(category.value)}
-              className={`px-4 py-2 text-lg font-semibold transition duration-300 ${selectedCategory === category.value
+              className={`px-4 py-2 text-lg font-semibold transition duration-300 ${
+                selectedCategory === category.value
                   ? "text-green-500"
                   : "text-gray-700"
-                }`}
+              }`}
             >
               {category.name}
             </button>
@@ -83,55 +85,75 @@ const ProjectShowCasing = () => {
           <button
             key={category.value}
             onClick={() => setSelectedCategory(category.value)}
-            className={`px-6 py-2 text-lg font-semibold transition duration-300 ${selectedCategory === category.value
+            className={`px-6 py-2 text-lg font-semibold transition duration-300 ${
+              selectedCategory === category.value
                 ? "text-green-500"
                 : "text-gray-700"
-              }`}
+            }`}
           >
             {category.name}
           </button>
         ))}
       </div>
 
-      {/* Carousel for Project List (Mobile View) */}
+      {/* Mobile View (Single Project Check) */}
       <div className="sm:hidden">
-        <Slider {...projectSliderSettings}>
-          {getProjectList().map((project) => (
-            <a href={`/details/${project._id}`} key={project._id}>
-              <div className="bg-white rounded-lg shadow-md p-6 hover:shadow-xl transition-all duration-300">
-                <img
-                  src={project.imageUrl}
-                  alt={project.title}
-                  className="w-full h-48 sm:h-56 md:h-64 object-cover rounded-md mb-4"
-                />
-                <h2 className="text-xl sm:text-2xl font-bold mb-2 whitespace-nowrap overflow-hidden text-ellipsis">
-                  {project.title}
-                </h2>
-                <p className="text-gray-700 text-sm sm:text-base whitespace-nowrap overflow-hidden text-ellipsis">
-                  {project.description}
-                </p>
-                <hr className="my-4 border-gray-300" />
-                <div className="flex justify-end items-center">
-                  <a
-                    href={`/details/${project._id}`}
-                    className="text-green-500 font-semibold text-sm flex items-center"
-                  >
-                    Know More <span className="ml-2">→</span>
-                  </a>
+        {filteredProjects.length === 1 ? (
+          // If there's only ONE project, show it statically
+          <div className="bg-white rounded-lg shadow-md p-6 hover:shadow-xl transition-all duration-300">
+            <img
+              src={filteredProjects[0].imageUrl}
+              alt={filteredProjects[0].title}
+              className="w-full h-48 object-cover rounded-md mb-4"
+            />
+            <h2 className="text-xl font-bold mb-2">{filteredProjects[0].title}</h2>
+            <p className="text-gray-700 text-sm">{filteredProjects[0].overview}</p>
+            <hr className="my-4 border-gray-300" />
+            <div className="flex justify-end items-center">
+              <a
+                href={`/details/${filteredProjects[0]._id}`}
+                className="text-green-500 font-semibold text-sm flex items-center"
+              >
+                Know More <span className="ml-2">→</span>
+              </a>
+            </div>
+          </div>
+        ) : (
+          // If multiple projects, use the slider
+          <Slider {...projectSliderSettings}>
+            {filteredProjects.map((project) => (
+              <a href={`/details/${project._id}`} key={project._id}>
+                <div className="bg-white rounded-lg shadow-md p-6 hover:shadow-xl transition-all duration-300">
+                  <img
+                    src={project.imageUrl}
+                    alt={project.title}
+                    className="w-full h-48 object-cover rounded-md mb-4"
+                  />
+                  <h2 className="text-xl font-bold mb-2">{project.title}</h2>
+                  <p className="text-gray-700 text-sm">{project.overview}</p>
+                  <hr className="my-4 border-gray-300" />
+                  <div className="flex justify-end items-center">
+                    <a
+                      href={`/details/${project._id}`}
+                      className="text-green-500 font-semibold text-sm flex items-center"
+                    >
+                      Know More <span className="ml-2">→</span>
+                    </a>
+                  </div>
                 </div>
-              </div>
-            </a>
-          ))}
-        </Slider>
+              </a>
+            ))}
+          </Slider>
+        )}
       </div>
 
       {/* Grid for Project List (Larger Screens) */}
-      <div className="hidden sm:grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 mt-8 mb-6">
-        {getProjectList().map((project) => (
+      <div className="hidden sm:grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-8 mb-6">
+        {filteredProjects.map((project) => (
           <a href={`/details/${project._id}`} key={project._id}>
             <motion.div
               whileHover={{ scale: 1.05 }}
-              className="bg-white rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 flex flex-col max-w-xs mx-auto h-full"
+              className="bg-white rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 flex flex-col h-full min-h-full overflow-hidden"
             >
               {/* Image Section */}
               <div className="relative h-56">
@@ -151,8 +173,9 @@ const ProjectShowCasing = () => {
                   {project.title}
                 </h2>
                 <p className="text-gray-600 text-sm line-clamp-3 mb-4">
-                  {project.description}
+                  {project.overview}
                 </p>
+            
                 <div className="mt-auto pt-4 border-t border-gray-200 flex justify-between items-center">
                   <span className="text-sm font-medium text-gray-500">
                     {project.date || ""}

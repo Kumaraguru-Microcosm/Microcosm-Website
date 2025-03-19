@@ -23,7 +23,7 @@ const HomePage = () => {
             {/* <DynamicEvents /> */}
             <FeaturedProjects categories={"category"} value={"Ongoing Projects"}/>
             {/* <Testimonial /> */}
-            <SubscribeSection />
+            {/* <SubscribeSection /> */}
             <Footer />
         </div>
     );

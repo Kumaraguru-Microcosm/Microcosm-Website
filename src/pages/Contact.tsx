@@ -139,7 +139,7 @@ const Map = () => {
         <p className="">Contact Us</p>
         <ul className="flex gap-5 my-2">
           <li>+91xxxxx</li>
-          <li>name@email.com</li>
+          <li>microcosm@kct.ac.in</li>
           <li>microcosm.in</li>
         </ul>
       </div>
