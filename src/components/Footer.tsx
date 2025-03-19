@@ -51,7 +51,7 @@ const Footer = () => {
 
         <div className="flex flex-col md:flex-row justify-between items-center text-gray-400">
           <div className="flex space-x-6">
-            <a href="#" className="hover:text-white hover:underline transition duration-300 ease-in-out">
+            <a href="https://aqar.kct.ac.in/3/2021-22/3_6_1/Microcosm.pdf" className="hover:text-white hover:underline transition duration-300 ease-in-out">
               Media and News
             </a>
 
