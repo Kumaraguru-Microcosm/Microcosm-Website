@@ -4,11 +4,12 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -b static-v1 -d dist",
+    "homepage": "https://kumaraguru-microcosm.github.io/Microcosm-Website/",
     "dev": "vite",
     "dev-host": "vite --host",
     "build": " vite build",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d dist",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"
   },
