@@ -1,0 +1,19 @@
+{
+  "events": [
+    {
+      "_id": 1,
+      "title": "Student Conclave For Climate Action 2025",
+      "link": "https://localhost:3000",
+      "description":"Have a game-changing idea for the planet? This is your moment!, Pitch for Planet is a dynamic platform where students pitch innovative sustainability, solutions before a panel of experts, investors, and industry experts. The best ideas don’t just win applause—they win funding and support to turn vision into action!,  Winner’s Reward: ₹1 Lakh Seed Fund,  Pitch Themes: Climate-Smart Agriculture – Innovations for sustainable farming and food security, Water Conservation – Solutions to optimize water use and reduce waste, Waste Management – Transforming waste into resources and reducing environmental impact, Energy Transition – Advancing clean and renewable energy solutions.",
+      "imageUrl": "/assets/events/image.png",
+      "date": "2025-03-05",
+      "createdAt": {
+        "$date": "2025-02-05T15:57:34.903Z"
+      },
+      "updatedAt": {
+        "$date": "2025-02-05T16:01:36.297Z"
+      },
+      "__v": 0
+    }
+  ]
+}

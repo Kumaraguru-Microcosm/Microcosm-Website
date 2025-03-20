@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import sessionPhoto1 from "../../assets/events/birdWalkImage.png";
-import sessionPhoto2 from "../../assets/events/sustainabilityImage.png";
-import sessionPhoto3 from "../../assets/events/wetLandImage.png";
+import sessionPhoto1 from "/assets/events/birdWalkImage.png";
+import sessionPhoto2 from "/assets/events/sustainabilityImage.png";
+import sessionPhoto3 from "/assets/events/wetLandImage.png";
 import Footer from "../Footer";
 import Header from "../Header";
 // import sessionVideo from "../../assets/events/sampleVideo.mp4";

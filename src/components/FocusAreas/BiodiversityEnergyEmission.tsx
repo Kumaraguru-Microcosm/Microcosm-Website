@@ -22,22 +22,14 @@ const BiodiversityEnergyEmission = () => {
 
         {/* Title Section */}
         <h2 className="cursor-pointer bg-gray-100 p-6 text-2xl font-bold text-gray-800 rounded-t-lg">
-          Biodiversity, Energy, and Emission
+        Biodiversity Enrichment
         </h2>
 
         <div className="p-6 text-gray-700 space-y-6">
           {/* Energy and Emission Section */}
           <section className="space-y-4">
             <p className="text-gray-600">
-              The campus currently operates on 36% renewable energy, with 30% of this generated from solar power at a capacity of 250 kW. We are actively working to expand our solar power plant and procure wind energy, aiming to increase our solar capacity to 4 MW. This initiative will enable us to achieve nearly 60% of our total energy consumption from renewable sources.
-            </p>
-          </section>
-
-          {/* Solar Energy Section */}
-          <section className="space-y-4">
-            <h3 className="text-xl font-semibold text-gray-800">Solar Energy</h3>
-            <p className="text-gray-600">
-              We are expanding our solar energy capacity to meet growing energy demands sustainably. Our solar energy infrastructure, currently at 250 kW, is being scaled up to 4 MW to significantly contribute to renewable energy generation and reduce carbon emissions across the campus.
+            Kumaraguru campus home to 4000+ Trees, 95+ species of birds and 55+ Species of butterflies.
             </p>
           </section>
 
@@ -59,7 +51,7 @@ const BiodiversityEnergyEmission = () => {
               <p className="text-gray-600">
                 A one-acre urban forest was created to promote biodiversity, featuring 150 species of trees, shrubs, and plants. A cobbled trail facilitates nature exploration and engagement. It is a multi-layered canopy that includes mature trees, fruiting dwarf trees, shrubs, perennial herbs, and vines, creating a thriving natural forest ecosystem that enriches soil and supports diverse wildlife. Once it matures, it can sequester up to 10,000 kg of carbon annually, also contributing to a vibrant habitat for fauna.
               </p>
-              <p className="text-gray-600">[Ahimsa Vanam Flyer attachment]</p>
+              
             </div>
 
             {/* Afforestation Efforts Section */}

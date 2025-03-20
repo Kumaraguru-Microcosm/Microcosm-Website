@@ -1,0 +1,32 @@
+{
+  "blogs": [
+    {
+      "_id": 1,
+      "title": "Student Conclave for Climate Action - 2024",
+      "content": "A conclave to share knowledge about climate action and the happenings around the world related to sustainability. This year, the conclave focused on three major themes. #Tech for Climat, #Policy for Climate,#Fabrics for Climate are steps towards global resilience. Featuring Master Classes, Workshops, Panel Discussions, and Field Visits all cantered on the pivotal mission of combating climate change and addressing global warming. while fostering sustainability.",
+      "anotherContent":"#Tech for Climate: Engineering a Greener Future,   The Tech for Climate sessions delved into the role of technology in mitigating climate change. Experts showcased AI-driven climate models, IoT-enabled smart grids, and renewable energy innovations that can revolutionize how we tackle environmental issues. Workshops provided hands-on experience with solar microgrids, energy-efficient solutions, and climate data analytics, enabling students to turn ideas into action.",
+      "anotherContent1":"#Fabrics for Climate: Sustainable Fashion for a Better Planet,  The fashion industry is a major contributor to global carbon emissions and water pollution. This track focused on sustainable textile production, eco-friendly dyes, biodegradable fabrics, and circular fashion models. Participants learned how conscious fashion choices can reduce waste, save water, and lower carbon footprints.",
+      "anotherContent2":"A Call to Action: From Learning to Leadership,   The Student Conclave for Climate Action – 2024 was more than just an event—it was a movement. By equipping students with knowledge, skills, and a network of changemakers, the conclave fostered a sense of responsibility and urgency. As young leaders step forward with innovative climate solutions, the future looks brighter for a more sustainable and resilient world.",
+      "imageUrl": "/assets/events/image.png",
+      "author": "Microcosm Team",
+      "date": "2025-03-06",
+      "createdAt": "2025-03-05",
+      "updatedAt": "2025-02-05",
+      "__v": 0
+    },
+    {
+      "_id": 2,
+      "title": "Raptors Rising : Vision on Vultures",
+      "content": "Guardians of the Skies: Vultures, often misunderstood and overlooked, are nature’s unsung heroes, playing a critical role in maintaining ecological balance. These majestic raptors, with their keen eyesight and soaring capabilities, are vital for a healthy environment, acting as nature’s cleanup crew by efficiently disposing of carrion. Without them, ecosystems would struggle with the buildup of decaying matter, leading to the spread of diseases that threaten both wildlife and human populations. However, despite their ecological significance, vultures are facing a silent crisis, with populations plummeting due to habitat destruction, poisoning, and human-induced threats.",
+      "anotherContent":"The Vanishing Vultures: In recent decades, vulture populations across Asia and Africa have experienced a sharp decline, with some species teetering on the brink of extinction. One of the primary culprits behind this crisis is the widespread use of diclofenac, a veterinary drug used to treat livestock. When vultures consume the carcasses of animals treated with this drug, they suffer from acute kidney failure, leading to mass die-offs. Additionally, electrocution from power lines, habitat loss due to deforestation, and illegal wildlife trade have further exacerbated their decline. The disappearance of vultures has had far-reaching consequences, causing an increase in feral dog populations and the spread of zoonotic diseases.",
+      "anotherContent1":"The Call for Conservation: Despite these alarming trends, conservationists and organizations worldwide are stepping up to protect and revive vulture populations. Several vulture conservation breeding centers have been established to ensure their survival, and efforts to ban harmful veterinary drugs like diclofenac have gained momentum. Additionally, vulture restaurants—designated safe feeding zones—are being created in various regions to provide these birds with uncontaminated food sources. Education and awareness campaigns are also crucial in shifting public perception, highlighting the importance of vultures in the ecosystem.",
+      "anotherContent2":"A Future for Raptors: The road to vulture conservation requires collective action from governments, conservationists, and local communities. By implementing stricter regulations, promoting safe veterinary alternatives, and restoring natural habitats, we can ensure that vultures continue to soar high in our skies. Their resurgence will not only restore ecological balance but also serve as a testament to the power of conservation efforts. The rising raptors are a symbol of resilience, and with the right vision, vultures can reclaim their rightful place as nature’s guardians.",
+      "imageUrl": "/assets/vulture.png",
+      "author": "Microcosm Team",
+      "date": "2025-03-09",
+      "createdAt": "2025-02-05",
+      "updatedAt": "2025-02-05",
+      "__v": 0
+    }
+  ]
+}

@@ -4,21 +4,21 @@ import { FaDownload } from "react-icons/fa";
 const artifacts = [
   {
     id: 1,
-    title: "Nature Conservation Report",
-    description: "An in-depth analysis of conservation efforts worldwide.",
-    link: "https://example.com/nature-report.pdf",
+    title: "Microcosm - Kumaraguru College of Technology",
+    description: "Kumaraguru Microcosm is an eco-sensitive initiative to create a coexisting, inclusive, and sustainable environment",
+    link: "https://aqar.kct.ac.in/3/2021-22/3_6_1/Microcosm.pdf",
   },
   {
     id: 2,
-    title: "Sustainability Guide",
-    description: "A guide to achieving sustainability in daily life.",
-    link: "https://example.com/sustainability-guide.pdf",
+    title: "Distinctiveness of Kumaraguru ",
+    description: "KCT has the vision set as to become a technical university of International Standards through continuous improvement",
+    link: "https://kct.ac.in/wp-content/uploads/2021/12/institutional-Distinctiveness.pdf",
   },
   {
     id: 3,
-    title: "Wildlife Photography Tips",
-    description: "Learn techniques for capturing stunning wildlife images.",
-    link: "https://example.com/wildlife-tips.pdf",
+    title: "KCT SSR Report",
+    description: "The SSR (Self-Study Report) of Kumaraguru College of Technology (KCT) is a comprehensive document submitted as part of the accreditation process, typically for NAAC (National Assessment and Accreditation Council) or NBA (National Board of Accreditation). ",
+    link: "https://www.kct.ac.in/wp-content/uploads/2022/06/SSR-.pdf",
   },
 ];
 

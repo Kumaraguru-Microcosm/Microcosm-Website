@@ -10,18 +10,30 @@ const Contact = () => {
   const [captchaVerified, setCaptchaVerified] = useState(false);
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const form = new FormData();
+    form.append("email", email);
+    form.append("subject", subject);
+    form.append("message", message);
+
     try {
-      const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/mail`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
+      const res = await fetch(
+        "https://script.google.com/macros/s/AKfycbwZ1dGFTTknzEuzTTDM_woY9PVCO8c0dvUM8ULwLFB1e15t2mQ1SdKsvx_EEfIA4psmag/exec",
+        {
+          method: "POST",
+          body: form,
         },
-        body: JSON.stringify({
-          to: email,
-          subject,
-          text: message,
-        }),
-      });
+      );
+      // const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/mail`, {
+      //   method: "POST",
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //   },
+      //   body: JSON.stringify({
+      //     to: email,
+      //     subject,
+      //     text: message,
+      //   }),
+      // });
       const respJson = await res.json();
       console.log(respJson);
       alert("Your message sent successfully");
@@ -41,7 +53,7 @@ const Contact = () => {
           <h2 className="mb-4 text-4xl tracking-tight font-extrabold text-center text-gray-900 ">
             Contact Us
           </h2>
-          <form action="#" className="space-y-8">
+          <form className="space-y-8" action="#">
             <div>
               <label
                 htmlFor="email"
@@ -126,8 +138,8 @@ const Map = () => {
         </p>
         <p className="">Contact Us</p>
         <ul className="flex gap-5 my-2">
-          <li>+91xxxxx</li>
-          <li>name@email.com</li>
+          <li>0422-2661100</li>
+          <li>microcosm@kct.ac.in</li>
           <li>microcosm.in</li>
         </ul>
       </div>

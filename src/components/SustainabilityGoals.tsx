@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import awareness from "../assets/Home/awareness.png";
-import biodiversity from "../assets/Home/biodiversity.png";
-import energy from "../assets/Home/Energy.png";
-import waste from "../assets/Home/waste.png";
-import water from "../assets/Home/water.png";
+import awareness from "/assets/Home/awareness.png";
+import biodiversity from "/assets/Home/biodiversity.png";
+import energy from "/assets/Home/Energy.png";
+import waste from "/assets/Home/waste.png";
+import water from "/assets/Home/water.png";
 
 interface FocusArea {
   id: number;
@@ -58,7 +58,7 @@ const FocusAreas: React.FC = () => {
   return (
     <section className="min-h-screen flex flex-col justify-center items-center bg-white text-center px-6 py-12">
       <motion.h2
-        className="text-3xl md:text-4xl font-bold mb-10"
+        className="text-3xl md:text-4xl font-bold  mt-8 mb-10"
         initial={{ opacity: 0, y: -30 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, ease: "easeOut" }}

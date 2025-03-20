@@ -61,8 +61,17 @@ const VolunteerAdmin = () => {
       data.append("interests", formData.areaOfInterest);
       data.append("experience", formData.experience);
 
-      const response = await addNewVolunteer(data);
-      setMessage(response.message);
+      // const response = await addNewVolunteer(data);
+      // setMessage(response.message);
+      const res = await fetch(
+        "https://script.google.com/macros/s/AKfycby9CHiTND2sTznQ3KH3MO3Rlc32F6IF5VtkjAQ9JVQ1Rwz4x7LF4uaUfqJyNHuPq5tpIg/exec",
+        {
+          method: "POST",
+          body: data,
+        },
+      );
+      const respJson = await res.json();
+      console.log(respJson);
       setFormData({
         name: "",
         email: "",

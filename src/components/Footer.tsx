@@ -24,7 +24,7 @@ const Footer = () => {
           <div className="space-y-4 text-gray-300">
             <h3 className="text-xl font-semibold text-white">Contact Us</h3>
             <p className="text-lg">0422-2661100</p>
-            <p className="text-lg">microcosm.kct.ac.in</p>
+            <p className="text-lg">microcosm@kct.ac.in</p>
             <p className="text-lg">
               Kumaraguru College of Technology
               <br /> Coimbatore - 641049.
@@ -34,16 +34,13 @@ const Footer = () => {
           <div className="space-y-6">
             <h3 className="text-xl font-semibold text-white">Connect with Us</h3>
             <div className="flex justify-center md:justify-start space-x-6">
-              <a href="https://linkedin.com" className="text-gray-400 hover:text-white transition duration-300 ease-in-out">
+              <a href="https://www.linkedin.com/company/kumaraguru-microcosm/" className="text-gray-400 hover:text-white transition duration-300 ease-in-out">
                 <i className="fab fa-linkedin text-2xl"></i>Linkedin
               </a>
-              <a href="https://facebook.com" className="text-gray-400 hover:text-white transition duration-300 ease-in-out">
+              <a href="https://www.facebook.com/KumaraguruMicrocosm" className="text-gray-400 hover:text-white transition duration-300 ease-in-out">
                 <i className="fab fa-facebook text-2xl"></i>Facebook
               </a>
-              <a href="https://twitter.com" className="text-gray-400 hover:text-white transition duration-300 ease-in-out">
-                <i className="fab fa-twitter text-2xl"></i>Twitter
-              </a>
-              <a href="https://instagram.com" className="text-gray-400 hover:text-white transition duration-300 ease-in-out">
+              <a href="https://www.instagram.com/kumaraguru_microcosm?igsh=MWcwNjB3N3JzZmp0NA==" className="text-gray-400 hover:text-white transition duration-300 ease-in-out">
                 <i className="fab fa-instagram text-2xl"></i>Instagram
               </a>
             </div>
@@ -54,18 +51,10 @@ const Footer = () => {
 
         <div className="flex flex-col md:flex-row justify-between items-center text-gray-400">
           <div className="flex space-x-6">
-            <a href="#" className="hover:text-white hover:underline transition duration-300 ease-in-out">
+            <a href="https://aqar.kct.ac.in/3/2021-22/3_6_1/Microcosm.pdf" className="hover:text-white hover:underline transition duration-300 ease-in-out">
               Media and News
             </a>
-            <a href="#" className="hover:text-white hover:underline transition duration-300 ease-in-out">
-              Legal Documents
-            </a>
-            <a href="#" className="hover:text-white hover:underline transition duration-300 ease-in-out">
-              Privacy Policy
-            </a>
-            <a href="#" className="hover:text-white hover:underline transition duration-300 ease-in-out">
-              Terms and Conditions
-            </a>
+
           </div>
 
           <p className="text-sm mt-6 md:mt-0">&copy; 2025. All Rights Reserved.</p>

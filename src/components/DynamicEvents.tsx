@@ -81,12 +81,12 @@ const EventDetails = ({ event, onBack }) => {
         <p className="text-gray-700 mb-6">{event.description}</p>
 
         {/* Register Now button with window.open */}
-        <button
+        {/* <button
           onClick={() => window.open(event.registrationLink, "_blank")}
           className="inline-block bg-green-500 text-white py-2 px-4 rounded-lg shadow-md hover:bg-green-600 transition duration-300"
         >
           Register Now
-        </button>
+        </button> */}
       </motion.div>
     </div>
   );
@@ -149,7 +149,7 @@ const DynamicEvents = () => {
               transition={{ duration: 0.8 }}
               className="text-3xl font-bold text-gray-800 text-center mb-12"
             >
-              Upcoming Events
+            Events
             </motion.h2>
 
             <div className="flex flex-wrap justify-center gap-8">

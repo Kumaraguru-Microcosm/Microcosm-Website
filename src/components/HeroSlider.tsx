@@ -3,10 +3,10 @@ import Slider from "react-slick";
 import { useLocation } from "react-router-dom";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import homeBackgroundImage from "../assets/Home/KI_Cover.jpg";
-import aboutBackgroundImage from "../assets/microcosmBackgroundImage.png";
-import educationBackgroundImage from "../assets/Home/new1.png";
-import projectBackgroundImage from "../assets/Home/new.png"; 
+import homeBackgroundImage from "/assets/Home/KI_Cover.jpg";
+import aboutBackgroundImage from "/assets/microcosmBackgroundImage.png";
+import educationBackgroundImage from "/assets/Home/new1.png";
+import projectBackgroundImage from "/assets/Home/new.png"; 
 
 import "./HeroSlider.css";
 

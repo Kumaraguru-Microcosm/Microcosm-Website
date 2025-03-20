@@ -1,4 +1,5 @@
 import axios from "axios";
+import { blogs as blogstaticData } from "../static/blogs.json";
 const serverUrl = import.meta.env.VITE_BACKEND_URL;
 export const addNewBlog = async (blogDetails) => {
   try {
@@ -15,10 +16,13 @@ export const addNewBlog = async (blogDetails) => {
 
 export const getAllBlogs = async () => {
   try {
-    const res = await fetch(`${serverUrl}/blogs/all`);
-    const blogs = await res.json();
-    console.log("fetched Blogs:", blogs);
-    return blogs;
+    // const res = await fetch(`${serverUrl}/blogs/all`);
+    // const blogs = await res.json();
+    // console.log("fetched Blogs:", blogs);
+    // return blogs;
+
+
+    return blogstaticData;
   } catch (error) {
     console.error(error);
   }

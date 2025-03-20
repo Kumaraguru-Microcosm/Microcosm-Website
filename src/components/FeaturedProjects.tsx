@@ -11,7 +11,7 @@ const FeaturedProjects = ({value,categories}) => {
 
   // Fetch "Featured Projects" on component mount
 
-  console.log(value)
+
   useEffect(() => {
     const fetchFeaturedProjects = async () => {
       try {
@@ -105,7 +105,7 @@ const FeaturedProjects = ({value,categories}) => {
               <ProjectCard
                 image={project.imageUrl}
                 title={project.title}
-                description={project.description}
+                description={project.overview}
               />
               </a>
             </motion.div>

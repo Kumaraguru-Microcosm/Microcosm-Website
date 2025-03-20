@@ -2,6 +2,7 @@ import { FaArrowLeft } from 'react-icons/fa'; // Importing the arrow icon
 import Footer from "../Footer";
 import Header from "../Header";
 import { useNavigate } from "react-router-dom";
+import FeaturedProjects from '../FeaturedProjects';
 
 const StudentStewardshipPrograms = () => {
   const navigate = useNavigate();
@@ -90,6 +91,7 @@ const StudentStewardshipPrograms = () => {
           </section>
         </div>
       </div>
+      <FeaturedProjects value={"Awareness"} categories={"focusArea"}  />
       <Footer />
     </>
   );
