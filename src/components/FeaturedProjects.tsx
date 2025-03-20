@@ -11,7 +11,7 @@ const FeaturedProjects = ({value,categories}) => {
 
   // Fetch "Featured Projects" on component mount
 
-  console.log(value)
+
   useEffect(() => {
     const fetchFeaturedProjects = async () => {
       try {

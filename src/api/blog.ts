@@ -20,7 +20,7 @@ export const getAllBlogs = async () => {
     // const blogs = await res.json();
     // console.log("fetched Blogs:", blogs);
     // return blogs;
-    console.log("Fetched Blogs:", blogstaticData);
+
 
     return blogstaticData;
   } catch (error) {

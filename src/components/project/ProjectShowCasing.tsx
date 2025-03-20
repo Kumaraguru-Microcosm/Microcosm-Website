@@ -18,7 +18,6 @@ const ProjectShowCasing = () => {
       try {
         const fetchedProjects = await getAllProjects();
         setProjects(fetchedProjects);
-        console.log("These are the projects: ", fetchedProjects);
       } catch (error) {
         console.error("Failed to fetch projects:", error);
       }

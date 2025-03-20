@@ -1,7 +1,7 @@
 import React from "react";
 
 const ProjectCard = ({ image, title, description }) => {
-  console.log(image);
+
   return (
     <div className="bg-white rounded-lg shadow-md overflow-hidden transition-all duration-300 sm:w-64 md:w-80 lg:w-96 h-96 hover:scale-105 flex flex-col justify-between">
       <img
